@@ -1,0 +1,86 @@
+[
+  {
+    "urgeTimeStamp": "2025-07-23",
+    "urgeIntensity": 7,
+    "urgeTrigger": "Chelsea",
+    "urgeLocation": "6259",
+    "urgeType": "other"
+  },
+  {
+    "urgeTimeStamp": "2025-06-11",
+    "urgeIntensity": 6,
+    "urgeTrigger": "Brittany",
+    "urgeLocation": "103",
+    "urgeType": "procratination"
+  },
+  {
+    "urgeTimeStamp": "2025-06-24T05:30",
+    "urgeIntensity": 8,
+    "urgeTrigger": "Grace",
+    "urgeLocation": "43877",
+    "urgeType": "other"
+  },
+  {
+    "urgeTimeStamp": "2025-08-03",
+    "urgeIntensity": 10,
+    "urgeTrigger": "Gladys",
+    "urgeLocation": "527",
+    "urgeType": "other"
+  },
+  {
+    "urgeTimeStamp": "2025-07-19T01:09",
+    "urgeIntensity": 1,
+    "urgeTrigger": "Marlene",
+    "urgeLocation": "55496",
+    "urgeType": "other"
+  },
+  {
+    "urgeTimeStamp": "2025-08-02",
+    "urgeIntensity": 1,
+    "urgeTrigger": "Karen",
+    "urgeLocation": "2107",
+    "urgeType": "other"
+  },
+  {
+    "urgeTimeStamp": "2025-06-21",
+    "urgeIntensity": 5,
+    "urgeTrigger": "Casey",
+    "urgeLocation": "7017",
+    "urgeType": "addictin"
+  },
+  {
+    "urgeTimeStamp": "2025-07-26",
+    "urgeIntensity": 10,
+    "urgeTrigger": "Jessica",
+    "urgeLocation": "772",
+    "urgeType": "browsig"
+  },
+  {
+    "urgeTimeStamp": "2025-07-23",
+    "urgeIntensity": 7,
+    "urgeTrigger": "Sadie",
+    "urgeLocation": "2746",
+    "urgeType": "addictin"
+  },
+  {
+    "urgeTimeStamp": "2025-05-02T08:44",
+    "urgeIntensity": 5,
+    "urgeTrigger": "Molly",
+    "urgeLocation": "39557",
+    "urgeType": "distracton"
+  },
+  {
+    "urgeTimeStamp": "2025-07-01",
+    "urgeIntensity": 6,
+    "urgeTrigger": "Mona",
+    "urgeLocation": "2306",
+    "urgeType": "browsin"
+  },
+  {
+    "urgeTimeStamp": "2025-05-19",
+    "urgeIntensity": 5,
+    "urgeTrigger": "June",
+    "urgeLocation": "98979",
+    "urgeType": "other"
+  }
+]

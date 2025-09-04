@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+
+/* button{
+  border-radius: 999rem;
+   
+} */
+/* .discordPageTabs{
+  .my-tab[data-state="active"] {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+} */
+

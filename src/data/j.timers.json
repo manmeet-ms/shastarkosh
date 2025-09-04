@@ -1,0 +1,186 @@
+[{
+  "_id": {
+    "$oid": "689b2a8e11c2b8983528dfa7"
+  },
+  "codename": "ਪ੍ਰਤਾਪ",
+  "failures": 45,
+  "timerStarted": "01/08/2025",
+  "title": "Inner Peace Outer Glory",
+  "description": "Goal entering that ਭੁਜੰਗੀ Era",
+  "perks": [
+    {
+      "name": "Mental Stability",
+      "description": "Automatically"
+    },
+    {
+      "name": "ਪ੍ਰਤਾਪ glow",
+      "description": "Automatically"
+    },
+    {
+      "name": "Social Confidence",
+      "description": "Automatically"
+    },
+    {
+      "name": "Clear Thinking abilties",
+      "description": "Automatically"
+    },
+    {
+      "name": "Beast-like retaliation",
+      "description": "Automatically"
+    },
+    {
+      "name": "Fluent & Fast Brain Function",
+      "description": "Automatically"
+    },
+    {
+      "name": "High class",
+      "description": "Automatically"
+    }
+  ],
+  "punishments": [
+    {
+      "name": "Degraded ਸੁਰਤਿ",
+      "description": "Automatically"
+    },
+    {
+      "name": "tamo guñ inflinction",
+      "description": "Automatically"
+    },
+    {
+      "name": "Reduced facial ਪ੍ਰਤਾਪ",
+      "description": "Automatically"
+    },
+    {
+      "name": "Reduced Spiritual privileges",
+      "description": "Automatically"
+    },
+    {
+      "name": "Drowsy face 🥴",
+      "description": "Automatically"
+    },
+    {
+      "name": "Brain fog",
+      "description": "Automatically"
+    },
+    {
+      "name": "Reduced strength",
+      "description": "Automatically"
+    },
+    {
+      "name": "Void Feel",
+      "description": "Feeling of void"
+    },
+    {
+      "name": "Guilt",
+      "description": "Automatically"
+    },
+    {
+      "name": "Downgraded grit",
+      "description": "Automatically"
+    },
+    {
+      "name": "Loose stances",
+      "description": "Automatically"
+    },
+    {
+      "name": "Poor dopamine chase",
+      "description": "Automatically"
+    },
+    {
+      "name": "Reduced will",
+      "description": "Automatically"
+    },
+    {
+      "name": "Annoyingly",
+      "description": "Automatically"
+    }
+  ],
+  "alternates": [
+    {
+      "name": "Increase rajo guñ",
+      "description": "Automatically"
+    },
+    {
+      "name": "Go outside",
+      "description": "Automatically"
+    },
+    {
+      "name": "Meet people",
+      "description": "Automatically"
+    },
+    {
+      "name": "Books",
+      "description": "Automatically"
+    },
+    {
+      "name": "Elevate",
+      "description": "Automatically"
+    },
+    {
+      "name": "Exercise",
+      "description": "Atleast you will get physical boost"
+    },
+    {
+      "name": "Chess",
+      "description": "Automatically"
+    }
+  ],
+  "quoteFlashingAllowed": false,
+  "pulseTheme": "bg-amber-500",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "689b2a8e11c2b8983528dfa9"
+  },
+  "codename": "IGN-x",
+  "failures": 60,
+  "timerStarted": "03/08/2025",
+  "title": "Doomscroll Protection",
+  "description": "Kaam hogya? Todoist khaali hai?",
+  "perks": [
+    {
+      "name": "Fast brain",
+      "description": "Automatically"
+    }
+  ],
+  "punishments": [
+    {
+      "name": "Brain-rot",
+      "description": "Automatically"
+    },
+    {
+      "name": "time waste",
+      "description": "Automatically"
+    },
+    {
+      "name": "sedentary",
+      "description": "Automatically"
+    },
+    {
+      "name": "Reduced brain function",
+      "description": "Automatically"
+    }
+  ],
+  "alternates": [
+    {
+      "name": "following ones",
+      "description": "Automatically"
+    },
+    {
+      "name": "physical exercise",
+      "description": "Automatically"
+    },
+    {
+      "name": "deep breathing",
+      "description": "Automatically"
+    },
+    {
+      "name": "2-min rule",
+      "description": "Automatically"
+    }
+  ],
+  "quoteFlashingAllowed": false,
+  "pulseTheme": "bg-pink-500",
+  "__v": 0
+}]
