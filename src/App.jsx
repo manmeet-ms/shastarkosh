@@ -7,9 +7,9 @@ import { cn } from "@/lib/utils";
 import { PanelLeftIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "@tanstack/react-router";
 
-import { SIDENAV_DASH } from "../shared/app-variables.shared.js";
+import { SIDENAV_DASH } from "../shared/sidenav-items.shared.js";
 import "./App.css";
 import BottomNav from "./components/Footer/BottomNav.jsx";
 import { fetchUser } from "./store/authSlice.js";
@@ -37,7 +37,7 @@ const App = () => {
               {SIDENAV_DASH.map(({ title, url, icon: Icon }) => {
                 const isActive = pathname === url;
                 return (
-                  <Link
+                  <Link viewTransition 
                   
                     className={cn(
                       "my-0.5 rounded-lg py-2.25 pr-0 pl-3.5 text-sm font-medium transition-colors",

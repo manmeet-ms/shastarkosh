@@ -1,9 +1,11 @@
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
+import SparkMD5 from "spark-md5";
 
 const userSchema = new mongoose.Schema(
   {
     username: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, enum: ["user", "moderator", "admin"], default: "user" },
@@ -34,10 +36,11 @@ userSchema.pre("save", async function (next) {
   if (!this.verificationToken) {
     this.verificationToken = this.verificationToken;
   }
-  if (this.isModified("password")) {
-    this.password = await bcrypt.hash(this.password, 10);
-  }
+  // if (this.isModified("password")) {
+  //   this.password = await bcrypt.hash(this.password, 10);
+  // }
   next();
 });
+
 
 export default mongoose.model("User", userSchema);

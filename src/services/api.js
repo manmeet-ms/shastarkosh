@@ -23,13 +23,4 @@ api.interceptors.response.use(undefined, (error) => {
 console.log("api.baseURL", options.baseURL);
 
 export default api;
-
-// 5️⃣ Example usage (in hooks or components)
-
-// import { getTodayBlocks } from '../services/timeblockService'
-
-// useEffect(() => {
-// getTodayBlocks().then(res => {
-// logger("log",res.data)
-// })
-// }, [])
+ 

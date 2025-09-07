@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 
 
-import { Link, useLocation } from 'react-router-dom';
-import { SIDENAV_DASH } from '../../../shared/app-variables.shared.js';
+import { Link, useLocation } from '@tanstack/react-router';
+import { SIDENAV_DASH } from '../../../shared/sidenav-items.shared.js';
 const BottomNav = () => {
   
     // const [value, setValue] = React.useState(0);

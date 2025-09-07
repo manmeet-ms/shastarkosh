@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { defineConfig } from "vite";
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
 
 import mkcert from "vite-plugin-mkcert";
 import tailwindcss from "@tailwindcss/vite";
@@ -23,6 +24,10 @@ export default defineConfig({
     https:true,
   },
   plugins: [
+     tanstackRouter({
+      target: 'react',
+      autoCodeSplitting: true,
+    }),
     react(),
     tailwindcss(),
     mkcert(),

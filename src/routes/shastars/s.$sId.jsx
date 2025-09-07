@@ -1,3 +1,4 @@
+import { createFileRoute } from "@tanstack/react-router";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -6,19 +7,22 @@ import { Textarea } from "@/components/ui/textarea";
 import dayjs from "dayjs";
 import millify from "millify";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { getSingleShastarSrv } from "../../services/shastarInfo.service";
+import DiscussionSection from "../../components/DiscussionSection";
 
-import { getSingleShastarSrv } from "../services/shastarInfo.service";
+export const Route = createFileRoute("/shastars/s/$sId")({
+  component: RouteComponent,
+});
 
-const ShastarDetailPage = () => {
-  const params = useParams();
+function RouteComponent() {
+  const { sId } = Route.useParams();
 
   const [shastar, setShastar] = useState({});
   const [shastarDiscussion, setShastarDiscussion] = useState([]);
   const getShastarInfo = async () => {
-    const resInfo = await getSingleShastarSrv(params.sId);
+    const resInfo = await getSingleShastarSrv(sId);
     console.log(resInfo.data);
-
+ 
     setShastar(resInfo.data);
     setShastarDiscussion(resInfo.data?.comments);
     console.log("resShastars", shastar);
@@ -28,7 +32,7 @@ const ShastarDetailPage = () => {
     getShastarInfo();
     console.log("resShastars useEffect", shastar);
   }, []);
-  console.log(params);
+
   // TODO gets shatsra details make a empty objects and store it , cache it,
   // fetch shartas info and cche it and displa
   return (
@@ -54,12 +58,15 @@ const ShastarDetailPage = () => {
           <div className="container px-4 pt-12 mx-auto">
             <div className="flex flex-wrap  ">
               <div className="p-6 md:w-1/2 flex flex-col items-center">
-                <img className="rounded-lg  w-full h-96 object-center object-cover" src={shastar?.mainImage} alt="" />
+                <img className="rounded-lg  w-full h-96 object-center object-cover" src={shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
                 <div className="flex gap-2 py-2 justify-center items-center container w-full ">
-                  <img className="rounded-lg  size-16 object-center object-cover" src={shastar?.mainImage} alt="" />
-                  <img className="rounded-lg  size-16 object-center object-cover" src={shastar?.mainImage} alt="" />
-                  <img className="rounded-lg  size-16 object-center object-cover" src={shastar?.mainImage} alt="" />
-                  <img className="rounded-lg  size-16 object-center object-cover" src={shastar?.mainImage} alt="" />
+                  {/* {shastar?.images.map((i)=>(
+
+                  <img className="rounded-lg  size-16 object-center object-cover" src={shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
+                  ))} */}
+                  <img className="rounded-lg  size-16 object-center object-cover" src={shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
+                  <img className="rounded-lg  size-16 object-center object-cover" src={shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
+                  <img className="rounded-lg  size-16 object-center object-cover" src={shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
                 </div>
               </div>
               <div className="p-6 md:w-1/2 flex flex-col items-start">
@@ -113,58 +120,15 @@ const ShastarDetailPage = () => {
           <Tabs className="mx-4" defaultValue="discussion">
             <TabsList  >
               <TabsTrigger value="information">Information</TabsTrigger>
-              <TabsTrigger value="discussion">Discussion ({shastarDiscussion.length})</TabsTrigger>
+              <TabsTrigger value="discussion">Discussion</TabsTrigger>
             </TabsList>
             <TabsContent value="information">{shastar?.description}</TabsContent>
             <TabsContent value="discussion">
-              <section id="discussion" className=" py-4 lg:py-16 antialiased">
-                <div className="  mx-auto  ">
-                  <form className="mb-4">
-                    <div className=" flex items-center justify-center gap-4 ">
-                      <label htmlFor="comment" className="sr-only">
-                        Your comment
-                      </label>
-
-                      <Textarea id="comment" rows="6" placeholder="Write a comment..." required />
-                      <Button type="submit">Post comment</Button>
-                    </div>
-                  </form>
-                  {shastarDiscussion.map((c, idx) => (
-                    <div key={c._id} className="p-4 text-base  rounded-lg ">
-                      <footer className="flex justify-between items-center mb-2">
-                        <div className="flex items-center">
-                          <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
-                            <img className="mr-2 w-6 h-6 rounded-full" src={c.avatar} />
-                            {c.username}
-                          </p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">{dayjs(c.createdAt).format("DD MMM, YYYY HH:mm A")}</p>
-                        </div>
-                        {/* <button id="dropdownComment1Button" data-dropdown-toggle="dropdownComment1" className="inline-flex items-center p-2 text-sm font-medium text-center text-muted-foreground dark:text-gray-400  rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50  dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">
-                        <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
-                          <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                        </svg>
-                        <span className="sr-only">Comment settings</span>
-                      </button> */}
-                      </footer>
-                      <p className="text-muted-foreground dark:text-gray-400">{c.text}</p>
-                      {/* <div className="flex items-center mt-4 space-x-4">
-                      <button type="button" className="flex items-center text-sm text-muted-foreground hover:underline dark:text-gray-400 font-medium">
-                        <svg className="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
-                        </svg>
-                        Reply
-                      </button>
-                    </div> */}
-                    </div>
-                  ))}
-                </div>
-              </section>
+             <DiscussionSection discussionPlaceId={sId}/>
             </TabsContent>
           </Tabs>
         </section>
       </main>
     </>
   );
-};
-
-export default ShastarDetailPage;
+}

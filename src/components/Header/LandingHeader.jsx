@@ -25,6 +25,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Link } from "@tanstack/react-router";
 
 const LandingHeader = () => {
   const features = [
@@ -141,8 +142,8 @@ const LandingHeader = () => {
             <SheetContent side="top" className="max-h-screen overflow-auto">
               <SheetHeader>
                 <SheetTitle>
-                  <a
-                    href="https://www.shadcnblocks.com"
+                  <Link
+                    to="#"
                     className="flex items-center gap-2"
                   >
                     <img
@@ -153,7 +154,7 @@ const LandingHeader = () => {
                     <span className="text-lg font-semibold tracking-tighter">
                       Shadcnblocks.com
                     </span>
-                  </a>
+                  </Link>
                 </SheetTitle>
               </SheetHeader>
               <div className="flex flex-col p-4">

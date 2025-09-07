@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 const shastarInfoSchema = new mongoose.Schema(
   {
-    name: {
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    title: {
       type: String,
       required: true,
       trim: true,
@@ -20,7 +21,7 @@ const shastarInfoSchema = new mongoose.Schema(
       type: String, // URL (from Cloudinary/S3)
       required: true,
     },
-    images: Array, // URL (from Cloudinary/S3)
+    images: [{ type: String }], // URL (from Cloudinary/S3)
 
     // 🔹 Descriptive Details
     description: {
@@ -28,10 +29,7 @@ const shastarInfoSchema = new mongoose.Schema(
       required: true,
       maxlength: 5000,
     },
-    subType: {
-      type: String,
-      // e.g., 'sword', 'axe', 'siege engine', 'herbal manuscript'
-    },
+    subType:String,    // e.g., 'sword', 'axe', 'siege engine', 'herbal manuscript'
 
     material: String, // e.g., ["iron", "wood", "bronze"]
     weight: String, // e.g., "1.5 kg"
@@ -44,17 +42,20 @@ const shastarInfoSchema = new mongoose.Schema(
       timePeriod: String, // e.g., "8th–12th Century CE"
       yearEstimated: Number, // approximate year
     },
-
     sources: [
       {
-        title: { type: String },
-        author: { type: String },
-        link: { type: String },
-        publication: { type: String }, // e.g., "Journal of Medieval Arms"
-        year: { type: Number },
+        title: String,
+        author: String,
+        link: String,
+        publication: String, // e.g., "Journal of Medieval Arms"
+        year: Number,
       },
     ],
     likes: {
+      type: Number,
+      default: 0,
+    },
+    dislikes: {
       type: Number,
       default: 0,
     },
@@ -81,7 +82,7 @@ const shastarInfoSchema = new mongoose.Schema(
         text: {
           type: String,
           required: true,
-          maxlength: 1000,
+          maxlength: 2000,
         },
         upvotes: Number,
         replies: [

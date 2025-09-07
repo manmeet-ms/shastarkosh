@@ -1,222 +1,115 @@
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
+import dayjs from "dayjs";
 import jwt from "jsonwebtoken";
-import passport from "passport";
 
 import logger from "../../src/utils/logger.utils.js";
 import User from "../models/User.model.js";
+import SparkMD5 from "spark-md5";
 
-// raw
 export const registerUser = async (req, res) => {
-  /**
-   * ## ALGORITHM:
-   * - get data
-   * - validate data
-   * - check for existing user in database, other creat a new user
-   * - create a verification token, save in db , send to user
-   * - send success status to user
-   */
-  const { name, email, password } = req.body;
-  // logger("log",name, email, password);
-
+  const { username, name, email, password, bio } = req.body;
+  // TODO  cemail check later, encrypt password before push
   if (!name || !email || !password) {
-    log;
     return res.status(400).json({ message: "All fields are required" });
   }
   try {
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      logger("log", {
-        message: "User already exists",
-        user: existingUser.name,
-      });
-
-      return res.status(400).json({ message: "User already exists" });
-    }
-    const createdUser = await User.create(req.body);
-    // logger("log", "result result result", createdUser);
-
-    const genToken = crypto.randomBytes(32).toString("hex");
-    logger("log", "verificationToken", genToken);
-    createdUser.verificationToken = genToken;
+    const hashedAvatar= await SparkMD5.hash(username)
+    const createdUser = User.create({ username, name, email, password, bio, avatar:`https://www.gravatar.com/avatar/${hashedAvatar}?d=identicon` });
+    const token = crypto.randomBytes(32).toString("hex");
+    createdUser.verificationToken = token;
     await createdUser.save();
-
-    // send email
-    //   const transport = nodemailer.createTransport({
-    //     host: process.env.VITE_MAILTRAP_HOST,
-    //     port: process.env.VITE_MAILTRAP_PORT,
-    //     auth: {
-    //       user: process.env.VITE_MAILTRAP_USERNAME,
-    //       pass: process.env.VITE_MAILTRAP_PASSWORD,
-    //     },
-    //   });
-    //   const mailtrapOptions = {
-    //     from: process.env.VITE_MAILTRAP_SENDEREMAIL,
-    //     to: user.email,
-    //     subject: "Verify your email",
-    //     text: `Click to verify:
-    // ${process.env.VITE_BACKEND_URL}/api/user/verify/${genToken}`,
-    //   };
-    // await transport.sendMail(mailtrapOptions);
-
     logger("log", {
       text: `Click to verify: 
-  ${process.env.VITE_BACKEND_URL}/user/verify/${genToken}`,
+      ${process.env.VITE_BACKEND_URL}/user/verify/${genToken}`,
     });
-
-    res.status(200).json({
-      message: "User registered successfully, please verify your email",
-      // ,token: genToken,
-    });
+    res.status(200).json(createdUser.name, "registered successfully, verify your email.");
   } catch (error) {
-    res.status(400).json({
-      message: "User not registered successfully, please verify your email",
-      error: error,
-    });
+    res.status(400).json(error.message);
   }
 };
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    // logger("log", req.body);
+    console.log(email, password);
 
     const user = await User.findOne({ email });
     if (user) {
       logger("log", "User found", user.email, user.name);
+      const token = jwt.sign({ id: user._id, name: user.name, role: user.role, avatar: user.avatar, bio: user.bio, isVerified: user.isVerified }, process.env.JWT_SECRET, { expiresIn: "7d" });
+// TODO we are giving away user id in jwt is this a posing a security risk
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none", // or "strict"
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
+      res.json({ user });
+      res.redirect(process.env.FRONTEND_URL);
     }
 
-    const receivedPasswordHash = bcrypt.compare(password, user.password);
-    // logger("log", receivedPasswordHash);
-
-    if (email === user.email && receivedPasswordHash) {
-      // logger("log", "User Logged in");
-      res.send(user);
+    const isMatch = bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid email or password" });
     }
   } catch (error) {
-    res.status(401).json(error);
-
     logger("error", error);
+    res.status(401).json(error);
   }
+};
+export const logoutUser = async (req, res) => {
+  const { token } = req.cookie;
+  console.log(token);
 };
 export const verifyUser = async (req, res) => {
   const { token } = req.params;
-  const user = await User.findOne({ verificationToken: token });
-  if (user) {
-    // logger("log", "User found", user.name);
+  const userRes = await User.findOne({ verificationToken: token });
+  if (userRes) {
+    userRes.isVerified = true;
 
-    user.isVerified = true;
-    user.verificationToken = undefined;
-    await user.save();
-    res.status(200).json({ message: `${user.name} you're now verified!` });
+    userRes.verificationToken = undefined;
+    await userRes.save();
+    res.status(200).json({ message: `${userRes.name} verified!` });
   }
 };
-export const resetPassword = async (req, res) => {};
-export const flushUsers = async (req, res) => {
-  await User.deleteMany({});
-  res.status(200).json({ message: "All users flushed successfully" });
-};
-
-// discord
-// let accessToken;
-
-export const discordLogin = passport.authenticate("discord");
-
-export const discordLoginCallback = (req, res) => {
-  // accessToken = req.params.code;
-  // logger("log", req.query.code);
-  // // accessToken = req.user.accessToken;
-  // logger("log", "req.user.accessToken", req.user.accessToken);
-
-  const { user, token } = req.user;
-  // logger("log", token);
-
-  // logger("log", "accessToken", accessToken);
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none", // 👈 must be 'none' for cross-origin (5173 → 3000)
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    // path: "/",
-  });
-  // logger("log","accessToken: " + JSON.stringify(accessToken));
-
-  res.redirect(process.env.FRONTEND_URL);
-  res.json({ user, token });
-  //   res.send(`
-  //      <html>
-  //      <body>
-  //        <p>You have been authenticated with this platform. You can close the window now.</p>
-  //        <script>
-  //          // Pass the access token and status to the parent window
-  //          console.log(accessToken);
-  //          window.open.postMessage({ token: ${JSON.stringify(
-  //            accessToken
-  //          )}, status: "Login successful" }, "*");
-
-  //          // Close the window after a delay
-  //          setTimeout(() => {
-  //            window.close();
-  //          }, 3000); // 3 seconds delay
-  //  </body>
-  //      </html>
-  //    `);
-};
-export const discordProfile = async (req, res) => {
-  if (!accessToken) {
-    return res.status(400).send("Access token is required");
-  }
-
+export const resetPasswordUser = async (req, res) => {
   try {
-    const response = await fetch(process.env.VITE_DISCORD_API_ENDPOINT + "/users/@me", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const { email } = req.body;
+    console.log(email);
 
-    if (!response.ok) {
-      return res.status(response.status).send("Failed to fetch user data from Discord");
+    const userExist = await User.findOne({ email: email });
+    if (userExist) {
+      const resetToken = crypto.randomBytes(32).toString("hex");
+      userExist.resetPasswordToken = resetToken;
+      // TODO add reset passwork mailer link and make aveifier funtin to do the sasme verification
+      userExist.resetPasswordTokenExpires = dayjs().add(10, "m");
+      await userExist.save();
+
+      res.status(200).json("");
+    } else {
+      res.status(400).json("User does not exists!");
     }
-
-    const userData = await response.json();
-    res.json(userData);
   } catch (error) {
-    console.error("Error fetching user data:", error);
-    res.status(500).send("Internal Server Error");
+    res.status(400).json(error.message);
   }
 };
-
-export const discordConnections = async (req, res) => {
-  if (!accessToken) {
-    return res.status(400).send("Access token is required");
-  }
-
+export const resetPasswordTokenVerify = async (req, res) => {
   try {
-    const response = await fetch(process.env.VITE_DISCORD_API_ENDPOINT + "/users/@me/connections", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    // logger("log", "response: " + JSON.stringify(response));
+    const { email } = req.body;
+    console.log(email);
 
-    if (!response.ok) {
-      return res.status(response.status).send("Failed to fetch user connectins from Discord");
+    const userExist = await User.findOne({ email: email });
+    if (userExist) {
+      const resetToken = crypto.randomBytes(32).toString("hex");
+      userExist.resetPasswordToken = resetToken;
+      userExist.resetPasswordTokenExpires = dayjs().add(10, "m");
+      await userExist.save();
+
+      res.status(200).json("");
+    } else {
+      res.status(400).json("User does not exists!");
     }
-
-    const userData = await response.json();
-    res.json(userData);
   } catch (error) {
-    console.error("Error fetching user data:", error);
-    res.status(500).send("Internal Server Error");
+    res.status(400).json(error.message);
   }
 };
-export const discordLogout = async (req, res) => {
-  await req.logout((err) => {
-    accessToken = null;
-    if (err) {
-      return next(err);
-    }
-  });
-};
-// google
-
-// TODO: 👉 Do you want me to show you a tiny logout route so you can quickly clear cookies between test users? That way switching is just one click instead of manual cookie clearing.

@@ -1,13 +1,12 @@
-import React from 'react'
 import { ThemeProvider } from "@/components/theme-provider";
-import { Link } from 'react-router';
+import { Link } from '@tanstack/react-router';
 import { AppHeader } from '../components/Header/AppHeader';
 
 const NotFound404 = () => {
   return (
    <>
    <ThemeProvider>
-   <AppHeader/>
+   {/* <AppHeader/> */}
    <main className="bg-pattern-404  grid min-h-full  py-24 bg-background changed-px px-4    lg:px-8">
         <div className="  text-center">
           <p className="text-base font-semibold text-primary">404</p>

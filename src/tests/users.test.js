@@ -2,43 +2,40 @@
 import { faker } from "@faker-js/faker";
 // make sure you installed: npm i @faker-js/faker
 import bcrypt from "bcryptjs";
+import "dotenv/config";
 import mongoose from "mongoose";
 
 import User from "../../backend/models/User.model.js";
 
-const MONGO_URI = "mongodb://127.0.0.1:27017/test"; // change to your db
+const dbURL = process.env.MONGO_URI || "mongodb://localhost:27017/shastarkosh"; // change to your db
 
 async function seedUsers() {
   try {
-    await mongoose.connect(MONGO_URI);
+    await mongoose.connect(dbURL);
     console.log("✅ Connected to MongoDB");
 
     const users = [];
+    const password = await bcrypt.hash("password123", 10);
 
     for (let i = 0; i < 100; i++) {
-      const username = faker.internet.username().toLowerCase() + i; // ensure uniqueness
-      const email = faker.internet.email(username).toLowerCase();
-      const discordId = faker.string.alphanumeric(18); // mimic discord snowflake
-      const password = await bcrypt.hash("password123", 10);
-
-      users.push({
+       // ensure uniqueness
+       const username =faker.internet.username().toLowerCase() + i;
+       
+       users.push({
         username,
+         email:faker.internet.email(username).toLowerCase(),
         name: faker.person.fullName(),
-        email,
+       password,
         points: faker.number.int({ min: -90, max: 3950, multipleOf: 5 }),
 
-        password,
+     
         avatar: faker.image.personPortrait(),
         role: "user",
         isVerified: faker.datatype.boolean(),
         verificationToken: faker.string.uuid(),
         resetPasswordToken: null,
         resetPasswordTokenExpires: null,
-        provider: {
-          discord: {
-            discordId,
-          },
-        },
+          
       });
     }
 

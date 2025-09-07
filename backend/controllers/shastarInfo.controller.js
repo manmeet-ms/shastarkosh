@@ -10,7 +10,7 @@ export async function getShastar(req, res) {
 
     }
 
-    logger("log", limit, req.body);
+    // logger("log", limit, req.body);
     const result = await ShastarInfo.find().sort({ createdAt: -1 }).limit(limit);
     console.log("Total shastars", result.length);
 
@@ -25,7 +25,7 @@ export async function getSingleShastar(req, res) {
   try {
     const { sId } = req.params;
     const result = await ShastarInfo.findById(sId);
-    console.log("Shastar Info", result);
+    // console.log("Shastar Info", result);
 
     res.status(200).json(result);
   } catch (err) {
@@ -37,11 +37,12 @@ export async function getSingleShastar(req, res) {
 export async function createShastar(req, res) {
   try {
     const { data } = req.body;
-    const result = await ShastarInfo.create(data);
-    res.status(200).json({ result: result });
+    logger("log","data createShastar",data, req.body,req.params);
+    
+    const result = await ShastarInfo.create(req.body);
+    res.status(200).json({ result: result});
   } catch (err) {
-    res.status(500).json({ error: err });
-
+    res.status(400).json({ error: err });
     logger("error", err.message);
   }
 }

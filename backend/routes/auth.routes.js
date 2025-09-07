@@ -1,6 +1,35 @@
-import express from 'express'
- 
-const router = express.Router()
- 
+import express from "express";
 
-export default router
+import { loginUser, logoutUser, registerUser, resetPasswordUser, verifyUser } from "../controllers/auth.controller.js";
+import { authenticateJWT } from "../middlewares/auth.middleware.js";
+import User from "../models/User.model.js";
+ 
+const router = express.Router();
+router.post("/login", loginUser);
+router.post("/register", registerUser);
+router.get("/verify", verifyUser);
+router.post("/reset-password", resetPasswordUser);
+router.post("/logout", logoutUser);
+
+router.get("/me", authenticateJWT, async (req, res) => {
+
+  const { id } = req.user;
+  const currentUser = await User.findById(id);
+  // console.log(currentUser)
+  res.json({
+    // TODO we are giving away user id in jwt is this a posing a security risk
+currentUser:{    _id: currentUser._id,
+    name: currentUser.name,
+    username: currentUser.username,
+    email: currentUser.email,
+    role: currentUser.role,
+    avatar: currentUser.avatar,
+    createdAt: currentUser.createdAt,}
+  }); 
+});
+//   res.json({
+//     user: req.user, // comes from decoded JWT (id, username, role, etc.)
+//     // token: req.cookies.token, // return token from cookie if needed
+//   });});
+
+export default router;

@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
 import LandingHeader from "../Header/LandingHeader"
-import { Link } from "react-router-dom"
+import { Link } from "@tanstack/react-router"
 
 const Login = () => {
   return (
@@ -65,9 +65,9 @@ const Login = () => {
             </div>
             <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{" "}
-              <a href="#" className="underline underline-offset-4">
-                Sign up
-              </a>
+              <Link to="/auth/register" className="underline underline-offset-4">
+                Register 
+              </Link>
             </div>
           </form>
         </CardContent>

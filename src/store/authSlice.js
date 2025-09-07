@@ -1,12 +1,14 @@
 // store/authSlice.js
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+
+import api from "../services/api.js";
 
 // Make sure axios sends cookies
-axios.defaults.withCredentials = true;
+
 
 export const fetchUser = createAsyncThunk("auth/fetchUser", async () => {
-  const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth/me`, { withCredentials: true });
+  // const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth/me`, { withCredentials: true });
+  const res = await api.get(`/auth/me`, { withCredentials: true });
   // console.log("fetchUser() :: authSlice :: res.data", res.data);
   return res.data; // user object from backend
 });
@@ -37,7 +39,7 @@ const authSlice = createSlice({
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
+        state.user = action.payload.currentUser;
       })
       .addCase(fetchUser.rejected, (state, action) => {
         state.loading = false;

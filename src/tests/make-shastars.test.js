@@ -3,12 +3,17 @@ import "dotenv/config";
 import mongoose from "mongoose";
 
 import ShastarInfo from "../../backend/models/ShastarInfo.model.js";
+import SparkMD5 from "spark-md5";
 
 const generateShastar = () => ({
   name: faker.vehicle.vrm(),
   alternativeNames: [faker.system.networkInterface(), faker.word.adjective(), faker.system.networkInterface(), faker.system.networkInterface()],
-  mainImage: `https://picsum.photos/${Math.floor(Math.random() * 1000)}`,
-  images: [`https://picsum.photos/${Math.floor(Math.random() * 1000)}`, `https://picsum.photos/${Math.floor(Math.random() * 1000)}`, `https://picsum.photos/${Math.floor(Math.random() * 1000)}`],
+  mainImage: `https://www.gravatar.com/avatar/${SparkMD5.hash(String(faker.internet.email()))}?d=retro`,
+  images: [
+    `https://www.gravatar.com/avatar/${SparkMD5.hash(String(faker.number.int()))}?d=retro`,
+    `https://www.gravatar.com/avatar/${SparkMD5.hash(String(faker.number.int()))}?d=retro`,
+    `https://www.gravatar.com/avatar/${SparkMD5.hash(String(faker.number.int()))}?d=retro`
+  ],
 
   description: faker.lorem.paragraphs(6),
   subType: `${faker.science.chemicalElement().name}:${faker.science.chemicalElement().atomicNumber}`,
