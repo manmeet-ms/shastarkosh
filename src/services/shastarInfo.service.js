@@ -5,7 +5,7 @@ export async function getShastarSrv(limit) {
   return await api.get(`/shastars?limit=${limit}`);
 }
 export async function getSingleShastarSrv(sId) {
-  return await api.get(`/shastars/${sId}`);
+  return await api.get(`/shastars/s/${sId}`);
 }
 export async function createShastarSrv(data) {
   console.log("log",data)

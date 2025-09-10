@@ -10,17 +10,19 @@ import { Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 
+import ProtectedLayout from "./components/ProtectedLayout.jsx";
 import "./index.css";
 import NotFound404 from "./pages/NotFound404.jsx";
 import { routeTree } from "./routeTree.gen.js";
 
 const router = createRouter({
   routeTree,
-   defaultPreload: 'intent',
+  defaultPreload: "intent",
   defaultStaleTime: 5000,
+  // defaultErrorComponent:AppErrorComponent,
   scrollRestoration: true,
   defaultNotFoundComponent: () => {
-    return (<NotFound404 />);
+    return <NotFound404 />;
   },
 });
 
@@ -28,7 +30,9 @@ createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <Suspense fallback={<div>Loading...</div>}>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <RouterProvider router={router}></RouterProvider>
+        {/* <ProtectedLayout> */}
+          <RouterProvider router={router}></RouterProvider>
+        {/* </ProtectedLayout> */}
         <TanStackRouterDevtools router={router} />
         <Toaster />
       </ThemeProvider>

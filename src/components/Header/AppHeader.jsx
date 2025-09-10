@@ -1,13 +1,12 @@
 "use client";
 
 import { ModeToggle } from "@/components/mode-toggle.jsx";
+import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { APP_NAME } from "../../../shared/app-variables.shared.js";
-import { getUserSrv } from "../../services/user.service.js";
 
 export const AppHeader = () => {
   const { user } = useSelector((state) => state.auth);
@@ -35,11 +34,12 @@ export const AppHeader = () => {
       <nav className="flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           {" "}
-          <img src="/logo.png" className="bg-white rounded p-1.5 py-2" alt="Shadcn UI Navbar" />
+          <img src="/assets/logo-dark.png" className="w-8 rounded " alt="Shadcn UI Navbar" />
           <span className="text-lg font-semibold tracking-tighter">{APP_NAME}</span>
         </Link>
         {/* // TODO: refactor Nav logic */}
-        <section className="flex   items-center">
+        <section className="flex gap-2 items-center">
+          <ModeToggle />
           {user ? (
             <div className="flex ">
               <DropdownMenu>
@@ -63,9 +63,14 @@ export const AppHeader = () => {
               </DropdownMenu>
             </div>
           ) : (
-            <Link target="_blank" to={`${import.meta.env.VITE_BACKEND_URL}/auth/discord/login`}>
-              {/* <Button>Login with Discord</Button> */}
-            </Link>
+            <div>
+              <Link to="/auth/login">
+                <Button variant="ghost">Login</Button>
+              </Link>
+              <Link to="/auth/register">
+                <Button variant="ghost">Register</Button>
+              </Link>
+            </div>
           )}
 
           {/* <Sheet className="lg:hidden" >
@@ -136,7 +141,7 @@ export const AppHeader = () => {
       </div>
     </SheetContent>
     </Sheet> */}
-          <ModeToggle />
+          
         </section>
       </nav>
     </section>

@@ -1,15 +1,19 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { Button } from "@/components/ui/button";
+import { Link, createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/user/account')({
+export const Route = createFileRoute("/user/account")({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
   return (
     <>
-    
-    <Link to="/auth/login" >Login </Link>
-    <Link to="/auth/register" >Register</Link>
+      <Link to="/auth/login">
+        <Button variant="ghost">Login</Button>
+      </Link>
+      <Link to="/auth/register">
+        <Button variant="ghost">Register</Button>
+      </Link>
     </>
-  )
+  );
 }

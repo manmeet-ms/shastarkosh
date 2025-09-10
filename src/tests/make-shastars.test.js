@@ -10,9 +10,9 @@ const generateShastar = () => ({
   alternativeNames: [faker.system.networkInterface(), faker.word.adjective(), faker.system.networkInterface(), faker.system.networkInterface()],
   mainImage: `https://www.gravatar.com/avatar/${SparkMD5.hash(String(faker.internet.email()))}?d=retro`,
   images: [
-    `https://www.gravatar.com/avatar/${SparkMD5.hash(String(faker.number.int()))}?d=retro`,
-    `https://www.gravatar.com/avatar/${SparkMD5.hash(String(faker.number.int()))}?d=retro`,
-    `https://www.gravatar.com/avatar/${SparkMD5.hash(String(faker.number.int()))}?d=retro`
+    `https://www.gravatar.com/avatar/${SparkMD5.hash(String(faker.number.int({min:50,max:896})))}?d=retro`,
+    `https://www.gravatar.com/avatar/${SparkMD5.hash(String(faker.number.int({min:50,max:896})))}?d=retro`,
+    `https://www.gravatar.com/avatar/${SparkMD5.hash(String(faker.number.int({min:50,max:896})))}?d=retro`
   ],
 
   description: faker.lorem.paragraphs(6),

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 
 import { registerUserSrv } from "../../services/auth.service";
@@ -42,7 +42,10 @@ function RouteComponent() {
         </div>
 
         <Button type="submit">Register</Button>
-      </form>
+      </form>{" "}
+      <Link to="/auth/login">
+        <Button variant="ghost">Login</Button>
+      </Link>
     </>
   );
 }

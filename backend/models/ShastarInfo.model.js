@@ -2,39 +2,26 @@ import mongoose from "mongoose";
 
 const shastarInfoSchema = new mongoose.Schema(
   {
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    title: {
+    title: { type: String, required: true, trim: true, maxlength: 150 },
+    alternativeNames: [{ type: String, trim: true }],
+    mainImage: { type: String, required: true },
+    images: [{ type: String }], // URLs (from Cloudinary/S3)
+    isEdited:{type:Boolean, default:false},
+
+    description: { type: String, required: true, maxlength: 6000 },
+
+    type: {
       type: String,
-      required: true,
-      trim: true,
-      maxlength: 150,
-    },
-    alternativeNames: [
-      {
-        type: String,
-        trim: true,
-      },
-    ],
-
-    // 🔹 Media
-    mainImage: {
-      type: String, // URL (from Cloudinary/S3)
+      enum: ["weapon", "tool", "armor", "manuscript", "artifact"],
       required: true,
     },
-    images: [{ type: String }], // URL (from Cloudinary/S3)
+    subType: { type: String }, // e.g., 'sword', 'herbal scroll'
 
-    // 🔹 Descriptive Details
-    description: {
-      type: String,
-      required: true,
-      maxlength: 5000,
-    },
-    subType:String,    // e.g., 'sword', 'axe', 'siege engine', 'herbal manuscript'
-
-    material: String, // e.g., ["iron", "wood", "bronze"]
-    weight: String, // e.g., "1.5 kg"
-    length: String, // e.g., "90 cm"
-    usage: String, // e.g., ["melee", "ranged", "ritual", "healing"]
+    material: { type: String }, // "Iron, wood"
+    weight: { type: String }, // e.g., "1.5 kg"
+    length: { type: String }, // e.g., "90 cm"
+    usage: [{ type: String }], // e.g., ["melee", "ritual"]
+    // e.g., ["melee", "ranged", "ritual", "healing"]
     // 🔹 Historical Metadata
     origin: {
       region: String, // e.g., "Indian Subcontinent", "Medieval Europe"
@@ -51,68 +38,13 @@ const shastarInfoSchema = new mongoose.Schema(
         year: Number,
       },
     ],
-    likes: {
-      type: Number,
-      default: 0,
-    },
-    dislikes: {
-      type: Number,
-      default: 0,
-    },
-    views: {
-      type: Number,
-      default: 0,
-    },
+    likes: { type: Number, default: 0 },
+    dislikes: { type: Number, default: 0 },
+    views: { type: Number, default: 0 },
+    commentCount: { type: Number, default: 0 },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 
-    // 🔹 Discussion System (Nested Comments)
-    comments: [
-      {
-        user: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-          required: true,
-        },
-        username: {
-          type: String,
-          required: true,
-        },
-        avatar: {
-          type: String,
-        },
-        text: {
-          type: String,
-          required: true,
-          maxlength: 2000,
-        },
-        upvotes: Number,
-        replies: [
-          {
-            user: {
-              type: mongoose.Schema.Types.ObjectId,
-              ref: "User",
-            },
-            username: String,
-            avatar: String,
-            text: { type: String, maxlength: 2000 },
-            likes: Number,
-            createdAt: {
-              type: Date,
-              default: Date.now,
-            },
-          },
-        ],
-        createdAt: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
-
-    // 🔹 Moderation & Status
-    reported: {
-      type: Boolean,
-      default: false,
-    },
+    reported: { type: Boolean, default: false },
     reportReasons: [
       {
         user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -121,19 +53,14 @@ const shastarInfoSchema = new mongoose.Schema(
       },
     ],
 
-    // 🔹 Category/Tags for Filtering
-    categories: [
-      {
-        type: String,
-        ref: "Category",
-      },
-    ],
-    tags: [String], // e.g., ["bladed", "Ayurveda", "warfare", "manuscript"]
+       category: { type: String}, // intruduce enums
+
+    tags: [{ type: String, trim: true }], // e.g., ["bladed", "Ayurveda", "warfare", "manuscript"]
   },
   { timestamps: true }
 );
-shastarInfoSchema.index({ name: "text", description: "text", tags: "text" });
-shastarInfoSchema.index({ "origin.region": 1 });
 shastarInfoSchema.index({ type: 1, subType: 1 });
-
-export default mongoose.model("ShastarInfo", shastarInfoSchema);
+shastarInfoSchema.index({ "origin.region": 1, "origin.culture": 1 });
+shastarInfoSchema.index({ tags: 1 });
+shastarInfoSchema.index({ createdBy: 1 });
+export default mongoose.model("Shastar", shastarInfoSchema);

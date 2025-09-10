@@ -1,57 +1,81 @@
 import { Button } from "@/components/ui/button";
 import { faker } from "@faker-js/faker";
-import { IconArrowBigDown, IconArrowBigUp, IconEye, IconHeart, IconMessageCircle2, IconShare3 } from "@tabler/icons-react";
-import { createFileRoute, Link, useLocation } from '@tanstack/react-router';
+import { IconHeart, IconMessageCircle2, IconShare3 } from "@tabler/icons-react";
+import { Link, createFileRoute, useLocation } from "@tanstack/react-router";
+import axios from "axios";
 import millify from "millify";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import ForumPostCard from "../components/ForumPostCard.jsx";
 import SectionTitleSubTitle from "../components/SectionTitleSubTitle.jsx";
+import api from "../services/api.js";
 import { getForumPostSrv } from "../services/forumPost.service.js";
 import { getShastarSrv } from "../services/shastarInfo.service.js";
-import ForumPostCard from "../components/ForumPostCard.jsx";
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   component: Index,
-})
+});
 
 function Index() {
-    const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.auth);
+  // const location = useLocation();
+  // useEffect(() => {
+  //   const params = new URLSearchParams(location.search);
+  //   const token = params.get("token");
+
+  //   if (token) {
+  //     localStorage.setItem("authToken", token);
+  //     // Clean up URL so token isn't exposed in address bar
+  //     window.history.replaceState({}, document.title, "/dashboard");
+  //   }
+  // }, [location]);
+  const [shastars, setShastars] = useState([]);
+  const [loading, setloading] = useState(true);
+  const [shastarcatg, setshastarcatg] = useState([]);
+  const [resourcematerialcatg, setresourcematerialcatg] = useState([]);
+  const [forumpostcatg, setforumpostcatg] = useState([]);
+  const getcatg = async () => {
+    const ShastarInfoCat = await api.get("/category/t?type=ShastarInfo");
+    setshastarcatg(ShastarInfoCat.data);
+
+    const ResourceMaterialCat = await api.get("/category/t?type=ResourceMaterial");
+    setresourcematerialcatg(ResourceMaterialCat.data);
+
+    const ForumPostsCat = await api.get("/category/t?type=ForumPosts");
+    setforumpostcatg(ForumPostsCat.data);
+
+
+setloading(false)
+ console.log("shastarcatg", shastarcatg);
+    
+    console.log("resourcematerialcatg", resourcematerialcatg);
+    
+    console.log("forumpostcatg", forumpostcatg);
   
-    const location = useLocation();
-    useEffect(() => {
-      const params = new URLSearchParams(location.search);
-      const token = params.get("token");
-  
-      if (token) {
-        localStorage.setItem("authToken", token);
-        // Clean up URL so token isn't exposed in address bar
-        window.history.replaceState({}, document.title, "/dashboard");
-      }
-    }, [location]);
-    const [shastars, setShastars] = useState([]);
-    const getShastarsList = async () => {
-      const resShastars = await getShastarSrv(5);
-  
-      setShastars(resShastars.data);
-      console.log("resShastars", shastars);
-    };
-    useEffect(() => {
-      getShastarsList();
-    }, []);
-    const [forumPosts, setForumPosts] = useState([]);
-    const getForumPostsList = async () => {
-      const resPosts = await getForumPostSrv(5);
-  
-      setForumPosts(resPosts.data);
-      console.log("resPosts", forumPosts);
-    };
-    useEffect(() => {
-      getForumPostsList(5);
-    }, []);
+  };
+
+  const getShastarsList = async () => {
+    const resShastars = await getShastarSrv(5);
+
+    setShastars(resShastars.data);
+    // console.log("resShastars", shastars);
+  };
+  useEffect(() => {
+    getcatg();
+    getShastarsList();
+  }, []);
+  const [forumPosts, setForumPosts] = useState([]);
+  const getForumPostsList = async () => {
+    const resPosts = await getForumPostSrv(5);
+ 
+    setForumPosts(resPosts.data);
+    // console.log("resPosts", forumPosts);
+  };
+  useEffect(() => {
+    getForumPostsList(5);
+  }, []);
   return (
-  <>
+    <>
       <main className="flex px-4  flex-col justify-start items-start ">
         <div className=" flex flex-1 flex-col gap-2">
           <div className="flex flex-col gap-4 md:py-6">
@@ -63,28 +87,10 @@ function Index() {
                     <Link to="/posts/create">Ask Question</Link>
                   </Button>
                 </div>
-                {/* {
- "_id": "68b93e48f2ef779c84fed92e",
- "title": "Conqueror ipsa tibi ventus.",
- "content": "Conor beatae capitulus vester acquiro repellendus pecus arx suasoria cibo. Solitudo aggero capto degero adhaero. Sublime tergeo odit.\nDemulceo amplexus amaritudo conventus bis decipio absconditus defero carbo. Video bardus aptus undique sum audentia peior sortitus defessus. Adaugeo valeo copia doloribus aveho.",
- "author": "bbbd0c026d2c750caecd9dff",
- "category": "3ead000fbd7b6187b707da63",
- "tags": [
-  "self-assured"
- ],
- "upvotes": 542,
- "downvotes": 538,
- "views": 5534266742072443,
- "isPinned": true,
- "status": "deleted",
- "__v": 0,
- "createdAt": "2025-09-04T07:22:48.375Z",
- "updatedAt": "2025-09-04T07:22:48.375Z"
-} */}
+
                 {forumPosts.map((post) => (
                   <div key={post._id} className="my-2">
-                                     <ForumPostCard id={post._id} title={post.title} content={post.content} author={post.author} category={post.category} tags={post.tags} upvotes={post.upvotes} downvotes={post.downvotes} views={post.views} isPinned={post.isPinned} status={post.status} comments={post.comments} createdAt={post.createdAt} updatedAt={post.updatedAt} />
-
+                    <ForumPostCard id={post._id} title={post.title} content={post.content} author={post.author} category={post.category} tags={post.tags} upvotes={post.upvotes} downvotes={post.downvotes} views={post.views} isPinned={post.isPinned} status={post.status} comments={post.commentCount} createdAt={post.createdAt} updatedAt={post.updatedAt} />
                   </div>
                 ))}
 
@@ -117,7 +123,7 @@ function Index() {
 
                                 <span className="flex gap-0.5 items-center justify-start text-muted-foreground ml-2" to={`/shastar/${i._id}#discussion`}>
                                   <IconMessageCircle2 size={18} />
-                                  {i.comments.length || 0}
+                                  {i.comments || 0}
                                 </span>
 
                                 <span className="cursor-pointer flex gap-0.5 items-center justify-start text-muted-foreground ml-2">
@@ -267,5 +273,5 @@ function Index() {
         </div>
       </main>
     </>
-  )
+  );
 }

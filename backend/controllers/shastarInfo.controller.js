@@ -16,9 +16,8 @@ export async function getShastar(req, res) {
 
     res.status(200).json(result);
   } catch (err) {
-    res.status(500).json({ error: err });
-
     logger("error", err.message);
+    res.status(500).json({ error: err.message });
   }
 }
 export async function getSingleShastar(req, res) {
@@ -29,9 +28,8 @@ export async function getSingleShastar(req, res) {
 
     res.status(200).json(result);
   } catch (err) {
-    res.status(500).json({ error: err });
-
     logger("error", err.message);
+    res.status(500).json({ error: err.message });
   }
 }
 export async function createShastar(req, res) {
@@ -42,8 +40,8 @@ export async function createShastar(req, res) {
     const result = await ShastarInfo.create(req.body);
     res.status(200).json({ result: result});
   } catch (err) {
-    res.status(400).json({ error: err });
     logger("error", err.message);
+    res.status(40).json({ error: err.message });
   }
 }
 export async function updateShastar(req, res) {
@@ -51,9 +49,8 @@ export async function updateShastar(req, res) {
     const result = await ShastarInfo.findAnd;
     res.status(200).json({ result: result });
   } catch (err) {
-    res.status(500).json({ error: err });
-
     logger("error", err.message);
+    res.status(500).json({ error: err.message });
   }
 }
 export async function deleteShastar(req, res) {
@@ -61,8 +58,7 @@ export async function deleteShastar(req, res) {
     const result = await ShastarInfo;
     res.status(200).json({ result: result });
   } catch (err) {
-    res.status(500).json({ error: err });
-
     logger("error", err.message);
+    res.status(500).json({ error: err.message });
   }
 }

@@ -19,27 +19,23 @@ import { Route as UserRouteRouteImport } from './routes/user/route'
 import { Route as ShastarsRouteRouteImport } from './routes/shastars/route'
 import { Route as ResourcesRouteRouteImport } from './routes/resources/route'
 import { Route as PostsRouteRouteImport } from './routes/posts/route'
-import { Route as DiscussionsRouteRouteImport } from './routes/discussions/route'
 import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShastarsIndexRouteImport } from './routes/shastars/index'
 import { Route as ResourcesIndexRouteImport } from './routes/resources/index'
 import { Route as PostsIndexRouteImport } from './routes/posts/index'
-import { Route as DiscussionsIndexRouteImport } from './routes/discussions/index'
 import { Route as AppIndexRouteImport } from './routes/app/index'
 import { Route as UserAccountRouteImport } from './routes/user/account'
 import { Route as ShastarsCreateRouteImport } from './routes/shastars/create'
 import { Route as ResourcesCreateRouteImport } from './routes/resources/create'
 import { Route as PostsCreateRouteImport } from './routes/posts/create'
-import { Route as DiscussionsCreateRouteImport } from './routes/discussions/create'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AppBetaRouteImport } from './routes/app/beta'
 import { Route as ShastarsSSIdRouteImport } from './routes/shastars/s.$sId'
 import { Route as ResourcesRRIdRouteImport } from './routes/resources/r.$rId'
 import { Route as PostsPPIdRouteImport } from './routes/posts/p.$pId'
-import { Route as DiscussionsDDidRouteImport } from './routes/discussions/d.$did'
 import { Route as AppDiscordDiscordRouteImport } from './routes/app/discord/discord'
 
 const NotficationsRoute = NotficationsRouteImport.update({
@@ -92,11 +88,6 @@ const PostsRouteRoute = PostsRouteRouteImport.update({
   path: '/posts',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DiscussionsRouteRoute = DiscussionsRouteRouteImport.update({
-  id: '/discussions',
-  path: '/discussions',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AppRouteRoute = AppRouteRouteImport.update({
   id: '/app',
   path: '/app',
@@ -127,11 +118,6 @@ const PostsIndexRoute = PostsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PostsRouteRoute,
 } as any)
-const DiscussionsIndexRoute = DiscussionsIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => DiscussionsRouteRoute,
-} as any)
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -156,11 +142,6 @@ const PostsCreateRoute = PostsCreateRouteImport.update({
   id: '/create',
   path: '/create',
   getParentRoute: () => PostsRouteRoute,
-} as any)
-const DiscussionsCreateRoute = DiscussionsCreateRouteImport.update({
-  id: '/create',
-  path: '/create',
-  getParentRoute: () => DiscussionsRouteRoute,
 } as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
   id: '/auth/register',
@@ -192,11 +173,6 @@ const PostsPPIdRoute = PostsPPIdRouteImport.update({
   path: '/p/$pId',
   getParentRoute: () => PostsRouteRoute,
 } as any)
-const DiscussionsDDidRoute = DiscussionsDDidRouteImport.update({
-  id: '/d/$did',
-  path: '/d/$did',
-  getParentRoute: () => DiscussionsRouteRoute,
-} as any)
 const AppDiscordDiscordRoute = AppDiscordDiscordRouteImport.update({
   id: '/discord/discord',
   path: '/discord/discord',
@@ -207,7 +183,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRoute
   '/app': typeof AppRouteRouteWithChildren
-  '/discussions': typeof DiscussionsRouteRouteWithChildren
   '/posts': typeof PostsRouteRouteWithChildren
   '/resources': typeof ResourcesRouteRouteWithChildren
   '/shastars': typeof ShastarsRouteRouteWithChildren
@@ -221,18 +196,15 @@ export interface FileRoutesByFullPath {
   '/app/beta': typeof AppBetaRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/discussions/create': typeof DiscussionsCreateRoute
   '/posts/create': typeof PostsCreateRoute
   '/resources/create': typeof ResourcesCreateRoute
   '/shastars/create': typeof ShastarsCreateRoute
   '/user/account': typeof UserAccountRoute
   '/app/': typeof AppIndexRoute
-  '/discussions/': typeof DiscussionsIndexRoute
   '/posts/': typeof PostsIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/shastars/': typeof ShastarsIndexRoute
   '/app/discord/discord': typeof AppDiscordDiscordRoute
-  '/discussions/d/$did': typeof DiscussionsDDidRoute
   '/posts/p/$pId': typeof PostsPPIdRoute
   '/resources/r/$rId': typeof ResourcesRRIdRoute
   '/shastars/s/$sId': typeof ShastarsSSIdRoute
@@ -250,18 +222,15 @@ export interface FileRoutesByTo {
   '/app/beta': typeof AppBetaRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/discussions/create': typeof DiscussionsCreateRoute
   '/posts/create': typeof PostsCreateRoute
   '/resources/create': typeof ResourcesCreateRoute
   '/shastars/create': typeof ShastarsCreateRoute
   '/user/account': typeof UserAccountRoute
   '/app': typeof AppIndexRoute
-  '/discussions': typeof DiscussionsIndexRoute
   '/posts': typeof PostsIndexRoute
   '/resources': typeof ResourcesIndexRoute
   '/shastars': typeof ShastarsIndexRoute
   '/app/discord/discord': typeof AppDiscordDiscordRoute
-  '/discussions/d/$did': typeof DiscussionsDDidRoute
   '/posts/p/$pId': typeof PostsPPIdRoute
   '/resources/r/$rId': typeof ResourcesRRIdRoute
   '/shastars/s/$sId': typeof ShastarsSSIdRoute
@@ -271,7 +240,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRoute
   '/app': typeof AppRouteRouteWithChildren
-  '/discussions': typeof DiscussionsRouteRouteWithChildren
   '/posts': typeof PostsRouteRouteWithChildren
   '/resources': typeof ResourcesRouteRouteWithChildren
   '/shastars': typeof ShastarsRouteRouteWithChildren
@@ -285,18 +253,15 @@ export interface FileRoutesById {
   '/app/beta': typeof AppBetaRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/discussions/create': typeof DiscussionsCreateRoute
   '/posts/create': typeof PostsCreateRoute
   '/resources/create': typeof ResourcesCreateRoute
   '/shastars/create': typeof ShastarsCreateRoute
   '/user/account': typeof UserAccountRoute
   '/app/': typeof AppIndexRoute
-  '/discussions/': typeof DiscussionsIndexRoute
   '/posts/': typeof PostsIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/shastars/': typeof ShastarsIndexRoute
   '/app/discord/discord': typeof AppDiscordDiscordRoute
-  '/discussions/d/$did': typeof DiscussionsDDidRoute
   '/posts/p/$pId': typeof PostsPPIdRoute
   '/resources/r/$rId': typeof ResourcesRRIdRoute
   '/shastars/s/$sId': typeof ShastarsSSIdRoute
@@ -307,7 +272,6 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/app'
-    | '/discussions'
     | '/posts'
     | '/resources'
     | '/shastars'
@@ -321,18 +285,15 @@ export interface FileRouteTypes {
     | '/app/beta'
     | '/auth/login'
     | '/auth/register'
-    | '/discussions/create'
     | '/posts/create'
     | '/resources/create'
     | '/shastars/create'
     | '/user/account'
     | '/app/'
-    | '/discussions/'
     | '/posts/'
     | '/resources/'
     | '/shastars/'
     | '/app/discord/discord'
-    | '/discussions/d/$did'
     | '/posts/p/$pId'
     | '/resources/r/$rId'
     | '/shastars/s/$sId'
@@ -350,18 +311,15 @@ export interface FileRouteTypes {
     | '/app/beta'
     | '/auth/login'
     | '/auth/register'
-    | '/discussions/create'
     | '/posts/create'
     | '/resources/create'
     | '/shastars/create'
     | '/user/account'
     | '/app'
-    | '/discussions'
     | '/posts'
     | '/resources'
     | '/shastars'
     | '/app/discord/discord'
-    | '/discussions/d/$did'
     | '/posts/p/$pId'
     | '/resources/r/$rId'
     | '/shastars/s/$sId'
@@ -370,7 +328,6 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/app'
-    | '/discussions'
     | '/posts'
     | '/resources'
     | '/shastars'
@@ -384,18 +341,15 @@ export interface FileRouteTypes {
     | '/app/beta'
     | '/auth/login'
     | '/auth/register'
-    | '/discussions/create'
     | '/posts/create'
     | '/resources/create'
     | '/shastars/create'
     | '/user/account'
     | '/app/'
-    | '/discussions/'
     | '/posts/'
     | '/resources/'
     | '/shastars/'
     | '/app/discord/discord'
-    | '/discussions/d/$did'
     | '/posts/p/$pId'
     | '/resources/r/$rId'
     | '/shastars/s/$sId'
@@ -405,7 +359,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRouteRoute: typeof AdminRouteRoute
   AppRouteRoute: typeof AppRouteRouteWithChildren
-  DiscussionsRouteRoute: typeof DiscussionsRouteRouteWithChildren
   PostsRouteRoute: typeof PostsRouteRouteWithChildren
   ResourcesRouteRoute: typeof ResourcesRouteRouteWithChildren
   ShastarsRouteRoute: typeof ShastarsRouteRouteWithChildren
@@ -492,13 +445,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/discussions': {
-      id: '/discussions'
-      path: '/discussions'
-      fullPath: '/discussions'
-      preLoaderRoute: typeof DiscussionsRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/app': {
       id: '/app'
       path: '/app'
@@ -541,13 +487,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsIndexRouteImport
       parentRoute: typeof PostsRouteRoute
     }
-    '/discussions/': {
-      id: '/discussions/'
-      path: '/'
-      fullPath: '/discussions/'
-      preLoaderRoute: typeof DiscussionsIndexRouteImport
-      parentRoute: typeof DiscussionsRouteRoute
-    }
     '/app/': {
       id: '/app/'
       path: '/'
@@ -582,13 +521,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/posts/create'
       preLoaderRoute: typeof PostsCreateRouteImport
       parentRoute: typeof PostsRouteRoute
-    }
-    '/discussions/create': {
-      id: '/discussions/create'
-      path: '/create'
-      fullPath: '/discussions/create'
-      preLoaderRoute: typeof DiscussionsCreateRouteImport
-      parentRoute: typeof DiscussionsRouteRoute
     }
     '/auth/register': {
       id: '/auth/register'
@@ -632,13 +564,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsPPIdRouteImport
       parentRoute: typeof PostsRouteRoute
     }
-    '/discussions/d/$did': {
-      id: '/discussions/d/$did'
-      path: '/d/$did'
-      fullPath: '/discussions/d/$did'
-      preLoaderRoute: typeof DiscussionsDDidRouteImport
-      parentRoute: typeof DiscussionsRouteRoute
-    }
     '/app/discord/discord': {
       id: '/app/discord/discord'
       path: '/discord/discord'
@@ -664,21 +589,6 @@ const AppRouteRouteChildren: AppRouteRouteChildren = {
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
   AppRouteRouteChildren,
 )
-
-interface DiscussionsRouteRouteChildren {
-  DiscussionsCreateRoute: typeof DiscussionsCreateRoute
-  DiscussionsIndexRoute: typeof DiscussionsIndexRoute
-  DiscussionsDDidRoute: typeof DiscussionsDDidRoute
-}
-
-const DiscussionsRouteRouteChildren: DiscussionsRouteRouteChildren = {
-  DiscussionsCreateRoute: DiscussionsCreateRoute,
-  DiscussionsIndexRoute: DiscussionsIndexRoute,
-  DiscussionsDDidRoute: DiscussionsDDidRoute,
-}
-
-const DiscussionsRouteRouteWithChildren =
-  DiscussionsRouteRoute._addFileChildren(DiscussionsRouteRouteChildren)
 
 interface PostsRouteRouteChildren {
   PostsCreateRoute: typeof PostsCreateRoute
@@ -744,7 +654,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRouteRoute: AdminRouteRoute,
   AppRouteRoute: AppRouteRouteWithChildren,
-  DiscussionsRouteRoute: DiscussionsRouteRouteWithChildren,
   PostsRouteRoute: PostsRouteRouteWithChildren,
   ResourcesRouteRoute: ResourcesRouteRouteWithChildren,
   ShastarsRouteRoute: ShastarsRouteRouteWithChildren,

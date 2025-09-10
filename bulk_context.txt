@@ -1,0 +1,139 @@
+
+
+
+
+
+
+
+
+
+// auth.routes.js
+import express from "express";
+
+import { loginUser, logoutUser, registerUser, resetPasswordUser, verifyUser } from "../controllers/auth.controller.js";
+import { authenticateJWT } from "../middlewares/auth.middleware.js";
+import { cacheMiddleware } from "../middlewares/cache.middleware.js";
+import User from "../models/User.model.js";
+
+const router = express.Router();
+router.post("/login", loginUser);
+router.post("/register", registerUser);
+router.get("/verify", verifyUser);
+router.post("/reset-password", authenticateJWT, resetPasswordUser);
+router.post("/logout", logoutUser);
+
+router.get("/me", authenticateJWT, cacheMiddleware("userProfile", 24 * 60 * 60 * 1000), async (req, res) => {
+  const { id } = req.user;
+  const currentUser = await User.findById(id);
+  // console.log(currentUser)
+  res.json({
+    // TODO we are giving away user id in jwt is this a posing a security risk
+    currentUser: { _id: currentUser._id, name: currentUser.name, username: currentUser.username, email: currentUser.email, role: currentUser.role, avatar: currentUser.avatar, createdAt: currentUser.createdAt },
+  });
+});
+//   res.json({
+//     user: req.user, // comes from decoded JWT (id, username, role, etc.)
+//     // token: req.cookies.token, // return token from cookie if needed
+//   });});
+
+export default router;
+
+// category.routes.js
+import express from "express";
+import {cacheMiddleware} from '../middlewares/cache.middleware.js'
+import { createCategory, delCategory, flushCategories, getCategories, getSingleCategory, updateCategpy } from "../controllers/category.controller.js";
+import { authenticateJWT, isAdmin } from "../middlewares/auth.middleware.js";
+
+const router = express.Router();
+
+router.get("/", cacheMiddleware ("allCategories", 4*24*60*60*1000), getCategories);
+router.get("/:cId", getSingleCategory);
+router.post("/create", authenticateJWT,createCategory);
+router.post("/update/:cId", authenticateJWT,updateCategpy);
+router.post("/delete/:cId",authenticateJWT, delCategory);
+router.post("/flush", authenticateJWT,isAdmin ,flushCategories);
+
+export comment.routes.jsdefault router;
+import express from 'express'
+import { getCommentsOnSinglePost, postComment } from '../controllers/comments.controller.js'
+import { authenticateJWT } from '../middlewares/auth.middleware.js'
+ 
+const router = express.Router()
+ router.post('/:postId', authenticateJWT, postComment)
+ router.get('/count/:postId', getCommentsOnSinglePost)
+export default router     
+// forumPost.routes.js
+import express from "express";
+
+import { createForumPost, deleteForumPost, downvotePost, getForumPost, getSingleForumPost, updateForumPost, upvotePost } from "../controllers/forumPost.controller.js";
+import {authenticateJWT, isAdmin} from '../middlewares/auth.middleware.js'
+
+const router = express.Router();
+
+router.get("/", getForumPost);
+router.get("/:pId", getSingleForumPost);
+router.post("/create", authenticateJWT,createForumPost);
+router.put("/update/:pId", authenticateJWT,updateForumPost);
+router.delete("/delete/:pId", authenticateJWT,isAdmin,deleteForumPost);
+
+router.post("/upvote/:postId", upvotePost);
+router.post("/downvote/:postId", downvotePost
+);
+
+export notification.routes.jsdefault router;
+import express from 'express'
+ 
+const router = express.Router()
+ 
+export default router     
+// resourceMaterials.routes.js
+import express from "express";
+
+import {
+    createResourceMaterial,
+    deleteResourceMaterial,
+    getResourceMaterial,
+    getSingleResourceMaterial,
+    updateResourceMaterial
+} from "../controllers/resourceMaterial.controller.js";
+import { authenticateJWT, isAdmin } from "../middlewares/auth.middleware.js";
+import { cacheMiddleware } from "../middlewares/cache.middleware.js";
+const router = express.Router();
+
+router.get("/", cacheMiddleware("resourceMaterials", 24 * 60 * 60 * 1000), getResourceMaterial);
+router.get("/:rId", cacheMiddleware("singleResourceMaterials",24 * 60 * 60 * 1000), getSingleResourceMaterial);
+router.post("/create", authenticateJWT, createResourceMaterial);
+router.put("/update/:rId", authenticateJWT,updateResourceMaterial);
+router.delete("/delete/:rId",authenticateJWT,isAdmin, deleteResourceMaterial); // only dmin should deleteResourceMaterialit 
+
+export default router;
+
+// shastarInfo.routes.js
+import express from "express";
+
+import { createShastar, deleteShastar, getShastar, getSingleShastar, updateShastar } from "../controllers/shastarInfo.controller.js";
+import { authenticateJWT, isAdmin } from "../middlewares/auth.middleware.js";
+import { cacheMiddleware } from "../middlewares/cache.middleware.js";
+
+const router = express.Router();
+
+router.get("/", cacheMiddleware("shastars", 24 * 60 * 60 * 1000), getShastar);
+router.get("/:sId", cacheMiddleware(24 * 60 * 60 * 1000), getSingleShastar);
+router.post("/create", authenticateJWT, createShastar);
+router.put("/update/:sId", authenticateJWT, updateShastar);
+router.delete("/delete/:sId", authenticateJWT, isAdmin, deleteShastar); // only dmin should delete it , maybe send an email to admin for deletion request
+
+export default router;
+
+// user.routes.js
+import express from "express";
+import { flushUsers, getUser, updateUserProfile } from "../controllers/user.controller.js";
+import {authenticateJWT, isAdmin} from '../middlewares/auth.middleware.js'
+
+const router = express.Router();
+
+router.get("/", getUser);
+
+router.put("/update", authenticateJWT, updateUserProfile);
+router.post("/flush",authenticateJWT,isAdmin,flushUsers );
+export default router;

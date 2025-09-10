@@ -18,19 +18,21 @@ function RouteComponent() {
   const { sId } = Route.useParams();
 
   const [shastar, setShastar] = useState({});
-  const [shastarDiscussion, setShastarDiscussion] = useState([]);
+  const [currentImageFocusURL, setcurrentImageFocusURL] = useState("/assets/placeholder-image.png");
+  
   const getShastarInfo = async () => {
     const resInfo = await getSingleShastarSrv(sId);
     console.log(resInfo.data);
+    console.log(resInfo.data.images[0]);
  
     setShastar(resInfo.data);
-    setShastarDiscussion(resInfo.data?.comments);
+    setcurrentImageFocusURL(resInfo.data.mainImage)
     console.log("resShastars", shastar);
-    console.log("resShastars", shastarDiscussion);
   };
   useEffect(() => {
     getShastarInfo();
     console.log("resShastars useEffect", shastar);
+    console.log("resShastars useEffect", shastar.images);
   }, []);
 
   // TODO gets shatsra details make a empty objects and store it , cache it,
@@ -58,16 +60,30 @@ function RouteComponent() {
           <div className="container px-4 pt-12 mx-auto">
             <div className="flex flex-wrap  ">
               <div className="p-6 md:w-1/2 flex flex-col items-center">
-                <img className="rounded-lg  w-full h-96 object-center object-cover" src={shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
+                <img className="rounded-lg  w-full h-96 object-center object-cover" src={currentImageFocusURL|| shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
                 <div className="flex gap-2 py-2 justify-center items-center container w-full ">
+                  {/* TODO main image gets lost when any of the image is clicked */}
                   {/* {shastar?.images.map((i)=>(
 
                   <img className="rounded-lg  size-16 object-center object-cover" src={shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
                   ))} */}
-                  <img className="rounded-lg  size-16 object-center object-cover" src={shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
-                  <img className="rounded-lg  size-16 object-center object-cover" src={shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
-                  <img className="rounded-lg  size-16 object-center object-cover" src={shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
-                </div>
+                 {Array.isArray(shastar.images) && shastar.images.length > 0 ? (
+    shastar.images.map((img, idx) => (
+      <img 
+      onClick={()=>setcurrentImageFocusURL(img)}
+        key={idx}
+        className="rounded-lg size-16 object-center object-cover"
+        src={img || "/assets/placeholder-weapon.png"}
+        alt={`thumb-${idx}`}
+      />
+    ))
+  ) : (
+    <img
+      className="rounded-lg size-16 object-center object-cover"
+      src="/assets/placeholder-weapon.png"
+      alt="placeholder"
+    />
+  )}    </div>
               </div>
               <div className="p-6 md:w-1/2 flex flex-col items-start">
                 <span className="inline-block py-1 px-2 rounded bg-gray-800 text-gray-400 text-opacity-75 text-xs font-medium  uppercase">{shastar?.categories}</span>
@@ -124,7 +140,7 @@ function RouteComponent() {
             </TabsList>
             <TabsContent value="information">{shastar?.description}</TabsContent>
             <TabsContent value="discussion">
-             <DiscussionSection discussionPlaceId={sId}/>
+             <DiscussionSection  type="ShastarInfo" discussionPlaceId={sId}/>
             </TabsContent>
           </Tabs>
         </section>

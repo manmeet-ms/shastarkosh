@@ -15,7 +15,7 @@ export const Route = createFileRoute("/shastars/")({
 function RouteComponent() {
   const [shastars, setShastars] = useState([]);
   const getShastarsListinfo = async () => {
-    const resShastars = await getShastarSrv(10);
+    const resShastars = await getShastarSrv(100);
 
     setShastars(resShastars.data);
     console.log("resShastars", shastars);
@@ -61,7 +61,7 @@ function RouteComponent() {
 
                         <Link className="flex gap-0.5 items-center justify-start text-muted-foreground ml-2" to={`/shastars/s/${i._id}#discussion`}>
                           <IconMessageCircle2 size={18} />
-                          {i.comments.length || 0}
+                          {i.comments || 0}
                         </Link>
 
                         <span className="flex gap-0.5 items-center justify-start text-muted-foreground ml-2">

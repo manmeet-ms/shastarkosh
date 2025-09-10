@@ -6,8 +6,14 @@ export const postCommentSrv = async (postId, data) => {
   return await api.post(`/comments/${postId}`, data, { withCredentials: true });
 };
 
-export const getCommentsOnSinglePostSrv = async (postId) => {
-  console.log(postId);
-
+export const getCommentCountSrv = async (postId) => {
+  // console.log(postId);
+  
   return await api.get(`/comments/count/${postId}`);
+};
+
+export const getCommentsOnSinglePostSrv = async (postId) => {
+  // console.log(postId);
+
+  return await api.get(`/comments/c/${postId}`);
 };

@@ -5,7 +5,6 @@ import api from "../services/api.js";
 
 // Make sure axios sends cookies
 
-
 export const fetchUser = createAsyncThunk("auth/fetchUser", async () => {
   // const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth/me`, { withCredentials: true });
   const res = await api.get(`/auth/me`, { withCredentials: true });

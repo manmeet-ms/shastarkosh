@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/discussions')({
+export const Route = createFileRoute('/posts/p/$pId')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  return <div>Hello "/discussions"!</div>
+  return <div>Hello "/posts/p/$pId"!</div>
 }

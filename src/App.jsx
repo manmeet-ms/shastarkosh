@@ -2,12 +2,10 @@
 import { AppHeader } from "@/components/Header/AppHeader";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { PanelLeftIcon } from "lucide-react";
+import { Link, Outlet, useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, Outlet, useLocation } from "@tanstack/react-router";
 
 import { SIDENAV_DASH } from "../shared/sidenav-items.shared.js";
 import "./App.css";
@@ -64,12 +62,12 @@ const App = () => {
           </section>
 
           <section className="grow lg:border-l"> 
-            <div className="changed-px pb-4 flex items-center justify-between gap-2 px-4">
+            <div className="   flex items-center justify-between gap-2 px-4">
               {/* <div className="hidden lg:flex lg:flex-col">
                 <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">{Greet}</h4>
                 <p className="leading-7 text-secondary-foreground text-sm opacity-40">{dayjs().format("MMM DD, YYYY hh:mm A")}</p>{" "}
               </div>{" "} */}
-              <Sheet open={open} onOpenChange={setOpen}>
+              {/* <Sheet  open={open} onOpenChange={setOpen}>
                 <SheetTrigger>
                   <PanelLeftIcon size={20} className="block lg:hidden" />
                 </SheetTrigger>
@@ -98,7 +96,7 @@ const App = () => {
                     </SheetDescription>
                   </SheetHeader>
                 </SheetContent>
-              </Sheet>
+              </Sheet> */}
 
              
             </div>
@@ -111,9 +109,7 @@ const App = () => {
           </section>
         </main>
 
-        <div className="flex justify-end gap-2">
-         
-        </div>
+      
         {/* <AppFooter /> */}
         <BottomNav />
       </ThemeProvider>

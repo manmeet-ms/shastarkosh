@@ -4,7 +4,7 @@ export async function getForumPostSrv(limit) {
   return await api.get(`/posts?limit=${limit}`);
 }
 export async function getSingleForumPostSrv(pId) {
-  return await api.get(`/posts/${pId}`);
+  return await api.get(`/posts/p/${pId}`);
 }
 export async function createForumPostSrv(data) {
   return await api.post("/posts/create", data);

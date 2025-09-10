@@ -2,10 +2,10 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import dayjs from "dayjs";
 import jwt from "jsonwebtoken";
+import SparkMD5 from "spark-md5";
 
 import logger from "../../src/utils/logger.utils.js";
 import User from "../models/User.model.js";
-import SparkMD5 from "spark-md5";
 
 export const registerUser = async (req, res) => {
   const { username, name, email, password, bio } = req.body;
@@ -14,8 +14,8 @@ export const registerUser = async (req, res) => {
     return res.status(400).json({ message: "All fields are required" });
   }
   try {
-    const hashedAvatar= await SparkMD5.hash(username)
-    const createdUser = User.create({ username, name, email, password, bio, avatar:`https://www.gravatar.com/avatar/${hashedAvatar}?d=identicon` });
+    const hashedAvatar = await SparkMD5.hash(username);
+    const createdUser = User.create({ username, name, email, password, bio, avatar: `https://www.gravatar.com/avatar/${hashedAvatar}?d=identicon` });
     const token = crypto.randomBytes(32).toString("hex");
     createdUser.verificationToken = token;
     await createdUser.save();
@@ -24,8 +24,8 @@ export const registerUser = async (req, res) => {
       ${process.env.VITE_BACKEND_URL}/user/verify/${genToken}`,
     });
     res.status(200).json(createdUser.name, "registered successfully, verify your email.");
-  } catch (error) {
-    res.status(400).json(error.message);
+  } catch (err) {
+    res.status(400).json(err.message);
   }
 };
 export const loginUser = async (req, res) => {
@@ -37,7 +37,7 @@ export const loginUser = async (req, res) => {
     if (user) {
       logger("log", "User found", user.email, user.name);
       const token = jwt.sign({ id: user._id, name: user.name, role: user.role, avatar: user.avatar, bio: user.bio, isVerified: user.isVerified }, process.env.JWT_SECRET, { expiresIn: "7d" });
-// TODO we are giving away user id in jwt is this a posing a security risk
+      // TODO we are giving away user id in jwt is this a posing a security risk
       res.cookie("token", token, {
         httpOnly: true,
         secure: true,
@@ -89,8 +89,8 @@ export const resetPasswordUser = async (req, res) => {
     } else {
       res.status(400).json("User does not exists!");
     }
-  } catch (error) {
-    res.status(400).json(error.message);
+  } catch (err) {
+    res.status(400).json(err.message);
   }
 };
 export const resetPasswordTokenVerify = async (req, res) => {
@@ -109,7 +109,7 @@ export const resetPasswordTokenVerify = async (req, res) => {
     } else {
       res.status(400).json("User does not exists!");
     }
-  } catch (error) {
-    res.status(400).json(error.message);
+  } catch (err) {
+    res.status(400).json(err.message);
   }
 };

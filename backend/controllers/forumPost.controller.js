@@ -10,7 +10,7 @@ export async function getForumPost(req, res) {
     const totalPosts = await ForumPost.countDocuments();
     if (req.query.limit && req.query.limit <= totalPosts) {
       limit = parseInt(req.query.limit); // from query string
-    }
+    } 
 
     logger("log", limit, "req.body", req.body);
     const result = await ForumPost.find().sort({ createdAt: -1 }).limit(limit);
@@ -29,13 +29,13 @@ export async function getSingleForumPost(req, res) {
     const resPost = await ForumPost.findById(pId);
     const resComments = await Comment.find({ discussionId: pId }).sort({ createdAt: -1 });
     // console.log("Forum Post", resPost);
-    // const authorDetails = await User.findById(resPost.author);
+    const authorDetails = await User.findById(resPost.author);
     // console.log(authorDetails);
+    
     // TODO minmize the: 2 api valls per post fetch
-
     // const result={ post: resPost, author: {name: authorDetails.name,username:authorDetails.username, avatar:authorDetails.avatar} }
 
-    const result = { post: resPost, comments: resComments };
+    const result = { post: resPost, comments: resComments , author:authorDetails};
     // console.log(result);
     res.status(200).json(result);
   } catch (err) {

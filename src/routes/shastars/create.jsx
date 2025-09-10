@@ -7,10 +7,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 
-import SectionTitleSubTitle from "../../components/SectionTitleSubTitle";
 import { createShastarSrv } from "../../services/shastarInfo.service.js";
-
-// import {createShastarSrv} from "../../"
 
 export const Route = createFileRoute("/shastars/create")({
   component: RouteComponent,
@@ -28,21 +25,57 @@ function RouteComponent() {
   } = useForm({
     defaultValues: {
       title: "",
+      alternativeNames: "",
       description: "",
+      type: "",
+      subType: "",
+      material: "",
+      weight: "",
+      length: "",
+      usage: "",
+      region: "",
+      culture: "",
+      timePeriod: "",
       category: "",
-
- 
-      tags: [],
+      tags: "",
+      sourceTitle: "",
+      sourceAuthor: "",
+      sourceLink: "",
+      sourcePublication: "",
     },
   });
+
   const onSubmit = async (data) => {
     const formData = {
-      ...data,
-      mainImage:"/assets/placeholder-weapon.png",
-      images:["/assets/placeholder-weapon.png","/assets/placeholder-weapon.png","/assets/placeholder-weapon.png"],
-      createdBy:  user._id, 
+      title: data.title,
+      alternativeNames: data.alternativeNames.split(",").map((n) => n.trim()),
+      description: data.description,
+      type: data.type,
+      subType: data.subType,
+      material: data.material,
+      weight: data.weight,
+      length: data.length,
+      usage: data.usage.split(",").map((u) => u.trim()),
+      origin: {
+        region: data.region,
+        culture: data.culture,
+        timePeriod: data.timePeriod,
+      },
+      sources: [
+        {
+          title: data.sourceTitle,
+          author: data.sourceAuthor,
+          link: data.sourceLink,
+          publication: data.sourcePublication,
+        },
+      ],
+      category: data.category,
+      tags: data.tags.split(",").map((t) => t.trim()),
+      mainImage: "/assets/placeholder-weapon.png",
+      images: ["/assets/placeholder-weapon.png"],
+      createdBy: user._id,
     };
-    console.log(formData);
+
     try {
       await createShastarSrv(formData);
       reset();
@@ -52,111 +85,120 @@ function RouteComponent() {
     }
   };
 
-  //  TODO add validation of onyl uniques posts, form reset and add which user is  creating his posts at the momenet
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-2xl mx-auto p-4">
-        {/* Title */}
-        <div>
-          <Label htmlFor="title">Title</Label>
-          <Input
-            id="title"
-            placeholder="Enter post title"
-            {...register("title", {
-              required: "Title is required",
-              maxLength: { value: 120, message: "Max 120 characters allowed" },
-            })}
-          />
-          {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
-        </div>
+    <form className="py-12 flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
+      {/* Title */}
+      <div>
+        <Label>Title</Label>
+        <Input {...register("title", { required: true })} placeholder="Title" />
+        {errors.title && <span className="text-red-500">Title is required</span>}
+      </div>
 
-        {/* Description */}
-        <div>
-          <Label htmlFor="description">Description</Label>
-          <Textarea
-            id="description"
-            placeholder="Write your description here..."
-            {...register("description", {
-              required: "Description is required",
-              minLength: { value: 10, message: "At least 10 characters required" },
-            })}
-          />
-          {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
-        </div>
+      {/* Alternative Names */}
+      <div>
+        <Label>Alternative names</Label>
+        <Input {...register("alternativeNames")} placeholder="comma separated list" />
+      </div>
 
-        {/* Category */}
-        <div>
-          <Label htmlFor="category">Category</Label>
-          <Select
-            onValueChange={(val) => {
-              // react-hook-form controller alternative could be used
-            }}>
-            <SelectTrigger className="w-[250px]">
-              <SelectValue placeholder="Select a category" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="swords">Swords</SelectItem>
-              <SelectItem value="shields">Shields</SelectItem>
-              <SelectItem value="archery">Archery</SelectItem>
-            </SelectContent>
-          </Select>
-          {/* For proper RHF binding, wrap Select with Controller if needed */}
-        </div>
+      {/* Description */}
+      <div>
+        <Label>Description</Label>
+        <Textarea {...register("description", { required: true })} />
+      </div>
 
-        {/* Tags */}
-        <div>
-          <Label htmlFor="tags">Tags</Label>
-          <Input
-            id="tags"
-            placeholder="Comma-separated tags"
-            {...register("tags", {
-              validate: (val) => val.split(",").length <= 5 || "Max 5 tags allowed",
-            })}
-          />
-          {errors.tags && <p className="text-red-500 text-sm">{errors.tags.message}</p>}
-        </div>
+      {/* Type */}
+      <div>
+        <Label>Type</Label>
+        <select {...register("type", { required: true })} className="border rounded px-2 py-1">
+          <option value="">Select type</option>
+          <option value="weapon">Weapon</option>
+          <option value="tool">Tool</option>
+          <option value="armor">Armor</option>
+          <option value="manuscript">Manuscript</option>
+          <option value="artifact">Artifact</option>
+        </select>
+      </div>
 
-        {/* Images */}
-        {/* <div>
-        <Label htmlFor="mainImage">Main Image</Label>
-        <Input id="mainImage" accept="image/*,video/*" type="file" {...register("mainImage")} />
+      {/* Sub Type */}
+      <div>
+        <Label>Sub type</Label>
+        <Input {...register("subType")} placeholder="e.g., sword" />
+      </div>
+
+      {/* Material */}
+      <div>
+        <Label>Material</Label>
+        <Input {...register("material")} placeholder="Iron, wood" />
+      </div>
+
+      {/* Weight & Length */}
+      <div className="flex gap-2">
+        <div>
+          <Label>Weight</Label>
+          <Input {...register("weight")} placeholder="e.g., 1.5 kg" />
+        </div>
+        <div>
+          <Label>Length</Label>
+          <Input {...register("length")} placeholder="e.g., 90 cm" />
+        </div>
+      </div>
+
+      {/* Usage */}
+      <div>
+        <Label>Usage</Label>
+        <Input {...register("usage")} placeholder="comma separated list" />
+      </div>
+
+      {/* Origin */}
+      <div className="grid grid-cols-3 gap-2">
+        <div>
+          <Label>Region</Label>
+          <Input {...register("region")} />
+        </div>
+        <div>
+          <Label>Culture</Label>
+          <Input {...register("culture")} />
+        </div>
+        <div>
+          <Label>Time Period</Label>
+          <Input {...register("timePeriod")} />
+        </div>
+      </div>
+
+      {/* Sources */}
+      <h3 className="font-semibold mt-4">Sources</h3>
+      <div>
+        <Label>Title</Label>
+        <Input {...register("sourceTitle")} />
       </div>
       <div>
-        <Label htmlFor="images">Other Images</Label>
-        <Input id="images" accept="image/*,video/*" type="file" multiple {...register("images")} />
-      </div> */}
+        <Label>Author</Label>
+        <Input {...register("sourceAuthor")} />
+      </div>
+      <div>
+        <Label>Link</Label>
+        <Input {...register("sourceLink")} />
+      </div>
+      <div>
+        <Label>Publication</Label>
+        <Input {...register("sourcePublication")} />
+      </div>
 
-        {/* Origin Section */}
-        <SectionTitleSubTitle title="Origin" subtitle="Provide historical context" />
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Label htmlFor="region">Region</Label>
-            <Input id="region" placeholder="Region of origin" {...register("region")} />
-          </div>
-          <div>
-            <Label htmlFor="culture">Culture</Label>
-            <Input id="culture" placeholder="Culture of origin" {...register("culture")} />
-          </div>
-        </div>
+      {/* Category */}
+      <div>
+        <Label>Category</Label>
+        <Input {...register("category")} />
+      </div>
 
-        {/* Time Period */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Label htmlFor="timePeriodStart">Start Year</Label>
-            <Input id="timePeriodStart" type="date" {...register("timePeriodStart")} />
-          </div>
-          <div>
-            <Label htmlFor="timePeriodEnd">End Year</Label>
-            <Input id="timePeriodEnd" type="date" {...register("timePeriodEnd")} />
-          </div>
-        </div>
+      {/* Tags */}
+      <div>
+        <Label>Tags</Label>
+        <Input {...register("tags")} placeholder="comma separated list" />
+      </div>
 
-        {/* Submit */}
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Posting..." : "Create Post"}
-        </Button>
-      </form>
-    </>
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Submitting..." : "Submit"}
+      </Button>
+    </form>
   );
 }
-// TODO make t prteted route so that only registereduser can post and trck
