@@ -2,8 +2,8 @@ import axios from "axios";
 
 
 const options = {
-  baseURL: "http://localhost:3000/api",
-  // baseURL: "https://shastarkosh.onrender.com",
+  // baseURL: "http://localhost:3000/api",
+  baseURL: "https://shastarkosh.onrender.com",
   timeout:7000,
   withCredentials: true,
 };
