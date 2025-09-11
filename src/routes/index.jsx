@@ -80,7 +80,7 @@ setloading(false)
         <div className=" flex flex-1 flex-col gap-2">
           <div className="flex flex-col gap-4 md:py-6">
             <section className="grid grid-cols-1 items-start gap-4 md:grid-cols-3">
-              <section className="col-span-2">
+              <section className="col-span-2 border-r pr-4   ">
                 <div className="flex justify-between items-center">
                   <SectionTitleSubTitle badge="Recent" title="Discussions" subtitle={`24,264,526,4${forumPosts.length} questions`} />
                   <Button>
@@ -139,8 +139,7 @@ setloading(false)
                 </div>
               </section>
 
-              <section>
-                <section className="border-l text-gray-400 body-font">
+                <section className="   text-gray-400 body-font">
                   <div className="container flex flex-wrap px-4 py-4 mx-auto items-center">
                     {/* <div className="md:w-1/2 md:pr-12 md:py-8 md:border-r md:border-b-0 md:mb-0 mb-10 pb-10 border-b border-gray-800">
   <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">Explore categories</h1>
@@ -267,7 +266,6 @@ setloading(false)
                     </div>
                   </div>
                 </section>
-              </section>
             </section>
           </div>
         </div>

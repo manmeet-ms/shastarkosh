@@ -20,24 +20,24 @@ function RouteComponent() {
   };
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <Label htmlFor="email">Your email address</Label>
+      <form className="px-6 w-1/2 mx-auto flex flex-col gap-4 " onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-col gap-2" >
+          <Label htmlFor="email">Name</Label>
           <Input required {...register("name")} type="text" placeholder="Enter name" />
         </div>
 
-        <div>
-          <Label htmlFor="email">Your email address</Label>
+        <div className="flex flex-col gap-2" >
+          <Label htmlFor="email">Username</Label>
           <Input required {...register("username")} type="text" placeholder="Enter username" />
         </div>
 
-        <div>
-          <Label htmlFor="email">Your email address</Label>
+        <div className="flex flex-col gap-2" >
+          <Label htmlFor="email">Email</Label>
           <Input required {...register("email")} type="text" placeholder="Enter email" />
         </div>
 
-        <div>
-          <Label htmlFor="email">Your email address</Label>
+        <div className="flex flex-col gap-2" >
+          <Label htmlFor="email">Password</Label>
           <Input required {...register("password")} type="password" placeholder="Enter password" />
         </div>
 

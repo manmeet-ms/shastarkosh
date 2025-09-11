@@ -1,3 +1,4 @@
+console.time('Master Seeding Round'); // Start a timer labeled 'Master Seeding Round'
 // seed.js
 import mongoose from "mongoose";
 import { faker } from "@faker-js/faker";
@@ -11,11 +12,12 @@ import ShastarInfo from "../backend/models/ShastarInfo.model.js";
 import User from "../backend/models/User.model.js";
 import SparkMD5 from "spark-md5";
 import logger from "../src/utils/logger.utils.js";
-
+import 'dotenv/config'
 
 // ====== DB CONNECTION ======
-const MONGO_URI = "mongodb://localhost:27017/shastarkosh";
-await mongoose.connect(MONGO_URI);
+console.log(process.env.MONGO_URI);
+
+await mongoose.connect(process.env.MONGO_URI);
 logger("log","✅ Connected to DB");
 
 // ====== HELPERS ======
@@ -203,12 +205,17 @@ async function seedShastars(count, users, categories) {
 async function seedAll() {
   await mongoose.connection.dropDatabase();
 
-  const users = await seedUsers(200);
-  const categories = await seedCategories(100);
+  // const users = await seedUsers(5);
+  // const categories = await seedCategories(5);
+  // const forumPosts = await seedForumPosts(5, users, categories);
+  // const resources = await seedResourceMaterials(5, users, categories);
+  // const shastars = await seedShastars(5, users, categories);
+  const users = await seedUsers(50);
+  const categories = await seedCategories(20);
   const forumPosts = await seedForumPosts(800, users, categories);
-  const resources = await seedResourceMaterials(400, users, categories);
-  const shastars = await seedShastars(500, users, categories);
-  await seedComments(2100, users, forumPosts, shastars, resources);
+  const resources = await seedResourceMaterials(350, users, categories);
+  const shastars = await seedShastars(405, users, categories);
+  await seedComments(5100, users, forumPosts, shastars, resources);
 
   logger("log","✅ Seeding complete!");
   process.exit(0);
@@ -217,4 +224,6 @@ async function seedAll() {
 seedAll().catch((err) => {
   logger("error","❌ Seeding error:", err);
   process.exit(1);
-});
+}); 
+
+console.timeEnd('Master Seeding Round'); // Start a timer labeled 'Master Seeding Round'

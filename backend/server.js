@@ -73,10 +73,3 @@ app.get("/api/routes", (req, res) => {
 app.get("/api/jwt-check", authenticateJWT, (req, res) => {
   res.send(req.user);
 });
-app.get("/api/cookies", (req, res) => {
-  console.log(req.cookies);
-  const { token } = req.cookies;
-  // logger("info", req.cookies);
-  // logger("log", "JWT token:", token);
-  res.json(token); // user comes from JWT
-});

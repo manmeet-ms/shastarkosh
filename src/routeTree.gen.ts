@@ -13,6 +13,7 @@ import { Route as NotficationsRouteImport } from './routes/notfications'
 import { Route as LandingRouteImport } from './routes/landing'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CategoriesRouteImport } from './routes/categories'
+import { Route as BetaRouteImport } from './routes/beta'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as UserRouteRouteImport } from './routes/user/route'
@@ -32,7 +33,9 @@ import { Route as ResourcesCreateRouteImport } from './routes/resources/create'
 import { Route as PostsCreateRouteImport } from './routes/posts/create'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
-import { Route as AppBetaRouteImport } from './routes/app/beta'
+import { Route as AppRoadmapRouteImport } from './routes/app/roadmap'
+import { Route as AppPhilosophyRouteImport } from './routes/app/philosophy'
+import { Route as AppChangelogRouteImport } from './routes/app/changelog'
 import { Route as ShastarsSSIdRouteImport } from './routes/shastars/s.$sId'
 import { Route as ResourcesRRIdRouteImport } from './routes/resources/r.$rId'
 import { Route as PostsPPIdRouteImport } from './routes/posts/p.$pId'
@@ -56,6 +59,11 @@ const ContactRoute = ContactRouteImport.update({
 const CategoriesRoute = CategoriesRouteImport.update({
   id: '/categories',
   path: '/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BetaRoute = BetaRouteImport.update({
+  id: '/beta',
+  path: '/beta',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -153,9 +161,19 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/auth/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppBetaRoute = AppBetaRouteImport.update({
-  id: '/beta',
-  path: '/beta',
+const AppRoadmapRoute = AppRoadmapRouteImport.update({
+  id: '/roadmap',
+  path: '/roadmap',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppPhilosophyRoute = AppPhilosophyRouteImport.update({
+  id: '/philosophy',
+  path: '/philosophy',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppChangelogRoute = AppChangelogRouteImport.update({
+  id: '/changelog',
+  path: '/changelog',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const ShastarsSSIdRoute = ShastarsSSIdRouteImport.update({
@@ -189,11 +207,14 @@ export interface FileRoutesByFullPath {
   '/user': typeof UserRouteRouteWithChildren
   '/404': typeof R404Route
   '/about': typeof AboutRoute
+  '/beta': typeof BetaRoute
   '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
   '/landing': typeof LandingRoute
   '/notfications': typeof NotficationsRoute
-  '/app/beta': typeof AppBetaRoute
+  '/app/changelog': typeof AppChangelogRoute
+  '/app/philosophy': typeof AppPhilosophyRoute
+  '/app/roadmap': typeof AppRoadmapRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/posts/create': typeof PostsCreateRoute
@@ -215,11 +236,14 @@ export interface FileRoutesByTo {
   '/user': typeof UserRouteRouteWithChildren
   '/404': typeof R404Route
   '/about': typeof AboutRoute
+  '/beta': typeof BetaRoute
   '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
   '/landing': typeof LandingRoute
   '/notfications': typeof NotficationsRoute
-  '/app/beta': typeof AppBetaRoute
+  '/app/changelog': typeof AppChangelogRoute
+  '/app/philosophy': typeof AppPhilosophyRoute
+  '/app/roadmap': typeof AppRoadmapRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/posts/create': typeof PostsCreateRoute
@@ -246,11 +270,14 @@ export interface FileRoutesById {
   '/user': typeof UserRouteRouteWithChildren
   '/404': typeof R404Route
   '/about': typeof AboutRoute
+  '/beta': typeof BetaRoute
   '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
   '/landing': typeof LandingRoute
   '/notfications': typeof NotficationsRoute
-  '/app/beta': typeof AppBetaRoute
+  '/app/changelog': typeof AppChangelogRoute
+  '/app/philosophy': typeof AppPhilosophyRoute
+  '/app/roadmap': typeof AppRoadmapRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/posts/create': typeof PostsCreateRoute
@@ -278,11 +305,14 @@ export interface FileRouteTypes {
     | '/user'
     | '/404'
     | '/about'
+    | '/beta'
     | '/categories'
     | '/contact'
     | '/landing'
     | '/notfications'
-    | '/app/beta'
+    | '/app/changelog'
+    | '/app/philosophy'
+    | '/app/roadmap'
     | '/auth/login'
     | '/auth/register'
     | '/posts/create'
@@ -304,11 +334,14 @@ export interface FileRouteTypes {
     | '/user'
     | '/404'
     | '/about'
+    | '/beta'
     | '/categories'
     | '/contact'
     | '/landing'
     | '/notfications'
-    | '/app/beta'
+    | '/app/changelog'
+    | '/app/philosophy'
+    | '/app/roadmap'
     | '/auth/login'
     | '/auth/register'
     | '/posts/create'
@@ -334,11 +367,14 @@ export interface FileRouteTypes {
     | '/user'
     | '/404'
     | '/about'
+    | '/beta'
     | '/categories'
     | '/contact'
     | '/landing'
     | '/notfications'
-    | '/app/beta'
+    | '/app/changelog'
+    | '/app/philosophy'
+    | '/app/roadmap'
     | '/auth/login'
     | '/auth/register'
     | '/posts/create'
@@ -365,6 +401,7 @@ export interface RootRouteChildren {
   UserRouteRoute: typeof UserRouteRouteWithChildren
   R404Route: typeof R404Route
   AboutRoute: typeof AboutRoute
+  BetaRoute: typeof BetaRoute
   CategoriesRoute: typeof CategoriesRoute
   ContactRoute: typeof ContactRoute
   LandingRoute: typeof LandingRoute
@@ -401,6 +438,13 @@ declare module '@tanstack/react-router' {
       path: '/categories'
       fullPath: '/categories'
       preLoaderRoute: typeof CategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/beta': {
+      id: '/beta'
+      path: '/beta'
+      fullPath: '/beta'
+      preLoaderRoute: typeof BetaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -536,11 +580,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app/beta': {
-      id: '/app/beta'
-      path: '/beta'
-      fullPath: '/app/beta'
-      preLoaderRoute: typeof AppBetaRouteImport
+    '/app/roadmap': {
+      id: '/app/roadmap'
+      path: '/roadmap'
+      fullPath: '/app/roadmap'
+      preLoaderRoute: typeof AppRoadmapRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/philosophy': {
+      id: '/app/philosophy'
+      path: '/philosophy'
+      fullPath: '/app/philosophy'
+      preLoaderRoute: typeof AppPhilosophyRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/changelog': {
+      id: '/app/changelog'
+      path: '/changelog'
+      fullPath: '/app/changelog'
+      preLoaderRoute: typeof AppChangelogRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/shastars/s/$sId': {
@@ -575,13 +633,17 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteRouteChildren {
-  AppBetaRoute: typeof AppBetaRoute
+  AppChangelogRoute: typeof AppChangelogRoute
+  AppPhilosophyRoute: typeof AppPhilosophyRoute
+  AppRoadmapRoute: typeof AppRoadmapRoute
   AppIndexRoute: typeof AppIndexRoute
   AppDiscordDiscordRoute: typeof AppDiscordDiscordRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
-  AppBetaRoute: AppBetaRoute,
+  AppChangelogRoute: AppChangelogRoute,
+  AppPhilosophyRoute: AppPhilosophyRoute,
+  AppRoadmapRoute: AppRoadmapRoute,
   AppIndexRoute: AppIndexRoute,
   AppDiscordDiscordRoute: AppDiscordDiscordRoute,
 }
@@ -660,6 +722,7 @@ const rootRouteChildren: RootRouteChildren = {
   UserRouteRoute: UserRouteRouteWithChildren,
   R404Route: R404Route,
   AboutRoute: AboutRoute,
+  BetaRoute: BetaRoute,
   CategoriesRoute: CategoriesRoute,
   ContactRoute: ContactRoute,
   LandingRoute: LandingRoute,

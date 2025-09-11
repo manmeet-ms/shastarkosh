@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 
 import { createShastarSrv } from "../../services/shastarInfo.service.js";
+import ProtectedLayout from "../../components/ProtectedLayout.jsx";
 
 export const Route = createFileRoute("/shastars/create")({
   component: RouteComponent,
@@ -86,6 +87,7 @@ function RouteComponent() {
   };
 
   return (
+    <ProtectedLayout>
     <form className="py-12 flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
       {/* Title */}
       <div>
@@ -200,5 +202,6 @@ function RouteComponent() {
         {isSubmitting ? "Submitting..." : "Submit"}
       </Button>
     </form>
+    </ProtectedLayout>
   );
 }

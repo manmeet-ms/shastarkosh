@@ -75,16 +75,17 @@ function RouteComponent() {
   };
 
   return (
-    <form className="py-12 flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
+    <ProtectedLayout>
+    <form className="p-12 pb-24 flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
       {/* Title */}
-      <div>
+      <div className="flex flex-col gap-2" >
         <Label>Title</Label>
         <Input {...register("title", { required: "Title is required" })} placeholder="Title" />
         {errors.title && <span className="text-red-500">{errors.title.message}</span>}
       </div>
 
       {/* Description */}
-      <div>
+      <div className="flex flex-col gap-2" >
         <Label>Description</Label>
         <Textarea {...register("description", { required: "Description is required" })} />
         {errors.description && <span className="text-red-500">{errors.description.message}</span>}
@@ -93,19 +94,19 @@ function RouteComponent() {
       {/* Origin */}
       <h3 className="font-semibold mt-4">Origin</h3>
       <div className="grid grid-cols-2 gap-2">
-        <div>
+        <div className="flex flex-col gap-2" >
           <Label>Region</Label>
           <Input {...register("region")} />
         </div>
-        <div>
+        <div className="flex flex-col gap-2" >
           <Label>Culture</Label>
           <Input {...register("culture")} />
         </div>
-        <div>
+        <div className="flex flex-col gap-2" >
           <Label>Time Period</Label>
           <Input {...register("timePeriod")} />
         </div>
-        <div>
+        <div className="flex flex-col gap-2" >
           <Label>Year Estimated</Label>
           <Input {...register("yearEstimated")} type="number" />
         </div>
@@ -113,35 +114,35 @@ function RouteComponent() {
 
       {/* Sources */}
       <h3 className="font-semibold mt-4">Sources</h3>
-      <div>
+      <div className="flex flex-col gap-2" >
         <Label>Title</Label>
         <Input {...register("sourceTitle")} />
       </div>
-      <div>
+      <div className="flex flex-col gap-2" >
         <Label>Author</Label>
         <Input {...register("sourceAuthor")} />
       </div>
-      <div>
+      <div className="flex flex-col gap-2" >
         <Label>Link</Label>
         <Input {...register("sourceLink")} />
       </div>
-      <div>
+      <div className="flex flex-col gap-2" >
         <Label>Publication</Label>
         <Input {...register("sourcePublication")} />
       </div>
-      <div>
+      <div className="flex flex-col gap-2" >
         <Label>Year</Label>
         <Input {...register("sourceYear")} type="number" />
       </div>
 
       {/* Category */}
-      <div>
+      <div className="flex flex-col gap-2" >
         <Label>Category</Label>
         <Input {...register("category")} />
       </div>
 
       {/* Tags */}
-      <div>
+      <div className="flex flex-col gap-2" >
         <Label>Tags</Label>
         <Input {...register("tags")} placeholder="comma separated list" />
       </div>
@@ -150,5 +151,7 @@ function RouteComponent() {
         {isSubmitting ? "Submitting..." : "Submit"}
       </Button>
     </form>
+    </ProtectedLayout>
+
   );
 }

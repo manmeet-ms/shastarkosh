@@ -3,32 +3,40 @@
 import { ModeToggle } from "@/components/mode-toggle.jsx";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Link } from "@tanstack/react-router";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useDispatch, useSelector } from "react-redux";
 
 import { APP_NAME } from "../../../shared/app-variables.shared.js";
+import { logoutUserSrv } from "../../services/auth.service.js";
+import { logoutSuccess } from "../../store/authSlice.js";
 
 export const AppHeader = () => {
   const { user } = useSelector((state) => state.auth);
   // console.log("AppHeader :: user", user, user?.id);
   // console.log("user as obj", { user });
-
+  
   // const [userProfile, setUserProfile] = useState();
   // async function getUserProfile() {
-  //   const userRes = await getUserSrv(user.id);
-  //   console.log("userRes.data", userRes.data);
-  //   setUserProfile(userRes.data);
-  // }
-
-  // useEffect(() => {
-  //   getUserProfile();
-  //   if (user && user.id) {
-  //     getUserSrv(user.id).then((userRes) => {
-  //       setUserProfile(userRes.data);
-  //     });
-  //   }
-  // }, [user]);
-
+    //   const userRes = await getUserSrv(user.id);
+    //   console.log("userRes.data", userRes.data);
+    //   setUserProfile(userRes.data);
+    // }
+    
+    // useEffect(() => {
+      //   getUserProfile();
+      //   if (user && user.id) {
+        //     getUserSrv(user.id).then((userRes) => {
+          //       setUserProfile(userRes.data);
+          //     });
+          //   }
+          // }, [user]);
+          const navigate = useNavigate({ from: "/" });
+          const dispatch = useDispatch();
+          async function handleLogout() {
+            await logoutUserSrv();
+            dispatch(logoutSuccess());
+    navigate({ to: "/auth/login" });
+  }
   return (
     <section className="p-4  backdrop-blur-md sticky top-0 z-10 bg-background/80">
       <nav className="flex items-center justify-between">
@@ -39,7 +47,11 @@ export const AppHeader = () => {
         </Link>
         {/* // TODO: refactor Nav logic */}
         <section className="flex gap-2 items-center">
-          <ModeToggle />
+       <div className="md:block hidden " >   <Button variant="ghost" ><Link to="/app/roadmap">Roadmap</Link></Button>
+          <Button variant="ghost" ><Link to="/app/changelog">Changelog</Link></Button>
+          <Button variant="ghost" ><Link to="/app/philosophy">Philosophy</Link></Button>
+          </div>
+        
           {user ? (
             <div className="flex ">
               <DropdownMenu>
@@ -55,6 +67,11 @@ export const AppHeader = () => {
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <span className="container" onClick={handleLogout}>
+                      Logout
+                    </span>
+                  </DropdownMenuItem>
                   <DropdownMenuItem>New features coming soon...</DropdownMenuItem>
                   {/* <DropdownMenuItem>Billing</DropdownMenuItem>
       <DropdownMenuItem>Team</DropdownMenuItem>
@@ -63,16 +80,16 @@ export const AppHeader = () => {
               </DropdownMenu>
             </div>
           ) : (
-            <div>
+            <div className="flex gap-2">
               <Link to="/auth/login">
-                <Button variant="ghost">Login</Button>
+                <Button variant="outline">Login</Button>
               </Link>
-              <Link to="/auth/register">
-                <Button variant="ghost">Register</Button>
-              </Link>
+              {/* <Link to="/auth/register">
+                <Button>Register</Button>
+              </Link> */}
             </div>
           )}
-
+  <ModeToggle />
           {/* <Sheet className="lg:hidden" >
     <SheetTrigger asChild>
 
@@ -141,7 +158,6 @@ export const AppHeader = () => {
       </div>
     </SheetContent>
     </Sheet> */}
-          
         </section>
       </nav>
     </section>

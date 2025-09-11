@@ -10,7 +10,7 @@ router.post("/login", loginUser);
 router.post("/register", registerUser);
 router.get("/verify", verifyUser);
 router.post("/reset-password", authenticateJWT, resetPasswordUser);
-router.post("/logout", logoutUser);
+router.post("/logout",authenticateJWT, logoutUser);
 
 router.get("/me", authenticateJWT, 
   // cacheMiddleware("userProfile", 24 * 60 * 60 * 1000), 

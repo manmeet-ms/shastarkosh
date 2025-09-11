@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getCategoriesSrv } from "../../services/category.service";
 import { createForumPostSrv } from "../../services/forumPost.service";
+import ProtectedLayout from "../../components/ProtectedLayout";
 
 export const Route = createFileRoute("/posts/create")({
   component: RouteComponent,
@@ -53,12 +54,13 @@ function RouteComponent() {
 
     console.log(data, responseSubmit);
     console.log("data", data, "\n\nformData", formData);
-    navigate("/posts");
+    navigate({to:"/posts"});
   };
   //  TODO add validation of onyl uniques posts, form reset and add which user is  creating his posts at the momenet
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+  <ProtectedLayout>
+        <form onSubmit={handleSubmit(onSubmit)}>
         <Label name="title" htmlFor="title">
           title
         </Label>
@@ -104,6 +106,8 @@ function RouteComponent() {
         <Input type="text" placeholder="Enter comma-separated list of tags you'd like to add" {...register("tags")} />
         <Button>Create Post</Button>
       </form>
+      
+  </ProtectedLayout>
     </>
   );
 }

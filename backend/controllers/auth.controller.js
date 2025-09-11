@@ -56,10 +56,18 @@ export const loginUser = async (req, res) => {
     logger("error", error);
     res.status(401).json(error);
   }
-};
-export const logoutUser = async (req, res) => {
-  const { token } = req.cookie;
-  console.log(token);
+}; 
+export const logoutUser = (req, res) => {
+  try {
+    // logger("log", req.cookies);
+    const responseOutcome = res.clearCookie("token", { path: "/", httpOnly: true, secure: true, sameSite: "none" });
+    console.log("Logout Successful");
+    res.status(200).json({message:"Logout successful"});
+    // req.session.destroy();
+    // console.log(token);
+  } catch (err) {
+    res.status(400).json({ error: err, message: "Logout failed" });
+  }
 };
 export const verifyUser = async (req, res) => {
   const { token } = req.params;

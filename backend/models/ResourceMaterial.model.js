@@ -46,6 +46,6 @@ const resourceMaterialSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-resourceMaterialSchema.index({ tags: 1, "origin.region": 1 });
+// resourceMaterialSchema.index({ tags: 1, "origin.region": 1 });
 
 export default mongoose.model("ResourceMaterial", resourceMaterialSchema);

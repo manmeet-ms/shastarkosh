@@ -109,6 +109,7 @@ const App = () => {
           </section>
         </main>
 
+        <img src="/assets/footer-image.png" alt="" />
       
         {/* <AppFooter /> */}
         <BottomNav />

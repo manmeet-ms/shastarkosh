@@ -1,4 +1,4 @@
-import { IconEye, IconFileDislike, IconFileLike, IconHeart, IconMessageCircle, IconShare, IconShare2, IconShare3, IconThumbDown, IconThumbUp } from "@tabler/icons-react";
+import { IconArrowRight, IconArrowRightToArc, IconEye, IconFileDislike, IconFileLike, IconHeart, IconMessageCircle, IconShare, IconShare2, IconShare3, IconThumbDown, IconThumbUp } from "@tabler/icons-react";
 import { Link } from "@tanstack/react-router";
 import millify from "millify";
 import React from "react";
@@ -20,10 +20,9 @@ const ResourceMaterialCard = (props) => {
      <path d="M12 5l7 7-7 7"></path>
     </svg>
     </Link> */}
-            <div className="flex relative right-1 justify-between items-center ">
-              <div className="flex items-center ">
+            <div className="flex relative right-1 justify-between container items-center ">
                 {" "}
-                <span className="px-2 hover:bg-accent py-1 text-foreground rounded-full flex items-center gap-0.5 justify-start text-sm ">
+         <div className="flex"><span className="px-2 hover:bg-accent py-1 text-foreground rounded-full flex items-center gap-0.5 justify-start text-sm ">
                   <IconHeart size={18} /> {millify(props.likes)}
                 </span>
                 {/* <span className="px-2 hover:bg-accent py-1 text-foreground rounded-full flex items-center gap-0.5 justify-start text-sm ">
@@ -31,8 +30,8 @@ const ResourceMaterialCard = (props) => {
                 </span> */}
                 <span className="px-2 hover:bg-accent py-1 text-foreground rounded-full flex items-center text gap-0.5 justify-start text-sm ">
                   <IconMessageCircle size={18} /> {millify(props.likes)}
-                </span>
-              </div>
+                </span> </div>
+                <Link className="text-sm text-primary font-medium border-b border-dashed border-primary/60  pb-0.25 " >Read More  </Link>
 
               {/* <span className="px-2 hover:bg-accent py-1 text-foreground rounded-full flex items gap-0.5 justify-start text-sm ">
                 <IconEye size={18} /> {millify(props.likes)}
