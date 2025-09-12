@@ -12,7 +12,7 @@ export async function getShastar(req, res) {
 
     // logger("log", limit, req.body);
     const result = await ShastarInfo.find().sort({ createdAt: -1 }).limit(limit);
-    console.log("Total shastars", result.length);
+    // logger("log","Total shastars", result.length);
 
     res.status(200).json(result);
   } catch (err) {
@@ -41,12 +41,12 @@ export async function createShastar(req, res) {
     res.status(200).json({ result: result});
   } catch (err) {
     logger("error", err.message);
-    res.status(40).json({ error: err.message });
+    res.status(400).json({ error: err.message });
   }
 }
 export async function updateShastar(req, res) {
   try {
-    const result = await ShastarInfo.findAnd;
+    const result = await ShastarInfo.findOneAndUpdate(req.params.sId);
     res.status(200).json({ result: result });
   } catch (err) {
     logger("error", err.message);
@@ -54,11 +54,26 @@ export async function updateShastar(req, res) {
   }
 }
 export async function deleteShastar(req, res) {
-  try {
+  try { 
     const result = await ShastarInfo;
     res.status(200).json({ result: result });
   } catch (err) {
     logger("error", err.message);
     res.status(500).json({ error: err.message });
   }
+}
+
+export async function likeShastar(req, res) {
+  
+    const { sId } = req.params;
+    logger("info",sId)
+    try {
+      const resPost = await ShastarInfo.findByIdAndUpdate(sId);
+      resPost.likes += 1;
+      await resPost.save();
+      res.status(200).json("upvote Successful");
+    } catch (err) {
+      res.status(500).json(err.message);
+    }
+   
 }

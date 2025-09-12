@@ -66,3 +66,17 @@ export async function deleteResourceMaterial(req, res) {
     logger("error", err.message);
   }
 }
+
+export async function likeResourceMaterial(req, res) {
+  
+    const { rId } = req.params;
+    logger("info",rId)
+    try {
+      const resPost = await ShastarInfo.findByIdAndUpdate(rId);
+      resPost.likes += 1;
+      await resPost.save();
+      res.status(200).json("upvote Successful");
+    } catch (err) {
+      res.status(400).json(err.message);
+    }
+  }

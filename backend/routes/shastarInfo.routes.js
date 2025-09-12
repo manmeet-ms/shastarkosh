@@ -1,11 +1,15 @@
 import express from "express";
 
-import { createShastar, deleteShastar, getShastar, getSingleShastar, updateShastar } from "../controllers/shastarInfo.controller.js";
+import { createShastar, deleteShastar, getShastar, getSingleShastar, likeShastar, updateShastar } from "../controllers/shastarInfo.controller.js";
 import { authenticateJWT, isAdmin } from "../middlewares/auth.middleware.js";
 import { cacheMiddleware } from "../middlewares/cache.middleware.js";
 
 const router = express.Router();
 
+router.post("/like/:sId", likeShastar);
+// router.post("/dislike/:rId", downvotePost)
+
+router.post("/create", authenticateJWT, createShastar);
 router.post("/create", authenticateJWT, createShastar);
 router.put("/update/:sId", authenticateJWT, updateShastar);
 router.delete("/delete/:sId", authenticateJWT, isAdmin, deleteShastar); // only dmin should delete it , maybe send an email to admin for deletion request

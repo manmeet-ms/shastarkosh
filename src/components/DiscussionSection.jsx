@@ -1,14 +1,8 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Textarea } from "@/components/ui/textarea";
-import { IconDots, IconEye, IconMinusVertical } from "@tabler/icons-react";
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import millify from "millify";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import Markdown from "react-markdown";
 import { useSelector } from "react-redux";
 
 import { getCommentsOnSinglePostSrv, postCommentSrv } from "../services/comments.service";
@@ -18,7 +12,11 @@ const DiscussionSection = (props) => {
   // console.log({ ...props });
   const [comments, setComments] = useState([]);
   const [commentValue, setCommentValue] = useState([]);
-  const { handleSubmit, reset, watch, register, formState } = useForm();
+  const { handleSubmit, reset, watch, register, formState } = useForm({
+    defaultValues: {
+      commentValue: "",
+    },
+  });
   const { user } = useSelector((state) => state.auth);
   // console.log("commenter:", user);
 
@@ -46,6 +44,7 @@ const DiscussionSection = (props) => {
         avatar: user.avatar,
       },
     });
+    reset();
     //   TODO update the comen count to the latest with controlelrs
   };
   async function fetchComments() {
@@ -68,7 +67,9 @@ const DiscussionSection = (props) => {
             </label>
 
             <Textarea name="comment" {...register("commentValue")} rows="6" columns="3" placeholder="Write a comment..." value={commentValue} onChange={(e) => setCommentValue(e.target.value)} required />
-            <Button onClick={handleSubmit}>Post comment</Button>
+            <Button type="submit" onClick={handleSubmit}>
+              Post comment
+            </Button>
           </div>
         </form>
 
@@ -76,7 +77,7 @@ const DiscussionSection = (props) => {
           // console.log("comments.map", c);
 
           return (
-            <article key={c._id} className="py-3 text-base border-border border-b  rounded-lg ">
+            <article key={c._id} className="py-3 text-base border-border border-b mt-2   ">
               <footer className="flex justify-between items-center mb-2 ">
                 <div className="flex items-center  ">
                   <div className="flex items-center">
@@ -88,6 +89,11 @@ const DiscussionSection = (props) => {
                   </div>
                   {/* <IconMinusVertical className=" opac" strokeWidth={1}/> */}
                 </div>
+                <p className="text-xs  text-muted-foreground/60 ">
+                  {/* {dayjs(c.createdAt).format("MMM DD, YYYY")}
+                          <br /> */}
+                  {dayjs(c.createdAt).fromNow()}
+                </p>
                 {/* <DropdownMenu>
                         <DropdownMenuTrigger><IconDots size={18}/></DropdownMenuTrigger>
                         <DropdownMenuContent>
@@ -112,11 +118,6 @@ const DiscussionSection = (props) => {
                     Reply
                   </button>
                 </div> */}
-              <p className="text-xs  text-muted-foreground/60 ">
-                {/* {dayjs(c.createdAt).format("MMM DD, YYYY")}
-                          <br /> */}
-                {dayjs(c.createdAt).fromNow()}
-              </p>
             </article>
           );
         })}

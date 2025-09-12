@@ -18,13 +18,13 @@ import { authenticateJWT } from "./middlewares/auth.middleware.js";
 
 //// import authRoutes from "./routes/auth.route.js";
 import authRoutes from "./routes/auth.routes.js";
+import userRoutes from "./routes/user.routes.js";
 import shastarRoutes from "./routes/shastarInfo.routes.js";
 import forumPostRoutes from "./routes/forumPost.routes.js";
-import notificationRoutes from "./routes/notification.routes.js";
-import userRoutes from "./routes/user.routes.js";
 import resourceMaterialRoutes from "./routes/resourceMaterials.routes.js";
 import categoryRoutes from "./routes/category.routes.js";
 import commentsRoutes from "./routes/comment.routes.js";
+import notificationRoutes from "./routes/notification.routes.js";
 
 
 const app = express();

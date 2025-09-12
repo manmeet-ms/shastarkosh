@@ -15,7 +15,7 @@ const BottomNav = () => {
           if (title !== "Beta" && title !== "Analytics" && title !== "Timeline" && title !== "Leaderboard")
             return (
               <Link className={cn("rounded-lg py-2  gap-1 flex flex-col items-center justify-center px-2 text-sm font-medium transition-colors")} key={url} to={url}>
-                <Icon className={cn("px-2 py-1.5 rounded-full  w-14 h-8 ", isActive ? "text-primary  bg-primary/20 " : "")} />
+                <Icon className={cn("px-2 py-1.5 rounded-full  w-14 h-8 ", isActive ? "text-primary  bg-primary/10 " : "")} />
                 <span
                   className={cn(
                     "",

@@ -29,8 +29,8 @@ const forumPostSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-// forumPostSchema.index({ category: 1, createdAt: -1 });
-// forumPostSchema.index({ tags: 1 });
-// forumPostSchema.index({ status: 1 });
-// forumPostSchema.index({ author: 1 });
+forumPostSchema.index({ category: 1, createdAt: -1 });
+forumPostSchema.index({ tags: 1 });
+forumPostSchema.index({ status: 1 });
+forumPostSchema.index({ author: 1 });
 export default mongoose.model("ForumPost", forumPostSchema);

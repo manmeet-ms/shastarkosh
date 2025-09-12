@@ -4,7 +4,7 @@ import {authenticateJWT, isAdmin} from '../middlewares/auth.middleware.js'
 
 const router = express.Router();
 
-router.get("/", getUser);
+router.get("/u/:uid",authenticateJWT, getUser);
 
 router.put("/update", authenticateJWT, updateUserProfile);
 router.post("/flush",authenticateJWT,isAdmin,flushUsers );

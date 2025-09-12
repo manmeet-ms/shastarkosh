@@ -17,3 +17,10 @@ export async function updateResourceMaterialSrv(rId, data) {
 export async function deleteResourceMaterialSrv(rId) {
   return await api.delete(`/resources/delete/${rId}`);
 }
+
+export async function likeResourceMaterialSrv(rId) {
+  return await api.post(`/resources/like/${rId}`);
+}
+// export async function downvotePostSrv(postId) {
+//   return await api.post(`/resources/downvote/${postId}`);
+// }

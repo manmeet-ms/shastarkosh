@@ -1,106 +1,42 @@
 // components/AuthModal.jsx
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { login } from "../store/authSlice";
-import api from "../services/api";
-import { X } from "lucide-react"; // optional icon
+import { Link } from "@tanstack/react-router";
+import { X } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
 
-const AuthModal = ({ isOpen, onClose, onSuccess }) => {
-  const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({ email: "", password: "", username: "" });
-  const [error, setError] = useState("");
+import { clearPendingAction } from "../store/authSlice";
+
+const AuthModal = () => {
   const dispatch = useDispatch();
+  const { user, pendingAction } = useSelector((state) => state.auth);
 
-  if (!isOpen) return null;
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  // Close modal and clear pending action
+  const closeModal = () => {
+    dispatch(clearPendingAction());
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-
-    try {
-      const endpoint = isLogin ? "/auth/login" : "/auth/register";
-      const res = await api.post(endpoint, formData, { withCredentials: true });
-
-      // Save user in Redux
-      dispatch(login({ userData: res.data.currentUser }));
-      
-      // Close modal and trigger success callback (e.g., continue liking)
-      onClose();
-      if (onSuccess) onSuccess();
-    } catch (err) {
-      setError(err.response?.data?.message || "Something went wrong");
-    }
-  };
+  // Optional: Auto-open when pendingAction exists and no user
+  if (user || !pendingAction) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 w-full max-w-md relative">
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+        <button onClick={closeModal} className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
           <X size={20} />
         </button>
 
-        <h2 className="text-2xl font-bold mb-4">{isLogin ? "Log In" : "Sign Up"}</h2>
-        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+        <h2 className="text-2xl font-bold mb-4">Join the Community</h2>
+        <p className="text-gray-600 mb-6">Log in or create an account to continue.</p>
 
-        <form onSubmit={handleSubmit}>
-          {!isLogin && (
-            <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={formData.username}
-              onChange={handleChange}
-              className="w-full border p-2 mb-3 rounded"
-              required={!isLogin}
-            />
-          )}
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full border p-2 mb-3 rounded"
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            className="w-full border p-2 mb-4 rounded"
-            required
-          />
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-          >
-            {isLogin ? "Log In" : "Sign Up"}
-          </button>
-        </form>
+        <div className="space-y-4">
+          <Link to="/auth/login" className="block w-full text-center py-2 bg-blue-600 text-white rounded hover:bg-blue-700" onClick={closeModal}>
+            Log In
+          </Link>
+          <Link to="/auth/register" className="block w-full text-center py-2 bg-green-600 text-white rounded hover:bg-green-700" onClick={closeModal}>
+            Create Account
+          </Link>
+        </div>
 
-        <p className="mt-4 text-center text-sm">
-          {isLogin ? (
-            <>
-              Don't have an account?{" "}
-              <span onClick={() => setIsLogin(false)} className="text-blue-600 cursor-pointer">
-                Sign up
-              </span>
-            </>
-          ) : (
-            <>
-              Already have an account?{" "}
-              <span onClick={() => setIsLogin(true)} className="text-blue-600 cursor-pointer">
-                Log in
-              </span>
-            </>
-          )}
-        </p>
+        <p className="mt-4 text-xs text-gray-500 text-center">By continuing, you agree to our Terms of Service and Privacy Policy.</p>
       </div>
     </div>
   );

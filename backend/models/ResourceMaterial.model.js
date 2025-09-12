@@ -6,7 +6,7 @@ const resourceMaterialSchema = new mongoose.Schema(
     mainImage: { type: String },
     images: [{ type: String }],
     description: { type: String, required: true, maxlength: 6000 },
-    isEdited:{type:Boolean, default:false},
+    isEdited: { type: Boolean, default: false },
 
     origin: {
       region: String,
@@ -26,8 +26,8 @@ const resourceMaterialSchema = new mongoose.Schema(
     ],
 
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-          category: { type: String}, // intruduce enums
- tags: [{ type: String }],
+    category: { type: String }, // intruduce enums
+    tags: [{ type: String }],
 
     likes: { type: Number, default: 0 },
     dislikes: { type: Number, default: 0 },
@@ -46,6 +46,6 @@ const resourceMaterialSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// resourceMaterialSchema.index({ tags: 1, "origin.region": 1 });
+resourceMaterialSchema.index({ tags: 1, "origin.region": 1 });
 
 export default mongoose.model("ResourceMaterial", resourceMaterialSchema);

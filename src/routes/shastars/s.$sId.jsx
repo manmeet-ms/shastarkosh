@@ -1,11 +1,8 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Textarea } from "@/components/ui/textarea";
 import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
-import millify from "millify";
 import { useEffect, useState } from "react";
 
 import DiscussionSection from "../../components/DiscussionSection";
@@ -28,21 +25,25 @@ function RouteComponent() {
     console.log(resInfo.data.images[0]);
 
     setShastar(resInfo.data);
+
+    const creator = await getUserSrv(shastar.createdBy);
+    setcreatorInfo(creator.data);
     setcurrentImageFocusURL(resInfo.data.mainImage);
     console.log("resShastars", shastar);
   };
 
-  const [creatorInfo, setcreatorInfo] = useState()
-  async function getCreatorInfo(creatorId) {
-    const creator = await getUserSrv(creatorId);
-    console.log(creatorId, creator);
-    setcreatorInfo(creator)
-    return creator;
-  }
+  const [creatorInfo, setcreatorInfo] = useState();
+  // async function getCreatorInfo(creatorId) {
+  //   const creator = await getUserSrv(shastar.createdBy);
+  //   setcreatorInfo(creator.data)
+  //   // console.log(creatorId, creator);
+  //   // return creator;
+  // }
   useEffect(() => {
     getShastarInfo();
-getCreatorInfo(shastar.createdBy)
-    console.log("creator", creatorInfo);
+    if (shastar.createdBy) {
+      console.log("creator useEffect", shastar.createdBy, creatorInfo);
+    }
     console.log("resShastars useEffect", shastar);
     console.log("resShastars useEffect", shastar.images);
   }, []);
@@ -64,7 +65,7 @@ getCreatorInfo(shastar.createdBy)
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="capitalize">{shastar?.name} </BreadcrumbPage>
+              <BreadcrumbPage className="capitalize">{shastar?.title} </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -84,7 +85,7 @@ getCreatorInfo(shastar.createdBy)
               </div>
               <div className="p-6 md:w-1/2 flex flex-col items-start">
                 <span className="inline-block py-1 px-2 rounded bg-gray-800 text-gray-400 text-opacity-75 text-xs font-medium  uppercase">{shastar.category}</span>
-                <h2 className="sm:text-3xl text-2xl title-font font-medium text-white mt-4 mb-4">{shastar?.name}</h2>
+                <h2 className="sm:text-3xl text-2xl title-font font-medium text-white mt-4 mb-4">{shastar?.title}</h2>
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -103,16 +104,28 @@ getCreatorInfo(shastar.createdBy)
                     </TableRow>
                   </TableBody>
                 </Table>
-                <p className="leading-relaxed mb-8">Live-edge letterpress cliche, salvia fanny pack humblebrag narwhal portland. VHS man braid palo santo hoodie brunch trust fund. Bitters hashtag waistcoat fashion axe chia unicorn. Plaid fixie chambray 90's, slow-carb etsy tumeric.</p>
-                <div className="flex items-center flex-wrap pb-4   border-gray-800 border-opacity-75 mt-auto w-full">
+
+                <div className="my-3 font-medium flex flex-wrap gap-2 ">
+                  Alternative name:
+                  {Array.isArray(shastar.alternativeNames) && shastar.alternativeNames.length > 0 ? shastar.alternativeNames.map((img, idx) => <span className="font-normal">{img}</span>) : null}
+                </div>
+                <p className="leading-relaxed mb-8">{shastar.usage}</p>
+                {/* <div className="flex items-center flex-wrap pb-4   border-gray-800 border-opacity-75 mt-auto w-full">
                   <a className="inline-flex items-center">
-                    <img alt="blog" src="https://dummyimage.com/103x103" className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center" />
+                    <img alt="creator" src={creatorInfo?.avatar} className="w-6 h-6 rounded-full flex-shrink-0 object-cover object-center" />
                     <span className="flex-grow flex flex-col pl-4">
                       <span className="title-font font-medium text-white">{creatorInfo?.name}</span>
-                      <span className="text-muted-foreground text-xs  mt-0.5">Author</span>
+                      <span className="text-muted-foreground text-xs  mt-0.5">                      <span className="title-font font-medium text-white">{creatorInfo?.username}</span>
+</span> 
                     </span>
-                  </a>
-
+                  </a> 
+     <div className="flex items-center">
+                    <img className="mr-2 w-6 h-6 rounded-full" src={creatorInfo?.avatar} alt={creatorInfo?.name} />
+                    <div className="flex flex-col">
+                      <p className="inline-flex items-center   text-sm text-foreground font-semibold">{creatorInfo?.name}</p>
+                      <span className="text-xs text-muted-foreground/60  ">@{creatorInfo?.username}</span>
+                    </div>
+                  </div>
                   <span className="text-muted-foreground mr-3 inline-flex items-center ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-800">
                     <svg className="w-4 h-4 mr-1" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -126,7 +139,7 @@ getCreatorInfo(shastar.createdBy)
                     </svg>
                     {"20"}
                   </span>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -135,7 +148,24 @@ getCreatorInfo(shastar.createdBy)
               <TabsTrigger value="information">Information</TabsTrigger>
               <TabsTrigger value="discussion">Discussion</TabsTrigger>
             </TabsList>
-            <TabsContent value="information">{shastar?.description}</TabsContent>
+            <TabsContent value="information">
+              {shastar?.description}
+              <div className="pt-4  pb-24">
+                {" "}
+                <div className="flex my-2 items-center">
+                  <img className="mr-2 w-6 h-6 rounded-full" src={creatorInfo?.avatar} alt={creatorInfo?.name} />
+                  <div className="flex flex-col">
+                    <p className="inline-flex items-center   text-sm text-foreground font-semibold">{creatorInfo?.name}</p>
+                    <span className="text-xs text-muted-foreground/60  ">@{creatorInfo?.username}</span>
+                  </div>
+                </div>
+                <p className="text-xs  text-muted-foreground/60 ">
+                  {/* {dayjs(c.createdAt).format("MMM DD, YYYY")}
+                                            <br /> */}
+                  Created {dayjs(shastar.createdAt).fromNow()}
+                </p>
+              </div>
+            </TabsContent>
             <TabsContent value="discussion">
               <DiscussionSection type="ShastarInfo" discussionPlaceId={sId} />
             </TabsContent>

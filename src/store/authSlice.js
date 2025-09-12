@@ -17,6 +17,7 @@ const initialState = {
   status: false,
   loading: false,
   error: null,
+  pendingAction:null
 };
 const authSlice = createSlice({
   name: "auth",
@@ -26,9 +27,15 @@ const authSlice = createSlice({
       state.status = true;
       state.user = action.payload.userData;
     },
-    logoutSuccess: (state) => {
+    logout: (state) => {
       state.status = false;
       state.user = null;
+    },
+    setPendingAction: (state, action) => {
+      state.pendingAction = action.payload;
+    },
+    clearPendingAction: (state) => {
+      state.pendingAction = null;
     },
   },
   extraReducers: (builder) => {
@@ -47,5 +54,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { login, logoutSuccess } = authSlice.actions;
+export const { login, logout, setPendingAction, clearPendingAction } = authSlice.actions;
 export default authSlice.reducer;

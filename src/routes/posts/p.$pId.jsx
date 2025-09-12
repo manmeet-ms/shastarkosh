@@ -1,22 +1,15 @@
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/badge";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Textarea } from "@/components/ui/textarea";
-import { IconDots, IconEye, IconMinusVertical } from "@tabler/icons-react";
 import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import millify from "millify";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Markdown from "react-markdown";
 import { useSelector } from "react-redux";
 
 import DiscussionSection from "../../components/DiscussionSection";
-import { postCommentSrv } from "../../services/comments.service.js";
-import { downvotePostSrv, getSingleForumPostSrv, updateForumPostSrv } from "../../services/forumPost.service.js";
-import { getUserSrv } from "../../services/user.service.js";
+import { getSingleForumPostSrv } from "../../services/forumPost.service.js";
 
 dayjs.extend(relativeTime);
 
@@ -37,21 +30,20 @@ function RouteComponent() {
   const [commentValue, setCommentValue] = useState([]);
 
   const getPostInfo = async () => {
-     const resInfo = await getSingleForumPostSrv(pId);
-  setPostDetail(resInfo.data.post);
-  setComments(resInfo.data.comments);
-  settags(resInfo.data.tags);
-  console.log("resInfo.data.tags",resInfo.data.tags);
-  setPostCreator(resInfo.data.author);
-  setLoading(false);
+    const resInfo = await getSingleForumPostSrv(pId);
+    setPostDetail(resInfo.data.post);
+    setComments(resInfo.data.comments);
+    settags(resInfo.data.tags);
+    console.log("resInfo.data.tags", resInfo.data.tags);
+    setPostCreator(resInfo.data.author);
+    setLoading(false);
     // setPostDetail(resInfo.data.post);
     // setAuthor(resInfo.data.author);
 
- 
     // console.log("resPost creator", postCreator);
     // console.log("resPost comments", comments);
-  }; 
-  
+  };
+
   useEffect(() => {
     getPostInfo();
     console.log("resPost tags", tags);
@@ -65,8 +57,8 @@ function RouteComponent() {
       postDetail._id,
       {
         text: commentValue,
-        discussionType:"ForumPost",
-        discussionId:pId,
+        discussionType: "ForumPost",
+        discussionId: pId,
         author: {
           id: user._id,
           name: user.name,
@@ -77,13 +69,12 @@ function RouteComponent() {
       data
     );
 
-    
     reset();
     await getSingleForumPostSrv(pId);
   };
   useEffect(() => {
-  console.log("tags updated", tags);
-}, [tags]);
+    console.log("tags updated", tags);
+  }, [tags]);
   return (
     <>
       <main className="px-8 pb-12 flex flex-col items-start">
@@ -102,40 +93,36 @@ function RouteComponent() {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        {loading?<>loading...</>:<section className="w-full   container text-muted-foreground body-font overflow-hidden">
-          <section className="body-font overflow-hidden">
-            <div className=" container   py-6 mx-auto">
-              <div className="   -m-12">
-                <div className="p-12 flex flex-col items-start">
+        {loading ? (
+          <>loading...</>
+        ) : (
+          <section className="w-full   container text-muted-foreground body-font overflow-hidden">
+            <section className="body-font overflow-hidden">
+              <div className=" container   py-6 mx-auto">
+                <div className="   -m-12">
+                  <div className="p-12 flex flex-col items-start">
+                    <h2 className="sm:text-3xl text-2xl title-font font-medium text-foreground mt-4 mb-4">{postDetail.title}</h2>
+                    {/* <p className="leading-relaxed mb-4">{postDetail.content}</p> */}
+                    <Markdown>{postDetail.content}</Markdown>
 
-                  <h2 className="sm:text-3xl text-2xl title-font font-medium text-foreground mt-4 mb-4">{postDetail.title}</h2>
-                  {/* <p className="leading-relaxed mb-4">{postDetail.content}</p> */}
-                  <Markdown>{postDetail.content}</Markdown>
+                    <Badge variant="secondary" className="my-4 mb-2 inline-block font-medium  capitalize">
+                      {postDetail.category}
+                    </Badge>
+                    <div className="flex gap-4">{tags && tags.length > 0 && tags.map((tag, idx) => <span className="font-bold text-sm">{tag} </span>)}</div>
 
-
-             
-<Badge variant="secondary" className="my-4 mb-2 inline-block font-medium  capitalize" >{postDetail.category}</Badge> 
-<div className="flex gap-4">
-  
-  {tags && tags.length > 0 && tags.map((tag, idx) => (
-<span className="font-bold text-sm" >{tag} </span>
-))}
-
-</div>
-
-                  <div className="flex items-center flex-wrap py-4 border-b-2 border-gray-800 border-opacity-75 mt-auto w-full">
-                    <div className="inline-flex items-center">
-                      <img alt="post-avatar" src={postCreator.avatar} className="size-6 rounded-full flex-shrink-0 object-cover object-center" />
-                      <span className="flex-grow flex flex-col pl-2">
-                        <span className="title-font font-medium text-foreground text-sm">{postCreator.name}</span>
-                        <span className="text-muted-foreground/60 text-xs ">Posted {postDetail?.createdAt ? dayjs(postDetail.createdAt).fromNow() : ""}</span>
-                      </span> 
-                    </div>
-                    {/* <span className="text-muted-foreground/60 mr-3 inline-flex items-center ml-auto leading-none text-sm pr-3 py-1   ">
+                    <div className="flex items-center flex-wrap py-4 border-b-2 border-gray-800 border-opacity-75 mt-auto w-full">
+                      <div className="inline-flex items-center">
+                        <img alt="post-avatar" src={postCreator.avatar} className="size-6 rounded-full flex-shrink-0 object-cover object-center" />
+                        <span className="flex-grow flex flex-col pl-2">
+                          <span className="title-font font-medium text-foreground text-sm">{postCreator.name}</span>
+                          <span className="text-muted-foreground/60 text-xs ">Posted {postDetail?.createdAt ? dayjs(postDetail.createdAt).fromNow() : ""}</span>
+                        </span>
+                      </div>
+                      {/* <span className="text-muted-foreground/60 mr-3 inline-flex items-center ml-auto leading-none text-sm pr-3 py-1   ">
                       <IconEye />
                       {millify(postDetail.views)}
                     </span> */}
-                    {/* <span className="text-muted-foreground/60 inline-flex items-center leading-none text-sm">
+                      {/* <span className="text-muted-foreground/60 inline-flex items-center leading-none text-sm">
     <svg className="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
     <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
     </svg>
@@ -143,13 +130,14 @@ function RouteComponent() {
     
     ||0}
     </span> */}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
+            <DiscussionSection type="ForumPost" discussionPlaceId={pId} />
           </section>
-          <DiscussionSection  type="ForumPost" discussionPlaceId={pId} />
-        </section>}
+        )}
       </main>
     </>
   );

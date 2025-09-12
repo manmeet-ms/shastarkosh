@@ -1,24 +1,10 @@
 import api from "./api";
 
-export async function getForumPostSrv(limit) {
-  return await api.get(`/posts?limit=${limit}`);
-}
-export async function getSingleForumPostSrv(pId) {
-  return await api.get(`/posts/p/${pId}`);
-}
-export async function createForumPostSrv(data) {
-  return await api.post("/posts/create", data);
-}
-export async function updateForumPostSrv(pId) {
-  return await api.put(`/posts/update/${pId}`);
-}
-export async function deleteForumPostSrv(pId) {
-  return await api.delete(`/posts/delete/${pId}`);
-}
+export const getForumPostSrv = async (limit) => await api.get(`/posts?limit=${limit}`);
+export const getSingleForumPostSrv = async (pId) => await api.get(`/posts/p/${pId}`);
+export const createForumPostSrv = async (data) => await api.post("/posts/create", data);
+export const updateForumPostSrv = async (pId) => await api.put(`/posts/update/${pId}`);
+export const deleteForumPostSrv = async (pId) => await api.delete(`/posts/delete/${pId}`);
 
-export async function upvotePostSrv(postId) {
-  return await api.post(`posts/upvote/${postId}`);
-}
-export async function downvotePostSrv(postId) {
-  return await api.post(`posts/downvote/${postId}`);
-}
+export const upvotePostSrv = async (postId) => await api.post(`/posts/upvote/${postId}`);
+export const downvotePostSrv = async (postId) => await api.post(`/posts/downvote/${postId}`);

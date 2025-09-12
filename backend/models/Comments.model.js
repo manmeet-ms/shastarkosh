@@ -31,9 +31,9 @@ const commentSchema = new mongoose.Schema(
   { timestamps: true }
 ); 
 
-// commentSchema.index({ targetType: 1, targetId: 1 });
-// commentSchema.index({ parentComment: 1 });
-// commentSchema.index({ author: 1 });
-// commentSchema.index({ createdAt: -1 });
+commentSchema.index({ targetType: 1, targetId: 1 });
+commentSchema.index({ parentComment: 1 });
+commentSchema.index({ author: 1 });
+commentSchema.index({ createdAt: -1 });
 
 export default mongoose.model("Comment", commentSchema);

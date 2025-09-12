@@ -11,6 +11,7 @@ import { SIDENAV_DASH } from "../shared/sidenav-items.shared.js";
 import "./App.css";
 import BottomNav from "./components/Footer/BottomNav.jsx";
 import { fetchUser } from "./store/authSlice.js";
+import AuthModal from "./components/AuthModal.jsx";
 
 const App = () => {
  
@@ -111,6 +112,7 @@ const App = () => {
 
         <img src="/assets/footer-image.png" alt="" />
       
+        <AuthModal />
         {/* <AppFooter /> */}
         <BottomNav />
       </ThemeProvider>

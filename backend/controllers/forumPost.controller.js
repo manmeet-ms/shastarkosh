@@ -12,9 +12,9 @@ export async function getForumPost(req, res) {
       limit = parseInt(req.query.limit); // from query string
     } 
 
-    logger("log", limit, "req.body", req.body);
+    // logger("log", limit, "req.body", req.body);
     const result = await ForumPost.find().sort({ createdAt: -1 }).limit(limit);
-    console.log("Total Posts", result.length);
+    // logger("log","Total Posts", result.length);
 
     res.status(200).json(result);
   } catch (err) {

@@ -33,7 +33,7 @@ createRoot(document.getElementById("root")).render(
         {/* <ProtectedLayout> */}
           <RouterProvider router={router}></RouterProvider>
         {/* </ProtectedLayout> */}
-        <TanStackRouterDevtools router={router} />
+        {/* <TanStackRouterDevtools router={router} /> */}
         <Toaster />
       </ThemeProvider>
     </Suspense>

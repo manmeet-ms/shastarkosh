@@ -59,8 +59,8 @@ const shastarInfoSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-// shastarInfoSchema.index({ type: 1, subType: 1 });
-// shastarInfoSchema.index({ "origin.region": 1, "origin.culture": 1 });
-// shastarInfoSchema.index({ tags: 1 });
-// shastarInfoSchema.index({ createdBy: 1 });
+shastarInfoSchema.index({ type: 1, subType: 1 });
+shastarInfoSchema.index({ "origin.region": 1, "origin.culture": 1 });
+shastarInfoSchema.index({ tags: 1 });
+shastarInfoSchema.index({ createdBy: 1 });
 export default mongoose.model("Shastar", shastarInfoSchema);

@@ -8,9 +8,9 @@ const userSchema = new mongoose.Schema(
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true },
-    role: { type: String, enum: ["user", "moderator", "admin"], default: "user" },
+    role: { type: String, enum: ["user", "moderator", "admin", "tester"], default: "user" },
     avatar: { type: String },
-    bio: { type: String, maxlength: 500 },
+    bio: { type: String, maxlength: 500 },  
     isVerified: { type: Boolean, default: false },
     verificationToken: String,
     resetPasswordToken: String,
@@ -40,8 +40,7 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// userSchema.index({ username: 1 });
-// userSchema.index({ email: 1 });
+userSchema.index({ username: 1 });
+userSchema.index({ email: 1 });
 
 export default mongoose.model("User", userSchema);
-

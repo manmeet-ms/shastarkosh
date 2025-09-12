@@ -18,7 +18,7 @@ export const getCommentsOnSinglePost = async (req, res) => {
     const resComments = await Comment.find({ discussionId: postId }).sort({createdAt:-1});
     const result=resComments
     // logger("log",postId,resComments)
-    logger("log",result.length)
+    // logger("log",result.length)
     res.status(200).json(result);
   } catch (err) {
     res.status(400).json(err.message);

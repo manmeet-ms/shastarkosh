@@ -5,6 +5,7 @@ import {
     deleteResourceMaterial,
     getResourceMaterial,
     getSingleResourceMaterial,
+    likeResourceMaterial,
     updateResourceMaterial
 } from "../controllers/resourceMaterial.controller.js";
 import { authenticateJWT, isAdmin } from "../middlewares/auth.middleware.js";
@@ -16,5 +17,7 @@ router.get("/r/:rId", cacheMiddleware("singleResourceMaterials",24 * 60 * 60 * 1
 router.post("/create", authenticateJWT, createResourceMaterial);
 router.put("/update/:rId", authenticateJWT,updateResourceMaterial);
 router.delete("/delete/:rId",authenticateJWT,isAdmin, deleteResourceMaterial); // only dmin should deleteResourceMaterialit 
-
+router.post("/like/:rId", likeResourceMaterial);
+// router.post("/downvote/:rId", downvotePost
+// );
 export default router;

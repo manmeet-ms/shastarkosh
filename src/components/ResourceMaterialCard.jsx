@@ -1,14 +1,11 @@
-import { IconArrowRight, IconArrowRightToArc, IconEye, IconFileDislike, IconFileLike, IconHeart, IconMessageCircle, IconShare, IconShare2, IconShare3, IconThumbDown, IconThumbUp } from "@tabler/icons-react";
+import { IconHeart, IconMessageCircle } from "@tabler/icons-react";
 import { Link } from "@tanstack/react-router";
 import millify from "millify";
-import React from "react";
-
 const ResourceMaterialCard = (props) => {
-
   return (
-     <Link to={`/resources/r/${props.id}`}>
+    <Link to={`/resources/r/${props.id}`}>
       <div className="bg-card h-full border-2  rounded-lg overflow-hidden">
-        <img className="lg:h-48 md:h-36 w-full object-cover object-center" src={props.mainImage} alt="blog" />
+        <img className="lg:h-48 md:h-36 h-36 w-full object-cover object-center" src={props.mainImage} alt="blog" />
         <div className="p-6">
           <h2 className="tracking-widest text-xs title-font font-medium text-gray-500 mb-1">{String(props.categories)}</h2>
           <h1 className="title-font text-lg font-medium text-foreground line-clamp-1 mb-3">{props.title}</h1>
@@ -21,26 +18,27 @@ const ResourceMaterialCard = (props) => {
     </svg>
     </Link> */}
             <div className="flex relative right-1 justify-between container items-center ">
-                {" "}
-         <div className="flex"><span className="px-2 hover:bg-accent py-1 text-foreground rounded-full flex items-center gap-0.5 justify-start text-sm ">
+              {" "}
+              <div className="flex">
+               <span className="px-2 hover:bg-accent py-1 text-foreground rounded-full flex items-center gap-0.5 justify-start text-sm ">
                   <IconHeart size={18} /> {millify(props.likes)}
-                </span>
+                </span> 
                 {/* <span className="px-2 hover:bg-accent py-1 text-foreground rounded-full flex items-center gap-0.5 justify-start text-sm ">
                   <IconThumbDown size={18} /> {millify(props.likes)}
                 </span> */}
                 <span className="px-2 hover:bg-accent py-1 text-foreground rounded-full flex items-center text gap-0.5 justify-start text-sm ">
                   <IconMessageCircle size={18} /> {millify(props.likes)}
-                </span> </div>
-                <Link className="text-sm text-primary font-medium border-b border-dashed border-primary/60  pb-0.25 " >Read More  </Link>
-
+                </span>{" "}
+              </div>
+              <Link className="text-sm text-primary font-medium border-b border-dashed border-primary/60  pb-0.25 ">Read More </Link>
               {/* <span className="px-2 hover:bg-accent py-1 text-foreground rounded-full flex items gap-0.5 justify-start text-sm ">
                 <IconEye size={18} /> {millify(props.likes)}
               </span> */}
             </div>
           </div>
         </div>
-      </div></Link>
-
+      </div>
+    </Link>
   );
 };
 

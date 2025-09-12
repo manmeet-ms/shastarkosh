@@ -2,10 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { faker } from "@faker-js/faker";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import SparkMD5 from "spark-md5";
 
+import ProtectedLayout from "../../components/ProtectedLayout.jsx";
 import { createResourceMaterialSrv } from "../../services/resourceMaterial.service.js";
 
 export const Route = createFileRoute("/resources/create")({
@@ -60,8 +63,8 @@ function RouteComponent() {
       ],
       category: data.category,
       tags: data.tags ? data.tags.split(",").map((t) => t.trim()) : [],
-      mainImage: "/assets/placeholder-resource.png",
-      images: ["/assets/placeholder-resource.png"],
+      mainImage: `https://www.gravatar.com/avatar/${SparkMD5.hash(String(faker.number.int({ min: 50, max: 896 })))}?d=retro`,
+      images: ["/assets/placeholder-weapon.png", "/assets/placeholder-weapon.png", "/assets/placeholder-weapon.png"],
       createdBy: user._id,
     };
 
@@ -76,82 +79,81 @@ function RouteComponent() {
 
   return (
     <ProtectedLayout>
-    <form className="p-12 pb-24 flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
-      {/* Title */}
-      <div className="flex flex-col gap-2" >
-        <Label>Title</Label>
-        <Input {...register("title", { required: "Title is required" })} placeholder="Title" />
-        {errors.title && <span className="text-red-500">{errors.title.message}</span>}
-      </div>
-
-      {/* Description */}
-      <div className="flex flex-col gap-2" >
-        <Label>Description</Label>
-        <Textarea {...register("description", { required: "Description is required" })} />
-        {errors.description && <span className="text-red-500">{errors.description.message}</span>}
-      </div>
-
-      {/* Origin */}
-      <h3 className="font-semibold mt-4">Origin</h3>
-      <div className="grid grid-cols-2 gap-2">
-        <div className="flex flex-col gap-2" >
-          <Label>Region</Label>
-          <Input {...register("region")} />
+      <form className="p-12 pb-24 flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
+        {/* Title */}
+        <div className="flex flex-col gap-2">
+          <Label>Title</Label>
+          <Input {...register("title", { required: "Title is required" })} placeholder="Title" />
+          {errors.title && <span className="text-red-500">{errors.title.message}</span>}
         </div>
-        <div className="flex flex-col gap-2" >
-          <Label>Culture</Label>
-          <Input {...register("culture")} />
+
+        {/* Description */}
+        <div className="flex flex-col gap-2">
+          <Label>Description</Label>
+          <Textarea {...register("description", { required: "Description is required" })} />
+          {errors.description && <span className="text-red-500">{errors.description.message}</span>}
         </div>
-        <div className="flex flex-col gap-2" >
-          <Label>Time Period</Label>
-          <Input {...register("timePeriod")} />
+
+        {/* Origin */}
+        <h3 className="font-semibold mt-4">Origin</h3>
+        <div className="grid grid-cols-2 gap-2">
+          <div className="flex flex-col gap-2">
+            <Label>Region</Label>
+            <Input {...register("region")} />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>Culture</Label>
+            <Input {...register("culture")} />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>Time Period</Label>
+            <Input {...register("timePeriod")} />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>Year Estimated</Label>
+            <Input {...register("yearEstimated")} type="number" />
+          </div>
         </div>
-        <div className="flex flex-col gap-2" >
-          <Label>Year Estimated</Label>
-          <Input {...register("yearEstimated")} type="number" />
+
+        {/* Sources */}
+        <h3 className="font-semibold mt-4">Sources</h3>
+        <div className="flex flex-col gap-2">
+          <Label>Title</Label>
+          <Input {...register("sourceTitle")} />
         </div>
-      </div>
+        <div className="flex flex-col gap-2">
+          <Label>Author</Label>
+          <Input {...register("sourceAuthor")} />
+        </div>
+        <div className="flex flex-col gap-2">
+          <Label>Link</Label>
+          <Input {...register("sourceLink")} />
+        </div>
+        <div className="flex flex-col gap-2">
+          <Label>Publication</Label>
+          <Input {...register("sourcePublication")} />
+        </div>
+        <div className="flex flex-col gap-2">
+          <Label>Year</Label>
+          <Input {...register("sourceYear")} type="number" />
+        </div>
 
-      {/* Sources */}
-      <h3 className="font-semibold mt-4">Sources</h3>
-      <div className="flex flex-col gap-2" >
-        <Label>Title</Label>
-        <Input {...register("sourceTitle")} />
-      </div>
-      <div className="flex flex-col gap-2" >
-        <Label>Author</Label>
-        <Input {...register("sourceAuthor")} />
-      </div>
-      <div className="flex flex-col gap-2" >
-        <Label>Link</Label>
-        <Input {...register("sourceLink")} />
-      </div>
-      <div className="flex flex-col gap-2" >
-        <Label>Publication</Label>
-        <Input {...register("sourcePublication")} />
-      </div>
-      <div className="flex flex-col gap-2" >
-        <Label>Year</Label>
-        <Input {...register("sourceYear")} type="number" />
-      </div>
+        {/* Category */}
+        <div className="flex flex-col gap-2">
+          <Label>Category</Label>
+          <Input {...register("category")} />
+        </div>
 
-      {/* Category */}
-      <div className="flex flex-col gap-2" >
-        <Label>Category</Label>
-        <Input {...register("category")} />
-      </div>
+        {/* Tags */}
+        <div className="flex flex-col gap-2">
+          <Label>Tags</Label>
+          <Input {...register("tags")} placeholder="comma separated list" />
+        </div>
 
-      {/* Tags */}
-      <div className="flex flex-col gap-2" >
-        <Label>Tags</Label>
-        <Input {...register("tags")} placeholder="comma separated list" />
-      </div>
-
-      <Button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Submitting..." : "Submit"}
-      </Button>
-    </form>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit"}
+        </Button>
+      </form>
     </ProtectedLayout>
-
   );
 }

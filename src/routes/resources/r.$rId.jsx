@@ -1,10 +1,9 @@
-
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createFileRoute } from "@tanstack/react-router";
 import millify from "millify";
 import { useEffect, useState } from "react";
+
 import DiscussionSection from "../../components/DiscussionSection";
 import { getSingleResourceMaterialSrv } from "../../services/resourceMaterial.service";
 
@@ -17,13 +16,13 @@ function RouteComponent() {
 
   const [resourceMaterial, setResourceMaterial] = useState({});
   const [currentImageFocusURL, setcurrentImageFocusURL] = useState("/assets/placeholder-image.png");
-  
+
   const getShastarInfo = async () => {
     const resInfo = await getSingleResourceMaterialSrv(rId);
     console.log(resInfo.data);
- 
+
     setResourceMaterial(resInfo.data);
-    setcurrentImageFocusURL(resInfo.data.mainImage)
+    setcurrentImageFocusURL(resInfo.data.mainImage);
     console.log("resShastars", resourceMaterial);
   };
   useEffect(() => {
@@ -57,30 +56,15 @@ function RouteComponent() {
           <div className="container px-4 pt-12 mx-auto">
             <div className="flex flex-wrap  ">
               <div className="p-6 md:w-1/2 flex flex-col items-center">
-                <img className="rounded-lg  w-full h-96 object-center object-cover" src={currentImageFocusURL|| resourceMaterial?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
+                <img className="rounded-lg  w-full h-96 object-center object-cover" src={currentImageFocusURL || resourceMaterial?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
                 <div className="flex gap-2 py-2 justify-center items-center container w-full ">
                   {/* TODO main image gets lost when any of the image is clicked */}
                   {/* {resourceMaterial?.images.map((i)=>(
 
                   <img className="rounded-lg  size-16 object-center object-cover" src={resourceMaterial?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
                   ))} */}
-                 {Array.isArray(resourceMaterial.images) && resourceMaterial.images.length > 0 ? (
-    resourceMaterial.images.map((img, idx) => (
-      <img 
-      onClick={()=>setcurrentImageFocusURL(img)}
-        key={idx}
-        className="rounded-lg size-16 object-center object-cover"
-        src={img || "/assets/placeholder-weapon.png"}
-        alt={`thumb-${idx}`}
-      />
-    ))
-  ) : (
-    <img
-      className="rounded-lg size-16 object-center object-cover"
-      src="/assets/placeholder-weapon.png"
-      alt="placeholder"
-    />
-  )}    </div>
+                  {Array.isArray(resourceMaterial.images) && resourceMaterial.images.length > 0 ? resourceMaterial.images.map((img, idx) => <img onClick={() => setcurrentImageFocusURL(img)} key={idx} className="rounded-lg size-16 object-center object-cover" src={img || "/assets/placeholder-weapon.png"} alt={`thumb-${idx}`} />) : <img className="rounded-lg size-16 object-center object-cover" src="/assets/placeholder-weapon.png" alt="placeholder" />}{" "}
+                </div>
               </div>
               <div className="p-6 md:w-1/2 flex flex-col items-start">
                 <span className="inline-block py-1 px-2 rounded bg-gray-800 text-gray-400 text-opacity-75 text-xs font-medium  uppercase">{resourceMaterial?.categories}</span>
@@ -131,13 +115,13 @@ function RouteComponent() {
             </div>
           </div>
           <Tabs className="mx-4" defaultValue="discussion">
-            <TabsList  >
+            <TabsList>
               <TabsTrigger value="information">Information</TabsTrigger>
               <TabsTrigger value="discussion">Discussion</TabsTrigger>
             </TabsList>
             <TabsContent value="information">{resourceMaterial.description}</TabsContent>
             <TabsContent value="discussion">
-             <DiscussionSection type="ResourceMaterial" discussionPlaceId={rId}/>
+              <DiscussionSection type="ResourceMaterial" discussionPlaceId={rId} />
             </TabsContent>
           </Tabs>
         </section>

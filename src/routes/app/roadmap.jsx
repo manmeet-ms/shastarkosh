@@ -10,6 +10,7 @@ function RouteComponent() {
     
         <Markdown>
 - real data aggregation
+- likes comments will require an account
 - more smooth login prompt as a modal
 - image handling for shastars, resource material, posts
 - definitive smooth loading states
@@ -23,6 +24,7 @@ function RouteComponent() {
 - intelligent caching
 - more login options, google discord etc
 - optimisin system stability and prefoamcne by mimising api calls
+- pagination wherever required
         </Markdown>
         
   </div>

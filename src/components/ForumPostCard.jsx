@@ -5,13 +5,13 @@ import { Link } from "@tanstack/react-router";
 import millify from "millify";
 import { useEffect, useState } from "react";
 
-import { getCommentCountSrv, getCommentsOnSinglePostSrv } from "../services/comments.service.js";
+import { getCommentsOnSinglePostSrv } from "../services/comments.service.js";
 import { downvotePostSrv, upvotePostSrv } from "../services/forumPost.service.js";
 
 const ForumPostCard = (props) => {
   const [commentCount, setcommentCount] = useState(0);
   const getPostInfo = async () => {
-    const resInfo = await getCommentsOnSinglePostSrv(props.id);
+    const resInfo = await getCommentsOnSinglePostSrv(props._id);
     setcommentCount(resInfo.data.length);
 
     // console.log("resInfo forum post card", resInfo.data);
@@ -22,13 +22,13 @@ const ForumPostCard = (props) => {
   }, []);
 
   return (
-    <div className="h-full flex sm:flex-row flex-col  sm:justify-start justify-center ">
+    <div className="h-full my-2 flex sm:flex-row flex-col  sm:justify-start justify-center ">
       <div className="bg-accent/20 border border-border/40 rounded-lg p-4 flex-grow">
         <div className="flex justify-between items-center">
           {" "}
           <div className="">
             {" "}
-            <Link to={`/posts/p/$pid`} params={{ pid: props.id }}>
+            <Link to={`/posts/p/$pid`} params={{ pid: props._id }}>
               <h2 className=" hover:underline title-font font-medium text-lg text-foreground capitalize">{props.title}</h2>
             </Link>
             <div className="text-xs flex ">
@@ -42,9 +42,9 @@ const ForumPostCard = (props) => {
           <span className="flex  gap-4 items-center justify-start  ">
             <span
               onClick={() => {
-                // console.log("upvotePostSrv", props.id);
+                // console.log("upvotePostSrv", props._id);
 
-                upvotePostSrv(props.id);
+                upvotePostSrv(props._id);
               }}
               className="hover:text-primary cursor-pointer flex gap-1  text-muted-foreground">
               <IconArrowBigUp size={16} strokeWidth={1.5} />
@@ -52,16 +52,16 @@ const ForumPostCard = (props) => {
             </span>
             <span
               onClick={() => {
-                // console.log("downvotePostSrv", props.id);
+                // console.log("downvotePostSrv", props._id);
 
-                downvotePostSrv(props.id);
+                downvotePostSrv(props._id);
               }}
               className="hover:text-primary cursor-pointer flex gap-1  text-muted-foreground">
               <IconArrowBigDown size={18} />
               {millify(props.downvotes || 0)}
             </span>
 
-            <Link hashScrollIntoView="discussion" to={`/posts/p/${props.id}`}>
+            <Link hashScrollIntoView="discussion" to={`/posts/p/${props._id}`}>
               <span className="flex gap-1  text-muted-foreground mt-0.75 " to={`/shastars/s/${props._id}#discussion`}>
                 <IconMessageCircle2 size={18} />
                 {/* {props.comments} */}

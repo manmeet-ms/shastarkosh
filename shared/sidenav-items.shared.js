@@ -36,12 +36,12 @@ export const SIDENAV_DASH = [
     icon: IconUser,
   },
 
-  {
-    title: "Beta",
-    url: "/beta",
-    icon: IconBrandTabler,
-    // icon: IconTestPipe,
-  },
+  // {
+  //   title: "Beta",
+  //   url: "/beta",
+  //   icon: IconBrandTabler,
+  //   // icon: IconTestPipe,
+  // },
   // {
   //   title: "Book Notes",
   //   url: "/book-notes",

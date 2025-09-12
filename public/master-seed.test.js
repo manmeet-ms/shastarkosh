@@ -108,7 +108,7 @@ async function seedComments(count, users, forumPosts, shastars, resources) {
       status: faker.helpers.arrayElement(["active", "edited", "deleted"]),
     };
   });
-
+ 
   return Comment.insertMany(comments);
 }
 

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { APP_NAME } from "../../../shared/app-variables.shared.js";
 import { logoutUserSrv } from "../../services/auth.service.js";
-import { logoutSuccess } from "../../store/authSlice.js";
+import { logout } from "../../store/authSlice.js";
 
 export const AppHeader = () => {
   const { user } = useSelector((state) => state.auth);
@@ -34,7 +34,7 @@ export const AppHeader = () => {
           const dispatch = useDispatch();
           async function handleLogout() {
             await logoutUserSrv();
-            dispatch(logoutSuccess());
+            dispatch(logout());
     navigate({ to: "/auth/login" });
   }
   return (
