@@ -108,7 +108,7 @@ function RouteComponent() {
                     <Badge variant="secondary" className="my-4 mb-2 inline-block font-medium  capitalize">
                       {postDetail.category}
                     </Badge>
-                    <div className="flex gap-4">{tags && tags.length > 0 && tags.map((tag, idx) => <span className="font-bold text-sm">{tag} </span>)}</div>
+                    <div className="flex gap-4">{tags && tags.length > 0 && tags.map((tag, idx) => <span key={idx} className="font-bold text-sm">{tag} </span>)}</div>
 
                     <div className="flex items-center flex-wrap py-4 border-b-2 border-gray-800 border-opacity-75 mt-auto w-full">
                       <div className="inline-flex items-center">

@@ -37,9 +37,9 @@ function RouteComponent() {
           <Masonry columns={{ sm: 2, md: 3, lg: 4 }} spacing={1.5}>
             {resources.map((post) => {
               return (
-                <div className="my-2">
+               
                   <ResourceMaterialCard key={post._id} id={post._id} title={post.title} mainImage={post.mainImage} images={post.images} description={post.description} createdBy={post.createdBy} categories={post.category} tags={post.tags} likes={post.likes} dislikes={post.dislikes} commentCount={post.commentCount} views={post.views} isPinned={post.isPinned} isEdited={post.isEdited} status={post.status} createdAt={post.createdAt} updatedAt={post.updatedAt} />
-                </div>
+                 
               );
             })}
           </Masonry>
