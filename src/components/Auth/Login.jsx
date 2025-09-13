@@ -56,10 +56,7 @@ const Login = () => {
                 <Button variant="outline" className="w-full">
                   Login with Google
                 </Button>
-                   <Button variant="outline" ><Link  
-                            target="_blank"
-                            to={import.meta.env.VITE_BACKEND_URL+"/auth/discord/login"}>
-                            Login with Discord       </Link></Button>
+                   
                    
               </div>
             </div>

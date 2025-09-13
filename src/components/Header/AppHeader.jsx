@@ -14,27 +14,27 @@ export const AppHeader = () => {
   const { user } = useSelector((state) => state.auth);
   // console.log("AppHeader :: user", user, user?.id);
   // console.log("user as obj", { user });
-  
+
   // const [userProfile, setUserProfile] = useState();
   // async function getUserProfile() {
-    //   const userRes = await getUserSrv(user.id);
-    //   console.log("userRes.data", userRes.data);
-    //   setUserProfile(userRes.data);
-    // }
-    
-    // useEffect(() => {
-      //   getUserProfile();
-      //   if (user && user.id) {
-        //     getUserSrv(user.id).then((userRes) => {
-          //       setUserProfile(userRes.data);
-          //     });
-          //   }
-          // }, [user]);
-          const navigate = useNavigate({ from: "/" });
-          const dispatch = useDispatch();
-          async function handleLogout() {
-            await logoutUserSrv();
-            dispatch(logout());
+  //   const userRes = await getUserSrv(user.id);
+  //   console.log("userRes.data", userRes.data);
+  //   setUserProfile(userRes.data);
+  // }
+
+  // useEffect(() => {
+  //   getUserProfile();
+  //   if (user && user.id) {
+  //     getUserSrv(user.id).then((userRes) => {
+  //       setUserProfile(userRes.data);
+  //     });
+  //   }
+  // }, [user]);
+  const navigate = useNavigate({ from: "/" });
+  const dispatch = useDispatch();
+  async function handleLogout() {
+    await logoutUserSrv();
+    dispatch(logout());
     navigate({ to: "/auth/login" });
   }
   return (
@@ -47,11 +47,19 @@ export const AppHeader = () => {
         </Link>
         {/* // TODO: refactor Nav logic */}
         <section className="flex gap-2 items-center">
-       <div className="md:block hidden " >   <Button variant="ghost" ><Link to="/app/roadmap">Roadmap</Link></Button>
-          <Button variant="ghost" ><Link to="/app/changelog">Changelog</Link></Button>
-          <Button variant="ghost" ><Link to="/app/philosophy">Philosophy</Link></Button>
+          <div className="md:block hidden ">
+            {" "}
+            <Button className="font-normal tracking-wide" variant="ghost">
+              <Link to="/app/philosophy">Philosophy</Link>
+            </Button>
+            <Button className="font-normal tracking-wide" variant="ghost">
+              <Link to="/app/roadmap">Roadmap</Link>
+            </Button>
+            <Button className="font-normal tracking-wide" variant="ghost">
+              <Link to="/app/changelog">Changelog</Link>
+            </Button>
           </div>
-        
+
           {user ? (
             <div className="flex ">
               <DropdownMenu>
@@ -89,7 +97,7 @@ export const AppHeader = () => {
               </Link> */}
             </div>
           )}
-  <ModeToggle />
+          <ModeToggle />
           {/* <Sheet className="lg:hidden" >
     <SheetTrigger asChild>
 

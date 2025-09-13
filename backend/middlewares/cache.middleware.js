@@ -1,10 +1,12 @@
 // middlewares/cache.middleware.js
 import logger from "../../src/utils/logger.utils.js";
-import { redisClient } from "../config/redis.js";
+// import { redisClient } from "../config/redis.js";
 
 export const cacheMiddleware = (keyPrefix, ttl = 60) => {
   return async (req, res, next) => {
     try {
+      logger("info", "nothing is written cache fn")
+      
     //   const key = `${keyPrefix} : ${req.originalUrl}`; // : is a delimitter so we get a folder like view
     // //   const key = `${keyPrefix}:${req.originalUrl.replace("/api/e/", "")}`;
     //   const cachedValue = await redisClient.get(key);

@@ -59,7 +59,9 @@ const ProtectedLayout = ({ children }) => {
   // Show toast and redirect only if user is not logged in
   useEffect(() => {
     if (!user) {
-      toast("You have to be logged in to do that action");
+      toast.error("You have to be logged in to do that action");
+      // toast.warning("You have to be logged in to do that action");
+
       navigate({ to: "/auth/login" });
     }
   }, [user, navigate]);

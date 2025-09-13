@@ -1,5 +1,4 @@
 git status --short
 git add -A
-git commit -am "axios timelimit and api uri changed
-"
+git commit -am "removed redis for now"
 git push origin main
