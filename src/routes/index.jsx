@@ -32,13 +32,13 @@ function Index() {
     const categoriesResponse = await getCategoriesSrv();
     const categoriesData = categoriesResponse.data;
 
-    const shastarFiltered = categoriesData.filter((c) => c.categoryType === "ShastarInfo");
+    const shastarFiltered = categoriesResponse.data.filter((c) => c.categoryType === "ShastarInfo");
     setShastarCategories(shastarFiltered);
 
-    const forumFiltered = categoriesData.filter((c) => c.categoryType === "ForumPost");
+    const forumFiltered = categoriesResponse.data.filter((c) => c.categoryType === "ForumPost");
     setForumPostCategories(forumFiltered);
 
-    const resourceFiltered = categoriesData.filter((c) => c.categoryType === "ResourceMaterial");
+    const resourceFiltered = categoriesResponse.data.filter((c) => c.categoryType === "ResourceMaterial");
     setResourceMaterialCategories(resourceFiltered);
 
     setIsLoading(false);
@@ -66,7 +66,7 @@ function Index() {
         <div className="flex flex-col gap-4 md:py-6">
           <section className="grid grid-cols-1 items-start gap-4 md:grid-cols-3">
             {/* Discussions */}
-            <section className="col-span-2 border-r pr-4">
+            <section className="col-span-2 md:border-r md:pr-4">
               <div className="flex justify-between items-center">
                 <SectionTitleSubTitle
                   badge="Recent"
@@ -82,8 +82,7 @@ function Index() {
                                   <ForumPostCard key={post._id} {...post} />
                 
               ))}
-
-              <hr />
+ 
 
               {/* Shastar submissions */}
               <SectionTitleSubTitle
@@ -99,17 +98,17 @@ function Index() {
             </section>
 
             {/* Categories */}
-            <section className="text-gray-400 body-font">
+            <section className=" text-foreground body-font">
               <div className="container flex flex-col px-4 py-4 mx-auto">
                 <SectionTitleSubTitle title="Categories" subtitle={faker.lorem.sentence()} />
 
-                <h2 className="title-font font-semibold text-white tracking-wider text-sm mb-3">
+                <h2 className="title-font font-semibold  tracking-wider text-sm mb-3">
                   Shastar categories ({shastarCategories.length})
                 </h2>
                 <nav className="flex flex-wrap list-none -mb-1">
                   {shastarCategories.map((cat) => (
                     <li key={cat._id} className="lg:w-1/3 mb-1 w-1/2">
-                      <Link to="#" className="lowercase hover:text-white ">
+                      <Link to="#" className="lowercase   ">
                         {cat.name}
                       </Link>
                     </li>
@@ -118,13 +117,13 @@ function Index() {
               </div>
 
               <div className="container flex flex-col px-4 py-4 mx-auto">
-                <h2 className="title-font font-semibold text-white tracking-wider text-sm mb-3">
+                <h2 className="title-font font-semibold  tracking-wider text-sm mb-3">
                   Forum categories ({forumPostCategories.length})
                 </h2>
                 <nav className="flex flex-wrap list-none -mb-1">
                   {forumPostCategories.map((cat) => (
                     <li key={cat._id} className="lg:w-1/3 mb-1 w-1/2">
-                      <Link to="#" className="lowercase hover:text-white ">
+                      <Link to="#" className="lowercase   ">
                         {cat.name}
                       </Link>
                     </li>
@@ -133,13 +132,13 @@ function Index() {
               </div>
 
               <div className="container flex flex-col px-4 py-4 mx-auto">
-                <h2 className="title-font font-semibold text-white tracking-wider text-sm mb-3">
+                <h2 className="title-font font-semibold  tracking-wider text-sm mb-3">
                   Resource Material categories ({resourceMaterialCategories.length})
                 </h2>
                 <nav className="flex flex-wrap list-none -mb-1">
                   {resourceMaterialCategories.map((cat) => (
                     <li key={cat._id} className="lg:w-1/3 mb-1 w-1/2">
-                      <Link to="#" className="lowercase hover:text-white ">
+                      <Link to="#" className="lowercase   ">
                         {cat.name}
                       </Link>
                     </li>

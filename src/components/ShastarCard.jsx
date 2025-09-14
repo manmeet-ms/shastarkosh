@@ -20,8 +20,9 @@ const ShastarCard = (props) => {
   }, []);
   return (
    
-      <div className="p-4">
-        <div className="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+      <div className="m-1">
+        {/* <div className="p-4  h-full bg-muted/10 dark:bg-muted-foreground/10 border border-border/60  rounded-lg flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left"> */}
+        <div className="p-2  border border-border  rounded-lg flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
           <img alt="shastar" className="flex-shrink-0 rounded-lg size-36 md:size-28 object-cover object-center sm:mb-0 mb-4" src={props.mainImage} />
           <div className="flex-grow sm:pl-4">
             <div className="flex container w-full justify-center md:justify-between  items-center">

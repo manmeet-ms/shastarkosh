@@ -15,13 +15,23 @@ router.post("/logout",authenticateJWT, logoutUser);
 router.get("/me", authenticateJWT, 
   // cacheMiddleware("userProfile", 24 * 60 * 60 * 1000), 
   async (req, res) => {
-  const { id } = req.user;
+  try {
+    const { id } = req.user;
   const currentUser = await User.findById(id);
   // console.log(currentUser)
  
-  res.json({
+  if (currentUser) {
+    res.json({
     currentUser: { _id: currentUser._id, name: currentUser.name, username: currentUser.username, email: currentUser.email, role: currentUser.role, avatar: currentUser.avatar, createdAt: currentUser.createdAt },
   });
+    
+  }
+  } catch (err) {
+    res.status(400).json(err.message);
+
+
+    
+  }
 });
 //   res.json({
 //     user: req.user, // comes from decoded JWT (id, username, role, etc.)

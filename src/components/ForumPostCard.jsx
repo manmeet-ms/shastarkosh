@@ -23,7 +23,7 @@ const ForumPostCard = (props) => {
 
   return (
     <div className="h-full my-2 flex sm:flex-row flex-col  sm:justify-start justify-center ">
-      <div className="bg-accent/20 border border-border/40 rounded-lg p-4 flex-grow">
+      <div className="bg-muted/10 dark:bg-muted-foreground/10 border border-border/60  rounded-lg p-4 flex-grow">
         <div className="flex justify-between items-center">
           {" "}
           <div className="">

@@ -63,30 +63,30 @@ function RouteComponent() {
                     <div className="flex flex-col">
                       <SectionTitleSubTitle title="Categories" subtitle={faker.lorem.sentence()} />
 
-                      <h2 className="title-font font-semibold text-white tracking-wider text-sm mb-3">Shastar categories</h2>
+                      <h2 className="title-font font-semibold tracking-wider text-sm mb-3">Shastar categories</h2>
                       <nav className="flex flex-wrap list-none -mb-1">
                         <li className="lg:w-1/3 mb-1 w-1/2">
-                          <Link to="#" className="hover:text-white capitalize">
+                          <Link to="#" className=" capitalize">
                             {faker.lorem.word()}
                           </Link>
                         </li>
                         <li className="lg:w-1/3 mb-1 w-1/2">
-                          <Link to="#" className="hover:text-white capitalize">
+                          <Link to="#" className=" capitalize">
                             {faker.lorem.word()}
                           </Link>
                         </li>
                         <li className="lg:w-1/3 mb-1 w-1/2">
-                          <Link to="#" className="hover:text-white capitalize">
+                          <Link to="#" className=" capitalize">
                             {faker.lorem.word()}
                           </Link>
                         </li>
                         <li className="lg:w-1/3 mb-1 w-1/2">
-                          <Link to="#" className="hover:text-white capitalize">
+                          <Link to="#" className=" capitalize">
                             {faker.lorem.word()}
                           </Link>
                         </li>
                         <li className="lg:w-1/3 mb-1 w-1/2">
-                          <Link to="#" className="hover:text-white capitalize">
+                          <Link to="#" className=" capitalize">
                             {faker.lorem.word()}
                           </Link>
                         </li>
@@ -104,30 +104,30 @@ function RouteComponent() {
   </a>
  </div> */}
                     <div className="flex flex-col">
-                      <h2 className="title-font font-semibold text-white tracking-wider text-sm mb-3">Posts categories</h2>
+                      <h2 className="title-font font-semibold tracking-wider text-sm mb-3">Posts categories</h2>
                       <nav className="flex flex-wrap list-none -mb-1">
                         <li className="lg:w-1/3 mb-1 w-1/2">
-                          <Link to="#" className="hover:text-white capitalize">
+                          <Link to="#" className=" capitalize">
                             {faker.lorem.word()}
                           </Link>
                         </li>
                         <li className="lg:w-1/3 mb-1 w-1/2">
-                          <Link to="#" className="hover:text-white capitalize">
+                          <Link to="#" className=" capitalize">
                             {faker.lorem.word()}
                           </Link>
                         </li>
                         <li className="lg:w-1/3 mb-1 w-1/2">
-                          <Link to="#" className="hover:text-white capitalize">
+                          <Link to="#" className=" capitalize">
                             {faker.lorem.word()}
                           </Link>
                         </li>
                         <li className="lg:w-1/3 mb-1 w-1/2">
-                          <Link to="#" className="hover:text-white capitalize">
+                          <Link to="#" className=" capitalize">
                             {faker.lorem.word()}
                           </Link>
                         </li>
                         <li className="lg:w-1/3 mb-1 w-1/2">
-                          <Link to="#" className="hover:text-white capitalize">
+                          <Link to="#" className=" capitalize">
                             {faker.lorem.word()}
                           </Link>
                         </li>
@@ -145,30 +145,30 @@ function RouteComponent() {
   </a>
  </div> */}
                     <div className="flex flex-col">
-                      <h2 className="title-font font-semibold text-white tracking-wider text-sm mb-3">Resource Material categories</h2>
+                      <h2 className="title-font font-semibold tracking-wider text-sm mb-3">Resource Material categories</h2>
                       <nav className="flex flex-wrap list-none -mb-1">
                         <li className="lg:w-1/3 mb-1 w-1/2">
-                          <Link to="#" className="hover:text-white capitalize">
+                          <Link to="#" className=" capitalize">
                             {faker.lorem.word()}
                           </Link>
                         </li>
                         <li className="lg:w-1/3 mb-1 w-1/2">
-                          <Link to="#" className="hover:text-white capitalize">
+                          <Link to="#" className=" capitalize">
                             {faker.lorem.word()}
                           </Link>
                         </li>
                         <li className="lg:w-1/3 mb-1 w-1/2">
-                          <Link to="#" className="hover:text-white capitalize">
+                          <Link to="#" className=" capitalize">
                             {faker.lorem.word()}
                           </Link>
                         </li>
                         <li className="lg:w-1/3 mb-1 w-1/2">
-                          <Link to="#" className="hover:text-white capitalize">
+                          <Link to="#" className=" capitalize">
                             {faker.lorem.word()}
                           </Link>
                         </li>
                         <li className="lg:w-1/3 mb-1 w-1/2">
-                          <Link to="#" className="hover:text-white capitalize">
+                          <Link to="#" className=" capitalize">
                             {faker.lorem.word()}
                           </Link>
                         </li>

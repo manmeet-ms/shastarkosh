@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button"
 //  first homepage of dashbord
 import { AppHeader } from "@/components/Header/AppHeader";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -12,6 +13,9 @@ import "./App.css";
 import BottomNav from "./components/Footer/BottomNav.jsx";
 import { fetchUser } from "./store/authSlice.js";
 import AuthModal from "./components/AuthModal.jsx";
+import { toast } from "sonner";
+
+
 
 const App = () => {
  
@@ -22,6 +26,7 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     // dispatch(fetchPoints());
+    // toast.info("Our backend service might take upto 60s to start ")
     dispatch(fetchUser());
   }, [dispatch]);
 
@@ -29,6 +34,7 @@ const App = () => {
     <>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <AppHeader /> 
+        
          {/* first homepage of dashbord */}
         <main className="flex">
            <section className="hidden lg:flex lg:flex-col h-[90vh] flex-col justify-between lg:p-4">
@@ -60,8 +66,13 @@ const App = () => {
 </section> */}
            
             {/* {authStatus && <LogoutButton className="bg-accent text-sm font-medium py-2 rounded-full" />} */}
+  <div className="flex flex-wrap justify-center gap-3 items-center ">
+            {" "}
+              <Link  className="text-xs hover:underline px-2 font-normal" to="/app/philosophy">Philosophy</Link>
+              <Link  className="text-xs hover:underline px-2 font-normal" to="/app/roadmap">Roadmap</Link>
+              <Link  className="text-xs hover:underline px-2 font-normal" to="/app/changelog">Changelog</Link>
+          </div>
           </section>
-
           <section className="grow lg:border-l"> 
             <div className="   flex items-center justify-between gap-2 px-4">
               {/* <div className="hidden lg:flex lg:flex-col">
@@ -103,7 +114,7 @@ const App = () => {
             </div>
             {/* Content area where components will render */}
 
-            <ScrollArea className="h-screen">
+            <ScrollArea className="h-[90vh]">
               {" "} 
               <Outlet />
             </ScrollArea>

@@ -27,3 +27,4 @@ currently lieks dilikes will go infinity by any users
   - compare on the basoc of +-10yrs of current yrs
 
 - count and reduce api calls 
+uniquesness on fe and then proceed

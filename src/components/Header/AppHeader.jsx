@@ -46,20 +46,8 @@ export const AppHeader = () => {
           <span className="text-lg font-semibold tracking-tighter">{APP_NAME}</span>
         </Link>
         {/* // TODO: refactor Nav logic */}
+        {/* <div className="@container flex flex-1 justify-start pl-8"><a href="https://tailwindcss.com/blog/vanilla-js-support-for-tailwind-plus" class="flex flex-nowrap items-center gap-2 rounded-full px-3 py-2 text-xs/4 whitespace-nowrap ring ring-gray-950/8 dark:ring-white/10 hover:bg-gray-950/2 hover:ring-gray-950/10 dark:hover:bg-white/5 dark:hover:ring-white/20 @max-[23rem]:hidden"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon" class="size-4 fill-sky-500"><path fill-rule="evenodd" d="M5 4a.75.75 0 0 1 .738.616l.252 1.388A1.25 1.25 0 0 0 6.996 7.01l1.388.252a.75.75 0 0 1 0 1.476l-1.388.252A1.25 1.25 0 0 0 5.99 9.996l-.252 1.388a.75.75 0 0 1-1.476 0L4.01 9.996A1.25 1.25 0 0 0 3.004 8.99l-1.388-.252a.75.75 0 0 1 0-1.476l1.388-.252A1.25 1.25 0 0 0 4.01 6.004l.252-1.388A.75.75 0 0 1 5 4ZM12 1a.75.75 0 0 1 .721.544l.195.682c.118.415.443.74.858.858l.682.195a.75.75 0 0 1 0 1.442l-.682.195a1.25 1.25 0 0 0-.858.858l-.195.682a.75.75 0 0 1-1.442 0l-.195-.682a1.25 1.25 0 0 0-.858-.858l-.682-.195a.75.75 0 0 1 0-1.442l.682-.195a1.25 1.25 0 0 0 .858-.858l.195-.682A.75.75 0 0 1 12 1ZM10 11a.75.75 0 0 1 .728.568.968.968 0 0 0 .704.704.75.75 0 0 1 0 1.456.968.968 0 0 0-.704.704.75.75 0 0 1-1.456 0 .968.968 0 0 0-.704-.704.75.75 0 0 1 0-1.456.968.968 0 0 0 .704-.704A.75.75 0 0 1 10 11Z" clip-rule="evenodd"></path></svg><span class="font-medium">Now with vanilla JavaScript support</span><span class="size-0.75 rounded-full bg-current"></span><div class="flex gap-0.5"><span>Learn more</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon" class="-mr-1 size-4 fill-gray-950/30 dark:fill-white/40"><path fill-rule="evenodd" d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"></path></svg></div></a></div> */}
         <section className="flex gap-2 items-center">
-          <div className="md:block hidden ">
-            {" "}
-            <Button className="font-normal tracking-wide" variant="ghost">
-              <Link to="/app/philosophy">Philosophy</Link>
-            </Button>
-            <Button className="font-normal tracking-wide" variant="ghost">
-              <Link to="/app/roadmap">Roadmap</Link>
-            </Button>
-            <Button className="font-normal tracking-wide" variant="ghost">
-              <Link to="/app/changelog">Changelog</Link>
-            </Button>
-          </div>
-
           {user ? (
             <div className="flex ">
               <DropdownMenu>
@@ -97,7 +85,9 @@ export const AppHeader = () => {
               </Link> */}
             </div>
           )}
-          <ModeToggle />
+     <ModeToggle />
+        
+     
           {/* <Sheet className="lg:hidden" >
     <SheetTrigger asChild>
 

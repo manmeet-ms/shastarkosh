@@ -19,7 +19,7 @@ console.log(process.env.MONGO_URI);
 
 await mongoose.connect(process.env.MONGO_URI);
 logger("log","✅ Connected to DB");
-
+  
 // ====== HELPERS ======
 function randomArray(arr, count = 3) {
   return Array.from({ length: count }, () => faker.helpers.arrayElement(arr));
