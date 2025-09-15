@@ -28,13 +28,13 @@ function RouteComponent() {
       <section className="">
         <div className="  px-4 py-6 mx-auto">
           <div className="flex justify-between items-center">
-            <SectionTitleSubTitle title="Resource Materials" subtitle={`4,984,621,4${resources.length} questions`} />
+            <SectionTitleSubTitle title="Resource Materials" subtitle={`${resources.length} materials`} />
             <Button>
               <Link to="/resources/create">Create Shastar</Link>
             </Button>
           </div>
           {/* <div className="flex flex-wrap -m-4"> */}
-          <Masonry columns={{ sm: 2, md: 3, lg: 4 }} spacing={1.5}>
+          <Masonry columns={{ sm: 2, md: 3, lg: 4 }} spacing={1}>
             {resources.map((post) => {
               return (
                

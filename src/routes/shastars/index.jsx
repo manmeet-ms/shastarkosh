@@ -27,7 +27,7 @@ function RouteComponent() {
       <div className="container px-4  mx-auto">
         <div className="flex flex-col text-center w-full mb-4">
           <div className="flex justify-between items-center">
-            <SectionTitleSubTitle title="Shastar" subtitle={`24,264,526,4${shastars.length} questions`} />
+            <SectionTitleSubTitle title="Shastar" subtitle={`${shastars.length} shastars`} />
             <Button>
               <Link to="/shastars/create">Create Shastar</Link>
             </Button>

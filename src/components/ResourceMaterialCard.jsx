@@ -7,7 +7,7 @@ const ResourceMaterialCard = (props) => {
       <div className="bg-card h-full border-2  rounded-lg overflow-hidden">
         <img className="lg:h-48 md:h-36 h-36 w-full object-cover object-center" src={props.mainImage} alt="blog" />
         <div className="p-6">
-          <h2 className="tracking-widest text-xs title-font font-medium text-gray-500 mb-1">{String(props.categories)}</h2>
+          <h2 className="tracking-widest text-xs title-font font-medium text-gray-500 mb-1">{props?.category}</h2>
           <h1 className="title-font text-lg font-medium text-foreground line-clamp-1 mb-3">{props.title}</h1>
           <p className="leading-relaxed line-clamp-3 mb-3">{props.description}</p>
           <div className="flex items-center flex-wrap ">
@@ -30,7 +30,7 @@ const ResourceMaterialCard = (props) => {
                   <IconMessageCircle size={18} /> {millify(props.likes)}
                 </span>{" "}
               </div>
-              <Link className="text-sm text-primary font-medium border-b border-dashed border-primary/60  pb-0.25 ">Read More </Link>
+              <Link className="text-sm text-primary font-medium border-b border-dashed border-primary/60  pb-0.25 truncate">Read More </Link>
               {/* <span className="px-2 hover:bg-accent py-1 text-foreground rounded-full flex items gap-0.5 justify-start text-sm ">
                 <IconEye size={18} /> {millify(props.likes)}
               </span> */}

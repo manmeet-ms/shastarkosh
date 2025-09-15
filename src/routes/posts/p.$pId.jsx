@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 
 import DiscussionSection from "../../components/DiscussionSection";
 import { getSingleForumPostSrv } from "../../services/forumPost.service.js";
+import Loading from "../../components/Loading.jsx";
 
 dayjs.extend(relativeTime);
 
@@ -94,7 +95,7 @@ function RouteComponent() {
           </BreadcrumbList>
         </Breadcrumb>
         {loading ? (
-          <>loading...</>
+           <Loading/> 
         ) : (
           <section className="w-full   container text-muted-foreground body-font overflow-hidden">
             <section className="body-font overflow-hidden">

@@ -1,11 +1,10 @@
-import { IconBrandTabler, IconLayoutDashboard, IconMessages, IconPaperclip, IconTrident, IconUser } from "@tabler/icons-react";
-
+import { IconHome2, IconMessages, IconPaperclip, IconTrident, IconUser } from "@tabler/icons-react";
 
 export const SIDENAV_DASH = [
   {
     title: "Home",
     url: "/",
-    icon: IconLayoutDashboard,
+    icon: IconHome2,
     // icon: LayoutDashboardIcon,
   },
   // {

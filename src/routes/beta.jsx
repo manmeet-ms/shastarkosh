@@ -6,6 +6,7 @@ import { Link } from '@tanstack/react-router'
 import SparkMD5 from 'spark-md5'
 import { faker } from '@faker-js/faker'
 import { useState } from 'react'
+import ButtonBase from '@mui/material/ButtonBase'
 
 export const Route = createFileRoute('/beta')({
   component: RouteComponent,
@@ -28,6 +29,7 @@ function RouteComponent() {
     <>
 {JSON.stringify(user)}
 
-    </>
+<Button sx={{centerRipple:true}} >Button</Button>
+  </>
   )
 }

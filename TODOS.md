@@ -22,7 +22,7 @@ will add tehse ownserships acehck ad deelte funtionality upon sclaing the app fo
 
 currently lieks dilikes will go infinity by any users 
 
-
+ 
 - fun filterL pas present future weapon, 
   - compare on the basoc of +-10yrs of current yrs
 

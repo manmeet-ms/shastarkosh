@@ -63,15 +63,15 @@ function Index() {
   return (
     <main className="flex px-4 flex-col justify-start items-start">
       <div className="flex flex-1 flex-col gap-2">
-        <div className="flex flex-col gap-4 md:py-6">
-          <section className="grid grid-cols-1 items-start gap-4 md:grid-cols-3">
+        <div className="flex flex-col gap-4">
+          <section className="grid grid-cols-1 items-start gap-4 md:grid-cols-4">
             {/* Discussions */}
-            <section className="col-span-2 md:border-r md:pr-4">
+            <section className="col-span-3 md:border-r md:pr-4">
               <div className="flex justify-between items-center">
                 <SectionTitleSubTitle
                   badge="Recent"
                   title="Discussions"
-                  subtitle={`24,264,526,4${forumPosts.length} questions`}
+                  subtitle={`${forumPosts.length} questions`}
                 />
                 <Button>
                   <Link to="/posts/create">Ask Question</Link>
@@ -83,7 +83,7 @@ function Index() {
                 
               ))}
  
-
+<br />
               {/* Shastar submissions */}
               <SectionTitleSubTitle
                 title="Shastar Submissions"
@@ -107,8 +107,14 @@ function Index() {
                 </h2>
                 <nav className="flex flex-wrap list-none -mb-1">
                   {shastarCategories.map((cat) => (
-                    <li key={cat._id} className="lg:w-1/3 mb-1 w-1/2">
-                      <Link to="#" className="lowercase   ">
+                                           <li key={cat._id} className=" text-muted-foreground/80 hover:text-foreground m-1  ">
+
+
+                                              <Link to="#" className=" lowercase border-b border-dashed border-muted-foreground/30 hover:border-b hover:border-foreground hover:border-dashed  ">
+
+
+
+
                         {cat.name}
                       </Link>
                     </li>
@@ -122,8 +128,14 @@ function Index() {
                 </h2>
                 <nav className="flex flex-wrap list-none -mb-1">
                   {forumPostCategories.map((cat) => (
-                    <li key={cat._id} className="lg:w-1/3 mb-1 w-1/2">
-                      <Link to="#" className="lowercase   ">
+                                           <li key={cat._id} className=" text-muted-foreground/80 hover:text-foreground m-1  ">
+
+
+                                              <Link to="#" className=" lowercase border-b border-dashed border-muted-foreground/30 hover:border-b hover:border-foreground hover:border-dashed  ">
+
+
+
+
                         {cat.name}
                       </Link>
                     </li>
@@ -137,8 +149,14 @@ function Index() {
                 </h2>
                 <nav className="flex flex-wrap list-none -mb-1">
                   {resourceMaterialCategories.map((cat) => (
-                    <li key={cat._id} className="lg:w-1/3 mb-1 w-1/2">
-                      <Link to="#" className="lowercase   ">
+                                           <li key={cat._id} className=" text-muted-foreground/80 hover:text-foreground m-1  ">
+
+
+                                              <Link to="#" className=" lowercase border-b border-dashed border-muted-foreground/30 hover:border-b hover:border-foreground hover:border-dashed  ">
+
+
+
+
                         {cat.name}
                       </Link>
                     </li>
