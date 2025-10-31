@@ -3,12 +3,12 @@ import { faker } from "@faker-js/faker";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
-import ForumPostCard from "../../components/ForumPostCard";
-import SectionTitleSubTitle from "../../components/SectionTitleSubTitle";
-import { getCategoriesSrv } from "../../services/category.service.js";
-import { getForumPostSrv } from "../../services/forumPost.service.js";
+import ForumPostCard from "@/components/ForumPostCard.jsx";
+import SectionTitleSubTitle from "@/components/SectionTitleSubTitle.jsx";
+import { getCategoriesSrv } from "@/services/category.service.js";
+import { getForumPostSrv } from "@/services/forumPost.service.js";
 
-export const Route = createFileRoute("/posts/")({
+export const Route = createFileRoute("/app/posts/")({
   component: RouteComponent,
 });
 
@@ -46,9 +46,9 @@ function RouteComponent() {
             <section className="grid grid-cols-1 items-start gap-4 md:grid-cols-4">
               <section className="col-span-3 md:border-r md:pr-4 ">
                 <div className="flex justify-between items-center">
-                  <SectionTitleSubTitle title="Latest Discussions" subtitle={`${forumPosts.length} questions`} />
+                  <SectionTitleSubTitle title="Latest Discussions" subtitle={"${forumPosts.length} questions"} />
                   <Button>
-                    <Link to="/posts/create">Ask Question</Link>
+                    <Link to="/app/posts/create">Ask Question</Link>
                   </Button>
                 </div>
 

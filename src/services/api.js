@@ -2,15 +2,16 @@ import axios from "axios";
 
 const options = {
   baseURL: "http://localhost:3000/api",
+  timeout:51000,
   // baseURL: "https://shastarkosh.onrender.com/api",
-  timeout:60000,
+  // timeout:60000,
   withCredentials: true,
 };
 const api = axios.create(options);
 
 
 api.interceptors.response.use(undefined, (error) => {
-  console.error("AXIOS ERROR", {  
+  console.error("AXIOS ERROR api.js", {  
     message: error.message,
     url: error.config?.url,
     data: error.response?.data, 

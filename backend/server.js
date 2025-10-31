@@ -25,6 +25,7 @@ import resourceMaterialRoutes from "./routes/resourceMaterials.routes.js";
 import categoryRoutes from "./routes/category.routes.js";
 import commentsRoutes from "./routes/comment.routes.js";
 import notificationRoutes from "./routes/notification.routes.js";
+import analyticsRoutes from "./routes/analytics.routes.js";
 
 
 const app = express();
@@ -62,11 +63,11 @@ app.use("/api/notifications",notificationRoutes)
 app.use("/api/resources",resourceMaterialRoutes)
 app.use("/api/category",categoryRoutes)
 app.use("/api/comments",commentsRoutes)
-
+app.use("/api/analytics",analyticsRoutes)
 // investigation routes
 app.get("/api/routes", (req, res) => {
   const routesData = getExtractedRoutes();
-  logger("info", `Served routes at ${process.env.VITE_BACKEND_URL.replace("api", "")}`, routesData);
+  logger("info", `Served routes at ${process.env.BACKEND_URL.replace("api", "")}`, routesData);
   res.send(routesData);
 });
 

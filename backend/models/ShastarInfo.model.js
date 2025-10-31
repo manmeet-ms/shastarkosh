@@ -5,7 +5,7 @@ const shastarInfoSchema = new mongoose.Schema(
     title: { type: String, required: true, trim: true, maxlength: 150 },
     alternativeNames: [{ type: String, trim: true }],
     mainImage: { type: String, required: true },
-    images: [{ type: String }], // URLs (from Cloudinary/S3)
+    images: { type: Array}, // URLs (from Cloudinary/S3)
     isEdited:{type:Boolean, default:false},
 
     description: { type: String, required: true, maxlength: 6000 },
@@ -17,7 +17,7 @@ const shastarInfoSchema = new mongoose.Schema(
     },
     subType: { type: String }, // e.g., 'sword', 'herbal scroll'
 
-    material: { type: String }, // "Iron, wood"
+    material: { type: Array}, // "Iron, wood"
     weight: { type: String }, // e.g., "1.5 kg"
     length: { type: String }, // e.g., "90 cm"
     usage: [{ type: String }], // e.g., ["melee", "ritual"]
@@ -53,7 +53,7 @@ const shastarInfoSchema = new mongoose.Schema(
       },
     ],
 
-       category: { type: String}, // intruduce enums
+       category: { type: Array}, // intruduce enums
 
     tags: [{ type: String, trim: true }], // e.g., ["bladed", "Ayurveda", "warfare", "manuscript"]
   },

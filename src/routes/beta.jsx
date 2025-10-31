@@ -1,35 +1,41 @@
+import { faker } from "@faker-js/faker";
+import { createFileRoute } from "@tanstack/react-router";
 
-import { createFileRoute } from '@tanstack/react-router'
-import { Button } from "@/components/ui/button"
-import { useDispatch, useSelector } from "react-redux"
-import { Link } from '@tanstack/react-router'
-import SparkMD5 from 'spark-md5'
-import { faker } from '@faker-js/faker'
-import { useState } from 'react'
-import ButtonBase from '@mui/material/ButtonBase'
-
-export const Route = createFileRoute('/beta')({
+export const Route = createFileRoute("/beta")({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-    const dispatch = useDispatch();
-    const {user}=useSelector((state)=>state.auth)
-  
+  const words = Array.from({ length: 50 }, () => faker.book.genre());
+  // console.log(words);
+  //  Array.from({ length: count }, () => faker.helpers.arrayElement(arr))
 
-  const [hashed, setfirst] = useState()
-  function name() {
-    const hashd=SparkMD5.hash(faker.internet.email())
-    setfirst(hashd)
-
-  }
-  
   return (
-  
     <>
-{JSON.stringify(user)}
+    
+        <main className="transition-all duration-500 relative w-screen h-screen overflow-hidden bg-black">
+      {words.map((item, idx) => {
+        const top = Math.floor(Math.random() * 95);   // %
+        const left = Math.floor(Math.random() * 95);  // %
+        const opacity = Math.floor(Math.random() * 9) / 10; // 0.0 - 0.9
+        const rotate = Math.floor(Math.random() * 30) - 15; // -15deg to +15deg
 
-<Button sx={{centerRipple:true}} >Button</Button>
-  </>
-  )
+        return (
+          <span
+            key={idx}
+            className="absolute text-white uppercase tracking-wider text-xs font-mono"
+            style={{
+              top: `${top}%`,
+              left: `${left}%`,
+              opacity: opacity,
+              // transform: `rotate(${rotate}deg)`,
+            }}
+          >
+            {item}
+          </span>
+        );
+      })}
+    </main>
+    </>
+  );
 }

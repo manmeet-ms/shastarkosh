@@ -14,7 +14,7 @@ const ForumPostCard = (props) => {
     const resInfo = await getCommentsOnSinglePostSrv(props._id);
     setcommentCount(resInfo.data.length);
 
-    // console.log("resInfo forum post card", resInfo.data);
+    console.log("resInfo forum post card", resInfo.data);
     // console.log("commentCount forum post card", commentCount);
   };
   useEffect(() => {
@@ -28,7 +28,7 @@ const ForumPostCard = (props) => {
           {" "}
           <div className="">
             {" "}
-            <Link to={`/posts/p/$pid`} params={{ pid: props._id }}>
+            <Link to={`/app/posts/p/$pId`} params={{ pId: props._id }}>
               <h2 className=" hover:underline title-font font-medium text-lg text-foreground capitalize">{props.title}</h2>
             </Link>
             <div className="text-xs flex ">
@@ -61,8 +61,8 @@ const ForumPostCard = (props) => {
               {millify(props.downvotes || 0)}
             </span>
 
-            <Link hashScrollIntoView="discussion" to={`/posts/p/${props._id}`}>
-              <span className="flex gap-1  text-muted-foreground mt-0.75 " to={`/shastars/s/${props._id}#discussion`}>
+            <Link hashScrollIntoView="discussion" to={`/app/posts/p/${props._id}`}>
+              <span className="flex gap-1  text-muted-foreground mt-0.75 " to={`/app/shastars/s/${props._id}#discussion`}>
                 <IconMessageCircle2 size={18} />
                 {/* {props.comments} */}
                 {commentCount}

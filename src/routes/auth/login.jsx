@@ -8,7 +8,8 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
-import { loginUserSrv } from "../../services/auth.service";
+import { loginUserSrv } from "@/services/auth.service";
+import { AppHeader } from "../../components/Header/AppHeader";
 import { fetchUser } from "../../store/authSlice";
 
 export const Route = createFileRoute("/auth/login")({
@@ -41,7 +42,8 @@ function RouteComponent() {
   };
   return (
     <>
-      <div className={cn("px-6 w-2/3 mx-auto flex flex-col gap-4")}>
+    <AppHeader/>
+      <div className={cn("w-full px-6   md:w-2/3 mx-auto flex flex-col gap-4")}>
         <Card className="overflow-hidden p-0">
           <CardContent className="grid p-0 md:grid-cols-2">
             <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-8">
@@ -105,14 +107,14 @@ function RouteComponent() {
               </div> */}
                 <div className="text-center text-sm">
                   Don&apos;t have an account?{" "}
-                  <Link to="/auth/register" className="underline underline-offset-4">
+                  <Link to="/auth/register"  className="underline underline-offset-4">
                     Register
                   </Link>
                 </div>
               </div>
             </form>
             <div className="bg-muted relative hidden md:block">
-              <img src="/placeholder.svg" alt="Image" className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale" />
+              <img src="/logo/solid/logo-dark.png" alt="Image" className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.4]" />
             </div>
           </CardContent>
         </Card>
@@ -121,7 +123,8 @@ function RouteComponent() {
         and <a href="#">Privacy Policy</a>.
       </div> */}
       </div>
-  
+         <img src="/assets/footer-dark.png" className=" px-12 opacity-4 hidden md:block  " alt="" />
+
     </>
   );
 }

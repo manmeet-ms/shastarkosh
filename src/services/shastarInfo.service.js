@@ -2,7 +2,14 @@ import api from "./api.js";
 
 export const getShastarSrv = async (limit) => await api.get(`/shastars?limit=${limit}`);
 export const getSingleShastarSrv = async (sId) => await api.get(`/shastars/s/${sId}`);
-export const createShastarSrv = async (data) => await api.post("/shastars/create", data);
+export const createShastarSrv =  async (formData) => {
+// for (const [key, value] of formData.entries()) { console.log(key, value); }
+  return await api.post("/shastars/create", formData, {
+   headers: { "Content-Type": "multipart/form-data" },
+ 
+ withCredentials:true },);
+};
+
 export const updateShastarSrv = async (sId, data) => await api.put(`/shastars/update/${sId}`, data);
 export const deleteShastarSrv = async (sId) => await api.delete(`/shastars/delete/${sId}`);
 

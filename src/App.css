@@ -1,43 +1,22 @@
-@keyframes electricPulse {
-  0% {
-    box-shadow: 0 0 4px rgba(255, 255, 255, 0.2), 0 0 6px currentColor;
-  }
-  50% {
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4), 0 0 14px currentColor;
-  }
-  100% {
-    box-shadow: 0 0 4px rgba(255, 255, 255, 0.2), 0 0 6px currentColor;
-  }
+@import url(https://fonts.googleapis.com/css?family=Space+Mono:regular,italic,700,700italic);
+@import url(https://fonts.googleapis.com/css?family=Space+Grotesk:300,regular,500,600,700);
+
+
+::-webkit-scrollbar {
+  width: 0;
 }
 
-.electric-badge-gold {
-  animation: electricPulse 1.5s infinite;
-  color: #facc15; /* Tailwind yellow-400 */
+
+body,html{
+  scroll-behavior: smooth !important;
+  /* background-color: black; */
 }
 
-.electric-badge-silver {
-  animation: electricPulse 2s infinite;
-  color: #d1d5db; /* Tailwind gray-400 */
+.font-space-mono{
+  font-family: 'Space Grotesk';
+  font-family: 'Space Mono';
 }
-
-.electric-badge-bronze {
-  animation: electricPulse 1.8s infinite;
-  color: #b45309; /* Tailwind amber-700 */
-}
-.electric-badge-gold::after {
-  content: "";
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  border-radius: 50%;
-  border: 1px dashed currentColor;
-  opacity: 0.5;
-  animation: sparkRotate 2s linear infinite;
-}
-
-@keyframes sparkRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+   
+::selection{
+  background-color: rgba(73, 43, 226, 0.4);
 }

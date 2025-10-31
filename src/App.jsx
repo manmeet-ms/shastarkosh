@@ -36,7 +36,7 @@ const App = () => {
         <AppHeader /> 
         
          {/* first homepage of dashbord */}
-        <main className="flex">
+        <main className="flex ">
            <section className="hidden lg:flex lg:flex-col h-[90vh] flex-col justify-between lg:p-4">
             <nav className="flex flex-col min-w-48 max-h-screen space-y-4 ">
               {SIDENAV_DASH.map(({ title, url, icon: Icon }) => {

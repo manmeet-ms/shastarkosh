@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import dayjs from "dayjs";
+import "dotenv/config";
 import jwt from "jsonwebtoken";
 import SparkMD5 from "spark-md5";
 
@@ -14,16 +15,18 @@ export const registerUser = async (req, res) => {
     return res.status(400).json({ message: "All fields are required" });
   }
   try {
-    const hashedAvatar = await SparkMD5.hash(username);
+    const hashedAvatar = SparkMD5.hash(username);
     const createdUser = User.create({ username, name, email, password, bio, avatar: `https://www.gravatar.com/avatar/${hashedAvatar}?d=identicon` });
     const token = crypto.randomBytes(32).toString("hex");
     createdUser.verificationToken = token;
     await createdUser.save();
     logger("log", {
       text: `Click to verify: 
-      ${process.env.VITE_BACKEND_URL}/user/verify/${genToken}`,
+      ${process.env.BACKEND_URL}/user/verify/${token}`,
     });
-    res.status(200).json(createdUser.name, "registered successfully, verify your email.");
+    logger("log", createdUser.name, "registered successfully, verify your email.");
+
+    res.status(200).json({ message: createdUser.name + "registered successfully, verify your email." });
   } catch (err) {
     res.status(400).json(err.message);
   }
@@ -31,11 +34,14 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(email, password);
-
+    logger("log", "DATA to BE: ", email, password);
     const user = await User.findOne({ email });
     if (user) {
-      logger("log", "User found", user.email, user.name);
+      logger("log", user.name, "User found");
+       const isMatch = bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
       const token = jwt.sign({ id: user._id, name: user.name, role: user.role, avatar: user.avatar, bio: user.bio, isVerified: user.isVerified }, process.env.JWT_SECRET, { expiresIn: "7d" });
       // TODO we are giving away user id in jwt is this a posing a security risk
       res.cookie("token", token, {
@@ -44,25 +50,21 @@ export const loginUser = async (req, res) => {
         sameSite: "none", // or "strict"
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
-      res.json({ user });
-      res.redirect(process.env.FRONTEND_URL);
+      res.status(200).json({ user });
     }
 
-    const isMatch = bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid email or password" });
-    }
+   
   } catch (error) {
     logger("error", error);
     res.status(401).json(error);
   }
-}; 
+};
 export const logoutUser = (req, res) => {
   try {
     // logger("log", req.cookies);
     const responseOutcome = res.clearCookie("token", { path: "/", httpOnly: true, secure: true, sameSite: "none" });
-    console.log("Logout Successful");
-    res.status(200).json({message:"Logout successful"});
+    console.log("Logout Successful", responseOutcome);
+    res.status(200).json({ message: "Logout successful" });
     // req.session.destroy();
     // console.log(token);
   } catch (err) {

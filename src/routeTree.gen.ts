@@ -10,45 +10,41 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as NotficationsRouteImport } from './routes/notfications'
-import { Route as LandingRouteImport } from './routes/landing'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BetaRouteImport } from './routes/beta'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as R404RouteImport } from './routes/404'
-import { Route as UserRouteRouteImport } from './routes/user/route'
-import { Route as ShastarsRouteRouteImport } from './routes/shastars/route'
-import { Route as ResourcesRouteRouteImport } from './routes/resources/route'
-import { Route as PostsRouteRouteImport } from './routes/posts/route'
+import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ShastarsIndexRouteImport } from './routes/shastars/index'
-import { Route as ResourcesIndexRouteImport } from './routes/resources/index'
-import { Route as PostsIndexRouteImport } from './routes/posts/index'
 import { Route as AppIndexRouteImport } from './routes/app/index'
-import { Route as UserAccountRouteImport } from './routes/user/account'
-import { Route as ShastarsCreateRouteImport } from './routes/shastars/create'
-import { Route as ResourcesCreateRouteImport } from './routes/resources/create'
-import { Route as PostsCreateRouteImport } from './routes/posts/create'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AppRoadmapRouteImport } from './routes/app/roadmap'
 import { Route as AppPhilosophyRouteImport } from './routes/app/philosophy'
+import { Route as AppLeaderboardRouteImport } from './routes/app/leaderboard'
 import { Route as AppChangelogRouteImport } from './routes/app/changelog'
-import { Route as ShastarsSSIdRouteImport } from './routes/shastars/s.$sId'
-import { Route as ResourcesRRIdRouteImport } from './routes/resources/r.$rId'
-import { Route as PostsPPIdRouteImport } from './routes/posts/p.$pId'
+import { Route as AppUserRouteRouteImport } from './routes/app/user/route'
+import { Route as AppShastarsRouteRouteImport } from './routes/app/shastars/route'
+import { Route as AppResourcesRouteRouteImport } from './routes/app/resources/route'
+import { Route as AppPostsRouteRouteImport } from './routes/app/posts/route'
+import { Route as AppShastarsIndexRouteImport } from './routes/app/shastars/index'
+import { Route as AppResourcesIndexRouteImport } from './routes/app/resources/index'
+import { Route as AppPostsIndexRouteImport } from './routes/app/posts/index'
+import { Route as AppUserAccountRouteImport } from './routes/app/user/account'
+import { Route as AppShastarsCreateRouteImport } from './routes/app/shastars/create'
+import { Route as AppResourcesCreateRouteImport } from './routes/app/resources/create'
+import { Route as AppPostsCreateRouteImport } from './routes/app/posts/create'
 import { Route as AppDiscordDiscordRouteImport } from './routes/app/discord/discord'
+import { Route as AppShastarsSSIdRouteImport } from './routes/app/shastars/s.$sId'
+import { Route as AppResourcesRRIdRouteImport } from './routes/app/resources/r.$rId'
+import { Route as AppPostsPPIdRouteImport } from './routes/app/posts/p.$pId'
 
 const NotficationsRoute = NotficationsRouteImport.update({
   id: '/notfications',
   path: '/notfications',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LandingRoute = LandingRouteImport.update({
-  id: '/landing',
-  path: '/landing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -76,24 +72,9 @@ const R404Route = R404RouteImport.update({
   path: '/404',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UserRouteRoute = UserRouteRouteImport.update({
-  id: '/user',
-  path: '/user',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ShastarsRouteRoute = ShastarsRouteRouteImport.update({
-  id: '/shastars',
-  path: '/shastars',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResourcesRouteRoute = ResourcesRouteRouteImport.update({
-  id: '/resources',
-  path: '/resources',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PostsRouteRoute = PostsRouteRouteImport.update({
-  id: '/posts',
-  path: '/posts',
+const AuthRouteRoute = AuthRouteRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppRouteRoute = AppRouteRouteImport.update({
@@ -111,55 +92,20 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ShastarsIndexRoute = ShastarsIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ShastarsRouteRoute,
-} as any)
-const ResourcesIndexRoute = ResourcesIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ResourcesRouteRoute,
-} as any)
-const PostsIndexRoute = PostsIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => PostsRouteRoute,
-} as any)
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const UserAccountRoute = UserAccountRouteImport.update({
-  id: '/account',
-  path: '/account',
-  getParentRoute: () => UserRouteRoute,
-} as any)
-const ShastarsCreateRoute = ShastarsCreateRouteImport.update({
-  id: '/create',
-  path: '/create',
-  getParentRoute: () => ShastarsRouteRoute,
-} as any)
-const ResourcesCreateRoute = ResourcesCreateRouteImport.update({
-  id: '/create',
-  path: '/create',
-  getParentRoute: () => ResourcesRouteRoute,
-} as any)
-const PostsCreateRoute = PostsCreateRouteImport.update({
-  id: '/create',
-  path: '/create',
-  getParentRoute: () => PostsRouteRoute,
-} as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
-  id: '/auth/register',
-  path: '/auth/register',
-  getParentRoute: () => rootRouteImport,
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => AuthRouteRoute,
 } as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
-  id: '/auth/login',
-  path: '/auth/login',
-  getParentRoute: () => rootRouteImport,
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AuthRouteRoute,
 } as any)
 const AppRoadmapRoute = AppRoadmapRouteImport.update({
   id: '/roadmap',
@@ -171,127 +117,190 @@ const AppPhilosophyRoute = AppPhilosophyRouteImport.update({
   path: '/philosophy',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppLeaderboardRoute = AppLeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppChangelogRoute = AppChangelogRouteImport.update({
   id: '/changelog',
   path: '/changelog',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const ShastarsSSIdRoute = ShastarsSSIdRouteImport.update({
-  id: '/s/$sId',
-  path: '/s/$sId',
-  getParentRoute: () => ShastarsRouteRoute,
+const AppUserRouteRoute = AppUserRouteRouteImport.update({
+  id: '/user',
+  path: '/user',
+  getParentRoute: () => AppRouteRoute,
 } as any)
-const ResourcesRRIdRoute = ResourcesRRIdRouteImport.update({
-  id: '/r/$rId',
-  path: '/r/$rId',
-  getParentRoute: () => ResourcesRouteRoute,
+const AppShastarsRouteRoute = AppShastarsRouteRouteImport.update({
+  id: '/shastars',
+  path: '/shastars',
+  getParentRoute: () => AppRouteRoute,
 } as any)
-const PostsPPIdRoute = PostsPPIdRouteImport.update({
-  id: '/p/$pId',
-  path: '/p/$pId',
-  getParentRoute: () => PostsRouteRoute,
+const AppResourcesRouteRoute = AppResourcesRouteRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppPostsRouteRoute = AppPostsRouteRouteImport.update({
+  id: '/posts',
+  path: '/posts',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppShastarsIndexRoute = AppShastarsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppShastarsRouteRoute,
+} as any)
+const AppResourcesIndexRoute = AppResourcesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppResourcesRouteRoute,
+} as any)
+const AppPostsIndexRoute = AppPostsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppPostsRouteRoute,
+} as any)
+const AppUserAccountRoute = AppUserAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => AppUserRouteRoute,
+} as any)
+const AppShastarsCreateRoute = AppShastarsCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => AppShastarsRouteRoute,
+} as any)
+const AppResourcesCreateRoute = AppResourcesCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => AppResourcesRouteRoute,
+} as any)
+const AppPostsCreateRoute = AppPostsCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => AppPostsRouteRoute,
 } as any)
 const AppDiscordDiscordRoute = AppDiscordDiscordRouteImport.update({
   id: '/discord/discord',
   path: '/discord/discord',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppShastarsSSIdRoute = AppShastarsSSIdRouteImport.update({
+  id: '/s/$sId',
+  path: '/s/$sId',
+  getParentRoute: () => AppShastarsRouteRoute,
+} as any)
+const AppResourcesRRIdRoute = AppResourcesRRIdRouteImport.update({
+  id: '/r/$rId',
+  path: '/r/$rId',
+  getParentRoute: () => AppResourcesRouteRoute,
+} as any)
+const AppPostsPPIdRoute = AppPostsPPIdRouteImport.update({
+  id: '/p/$pId',
+  path: '/p/$pId',
+  getParentRoute: () => AppPostsRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRoute
   '/app': typeof AppRouteRouteWithChildren
-  '/posts': typeof PostsRouteRouteWithChildren
-  '/resources': typeof ResourcesRouteRouteWithChildren
-  '/shastars': typeof ShastarsRouteRouteWithChildren
-  '/user': typeof UserRouteRouteWithChildren
+  '/auth': typeof AuthRouteRouteWithChildren
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/beta': typeof BetaRoute
   '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
-  '/landing': typeof LandingRoute
   '/notfications': typeof NotficationsRoute
+  '/app/posts': typeof AppPostsRouteRouteWithChildren
+  '/app/resources': typeof AppResourcesRouteRouteWithChildren
+  '/app/shastars': typeof AppShastarsRouteRouteWithChildren
+  '/app/user': typeof AppUserRouteRouteWithChildren
   '/app/changelog': typeof AppChangelogRoute
+  '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/philosophy': typeof AppPhilosophyRoute
   '/app/roadmap': typeof AppRoadmapRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/posts/create': typeof PostsCreateRoute
-  '/resources/create': typeof ResourcesCreateRoute
-  '/shastars/create': typeof ShastarsCreateRoute
-  '/user/account': typeof UserAccountRoute
   '/app/': typeof AppIndexRoute
-  '/posts/': typeof PostsIndexRoute
-  '/resources/': typeof ResourcesIndexRoute
-  '/shastars/': typeof ShastarsIndexRoute
   '/app/discord/discord': typeof AppDiscordDiscordRoute
-  '/posts/p/$pId': typeof PostsPPIdRoute
-  '/resources/r/$rId': typeof ResourcesRRIdRoute
-  '/shastars/s/$sId': typeof ShastarsSSIdRoute
+  '/app/posts/create': typeof AppPostsCreateRoute
+  '/app/resources/create': typeof AppResourcesCreateRoute
+  '/app/shastars/create': typeof AppShastarsCreateRoute
+  '/app/user/account': typeof AppUserAccountRoute
+  '/app/posts/': typeof AppPostsIndexRoute
+  '/app/resources/': typeof AppResourcesIndexRoute
+  '/app/shastars/': typeof AppShastarsIndexRoute
+  '/app/posts/p/$pId': typeof AppPostsPPIdRoute
+  '/app/resources/r/$rId': typeof AppResourcesRRIdRoute
+  '/app/shastars/s/$sId': typeof AppShastarsSSIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRoute
-  '/user': typeof UserRouteRouteWithChildren
+  '/auth': typeof AuthRouteRouteWithChildren
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/beta': typeof BetaRoute
   '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
-  '/landing': typeof LandingRoute
   '/notfications': typeof NotficationsRoute
+  '/app/user': typeof AppUserRouteRouteWithChildren
   '/app/changelog': typeof AppChangelogRoute
+  '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/philosophy': typeof AppPhilosophyRoute
   '/app/roadmap': typeof AppRoadmapRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/posts/create': typeof PostsCreateRoute
-  '/resources/create': typeof ResourcesCreateRoute
-  '/shastars/create': typeof ShastarsCreateRoute
-  '/user/account': typeof UserAccountRoute
   '/app': typeof AppIndexRoute
-  '/posts': typeof PostsIndexRoute
-  '/resources': typeof ResourcesIndexRoute
-  '/shastars': typeof ShastarsIndexRoute
   '/app/discord/discord': typeof AppDiscordDiscordRoute
-  '/posts/p/$pId': typeof PostsPPIdRoute
-  '/resources/r/$rId': typeof ResourcesRRIdRoute
-  '/shastars/s/$sId': typeof ShastarsSSIdRoute
+  '/app/posts/create': typeof AppPostsCreateRoute
+  '/app/resources/create': typeof AppResourcesCreateRoute
+  '/app/shastars/create': typeof AppShastarsCreateRoute
+  '/app/user/account': typeof AppUserAccountRoute
+  '/app/posts': typeof AppPostsIndexRoute
+  '/app/resources': typeof AppResourcesIndexRoute
+  '/app/shastars': typeof AppShastarsIndexRoute
+  '/app/posts/p/$pId': typeof AppPostsPPIdRoute
+  '/app/resources/r/$rId': typeof AppResourcesRRIdRoute
+  '/app/shastars/s/$sId': typeof AppShastarsSSIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRoute
   '/app': typeof AppRouteRouteWithChildren
-  '/posts': typeof PostsRouteRouteWithChildren
-  '/resources': typeof ResourcesRouteRouteWithChildren
-  '/shastars': typeof ShastarsRouteRouteWithChildren
-  '/user': typeof UserRouteRouteWithChildren
+  '/auth': typeof AuthRouteRouteWithChildren
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/beta': typeof BetaRoute
   '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
-  '/landing': typeof LandingRoute
   '/notfications': typeof NotficationsRoute
+  '/app/posts': typeof AppPostsRouteRouteWithChildren
+  '/app/resources': typeof AppResourcesRouteRouteWithChildren
+  '/app/shastars': typeof AppShastarsRouteRouteWithChildren
+  '/app/user': typeof AppUserRouteRouteWithChildren
   '/app/changelog': typeof AppChangelogRoute
+  '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/philosophy': typeof AppPhilosophyRoute
   '/app/roadmap': typeof AppRoadmapRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/posts/create': typeof PostsCreateRoute
-  '/resources/create': typeof ResourcesCreateRoute
-  '/shastars/create': typeof ShastarsCreateRoute
-  '/user/account': typeof UserAccountRoute
   '/app/': typeof AppIndexRoute
-  '/posts/': typeof PostsIndexRoute
-  '/resources/': typeof ResourcesIndexRoute
-  '/shastars/': typeof ShastarsIndexRoute
   '/app/discord/discord': typeof AppDiscordDiscordRoute
-  '/posts/p/$pId': typeof PostsPPIdRoute
-  '/resources/r/$rId': typeof ResourcesRRIdRoute
-  '/shastars/s/$sId': typeof ShastarsSSIdRoute
+  '/app/posts/create': typeof AppPostsCreateRoute
+  '/app/resources/create': typeof AppResourcesCreateRoute
+  '/app/shastars/create': typeof AppShastarsCreateRoute
+  '/app/user/account': typeof AppUserAccountRoute
+  '/app/posts/': typeof AppPostsIndexRoute
+  '/app/resources/': typeof AppResourcesIndexRoute
+  '/app/shastars/': typeof AppShastarsIndexRoute
+  '/app/posts/p/$pId': typeof AppPostsPPIdRoute
+  '/app/resources/r/$rId': typeof AppResourcesRRIdRoute
+  '/app/shastars/s/$sId': typeof AppShastarsSSIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -299,115 +308,112 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/app'
-    | '/posts'
-    | '/resources'
-    | '/shastars'
-    | '/user'
+    | '/auth'
     | '/404'
     | '/about'
     | '/beta'
     | '/categories'
     | '/contact'
-    | '/landing'
     | '/notfications'
+    | '/app/posts'
+    | '/app/resources'
+    | '/app/shastars'
+    | '/app/user'
     | '/app/changelog'
+    | '/app/leaderboard'
     | '/app/philosophy'
     | '/app/roadmap'
     | '/auth/login'
     | '/auth/register'
-    | '/posts/create'
-    | '/resources/create'
-    | '/shastars/create'
-    | '/user/account'
     | '/app/'
-    | '/posts/'
-    | '/resources/'
-    | '/shastars/'
     | '/app/discord/discord'
-    | '/posts/p/$pId'
-    | '/resources/r/$rId'
-    | '/shastars/s/$sId'
+    | '/app/posts/create'
+    | '/app/resources/create'
+    | '/app/shastars/create'
+    | '/app/user/account'
+    | '/app/posts/'
+    | '/app/resources/'
+    | '/app/shastars/'
+    | '/app/posts/p/$pId'
+    | '/app/resources/r/$rId'
+    | '/app/shastars/s/$sId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/admin'
-    | '/user'
+    | '/auth'
     | '/404'
     | '/about'
     | '/beta'
     | '/categories'
     | '/contact'
-    | '/landing'
     | '/notfications'
+    | '/app/user'
     | '/app/changelog'
+    | '/app/leaderboard'
     | '/app/philosophy'
     | '/app/roadmap'
     | '/auth/login'
     | '/auth/register'
-    | '/posts/create'
-    | '/resources/create'
-    | '/shastars/create'
-    | '/user/account'
     | '/app'
-    | '/posts'
-    | '/resources'
-    | '/shastars'
     | '/app/discord/discord'
-    | '/posts/p/$pId'
-    | '/resources/r/$rId'
-    | '/shastars/s/$sId'
+    | '/app/posts/create'
+    | '/app/resources/create'
+    | '/app/shastars/create'
+    | '/app/user/account'
+    | '/app/posts'
+    | '/app/resources'
+    | '/app/shastars'
+    | '/app/posts/p/$pId'
+    | '/app/resources/r/$rId'
+    | '/app/shastars/s/$sId'
   id:
     | '__root__'
     | '/'
     | '/admin'
     | '/app'
-    | '/posts'
-    | '/resources'
-    | '/shastars'
-    | '/user'
+    | '/auth'
     | '/404'
     | '/about'
     | '/beta'
     | '/categories'
     | '/contact'
-    | '/landing'
     | '/notfications'
+    | '/app/posts'
+    | '/app/resources'
+    | '/app/shastars'
+    | '/app/user'
     | '/app/changelog'
+    | '/app/leaderboard'
     | '/app/philosophy'
     | '/app/roadmap'
     | '/auth/login'
     | '/auth/register'
-    | '/posts/create'
-    | '/resources/create'
-    | '/shastars/create'
-    | '/user/account'
     | '/app/'
-    | '/posts/'
-    | '/resources/'
-    | '/shastars/'
     | '/app/discord/discord'
-    | '/posts/p/$pId'
-    | '/resources/r/$rId'
-    | '/shastars/s/$sId'
+    | '/app/posts/create'
+    | '/app/resources/create'
+    | '/app/shastars/create'
+    | '/app/user/account'
+    | '/app/posts/'
+    | '/app/resources/'
+    | '/app/shastars/'
+    | '/app/posts/p/$pId'
+    | '/app/resources/r/$rId'
+    | '/app/shastars/s/$sId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRouteRoute: typeof AdminRouteRoute
   AppRouteRoute: typeof AppRouteRouteWithChildren
-  PostsRouteRoute: typeof PostsRouteRouteWithChildren
-  ResourcesRouteRoute: typeof ResourcesRouteRouteWithChildren
-  ShastarsRouteRoute: typeof ShastarsRouteRouteWithChildren
-  UserRouteRoute: typeof UserRouteRouteWithChildren
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
   R404Route: typeof R404Route
   AboutRoute: typeof AboutRoute
   BetaRoute: typeof BetaRoute
   CategoriesRoute: typeof CategoriesRoute
   ContactRoute: typeof ContactRoute
-  LandingRoute: typeof LandingRoute
   NotficationsRoute: typeof NotficationsRoute
-  AuthLoginRoute: typeof AuthLoginRoute
-  AuthRegisterRoute: typeof AuthRegisterRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -417,13 +423,6 @@ declare module '@tanstack/react-router' {
       path: '/notfications'
       fullPath: '/notfications'
       preLoaderRoute: typeof NotficationsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/landing': {
-      id: '/landing'
-      path: '/landing'
-      fullPath: '/landing'
-      preLoaderRoute: typeof LandingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -461,32 +460,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof R404RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/user': {
-      id: '/user'
-      path: '/user'
-      fullPath: '/user'
-      preLoaderRoute: typeof UserRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/shastars': {
-      id: '/shastars'
-      path: '/shastars'
-      fullPath: '/shastars'
-      preLoaderRoute: typeof ShastarsRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/resources': {
-      id: '/resources'
-      path: '/resources'
-      fullPath: '/resources'
-      preLoaderRoute: typeof ResourcesRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/posts': {
-      id: '/posts'
-      path: '/posts'
-      fullPath: '/posts'
-      preLoaderRoute: typeof PostsRouteRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app': {
@@ -510,27 +488,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/shastars/': {
-      id: '/shastars/'
-      path: '/'
-      fullPath: '/shastars/'
-      preLoaderRoute: typeof ShastarsIndexRouteImport
-      parentRoute: typeof ShastarsRouteRoute
-    }
-    '/resources/': {
-      id: '/resources/'
-      path: '/'
-      fullPath: '/resources/'
-      preLoaderRoute: typeof ResourcesIndexRouteImport
-      parentRoute: typeof ResourcesRouteRoute
-    }
-    '/posts/': {
-      id: '/posts/'
-      path: '/'
-      fullPath: '/posts/'
-      preLoaderRoute: typeof PostsIndexRouteImport
-      parentRoute: typeof PostsRouteRoute
-    }
     '/app/': {
       id: '/app/'
       path: '/'
@@ -538,47 +495,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/user/account': {
-      id: '/user/account'
-      path: '/account'
-      fullPath: '/user/account'
-      preLoaderRoute: typeof UserAccountRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/shastars/create': {
-      id: '/shastars/create'
-      path: '/create'
-      fullPath: '/shastars/create'
-      preLoaderRoute: typeof ShastarsCreateRouteImport
-      parentRoute: typeof ShastarsRouteRoute
-    }
-    '/resources/create': {
-      id: '/resources/create'
-      path: '/create'
-      fullPath: '/resources/create'
-      preLoaderRoute: typeof ResourcesCreateRouteImport
-      parentRoute: typeof ResourcesRouteRoute
-    }
-    '/posts/create': {
-      id: '/posts/create'
-      path: '/create'
-      fullPath: '/posts/create'
-      preLoaderRoute: typeof PostsCreateRouteImport
-      parentRoute: typeof PostsRouteRoute
-    }
     '/auth/register': {
       id: '/auth/register'
-      path: '/auth/register'
+      path: '/register'
       fullPath: '/auth/register'
       preLoaderRoute: typeof AuthRegisterRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
     '/auth/login': {
       id: '/auth/login'
-      path: '/auth/login'
+      path: '/login'
       fullPath: '/auth/login'
       preLoaderRoute: typeof AuthLoginRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
     '/app/roadmap': {
       id: '/app/roadmap'
@@ -594,6 +523,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppPhilosophyRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/leaderboard': {
+      id: '/app/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/app/leaderboard'
+      preLoaderRoute: typeof AppLeaderboardRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/app/changelog': {
       id: '/app/changelog'
       path: '/changelog'
@@ -601,26 +537,82 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppChangelogRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/shastars/s/$sId': {
-      id: '/shastars/s/$sId'
-      path: '/s/$sId'
-      fullPath: '/shastars/s/$sId'
-      preLoaderRoute: typeof ShastarsSSIdRouteImport
-      parentRoute: typeof ShastarsRouteRoute
+    '/app/user': {
+      id: '/app/user'
+      path: '/user'
+      fullPath: '/app/user'
+      preLoaderRoute: typeof AppUserRouteRouteImport
+      parentRoute: typeof AppRouteRoute
     }
-    '/resources/r/$rId': {
-      id: '/resources/r/$rId'
-      path: '/r/$rId'
-      fullPath: '/resources/r/$rId'
-      preLoaderRoute: typeof ResourcesRRIdRouteImport
-      parentRoute: typeof ResourcesRouteRoute
+    '/app/shastars': {
+      id: '/app/shastars'
+      path: '/shastars'
+      fullPath: '/app/shastars'
+      preLoaderRoute: typeof AppShastarsRouteRouteImport
+      parentRoute: typeof AppRouteRoute
     }
-    '/posts/p/$pId': {
-      id: '/posts/p/$pId'
-      path: '/p/$pId'
-      fullPath: '/posts/p/$pId'
-      preLoaderRoute: typeof PostsPPIdRouteImport
-      parentRoute: typeof PostsRouteRoute
+    '/app/resources': {
+      id: '/app/resources'
+      path: '/resources'
+      fullPath: '/app/resources'
+      preLoaderRoute: typeof AppResourcesRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/posts': {
+      id: '/app/posts'
+      path: '/posts'
+      fullPath: '/app/posts'
+      preLoaderRoute: typeof AppPostsRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/shastars/': {
+      id: '/app/shastars/'
+      path: '/'
+      fullPath: '/app/shastars/'
+      preLoaderRoute: typeof AppShastarsIndexRouteImport
+      parentRoute: typeof AppShastarsRouteRoute
+    }
+    '/app/resources/': {
+      id: '/app/resources/'
+      path: '/'
+      fullPath: '/app/resources/'
+      preLoaderRoute: typeof AppResourcesIndexRouteImport
+      parentRoute: typeof AppResourcesRouteRoute
+    }
+    '/app/posts/': {
+      id: '/app/posts/'
+      path: '/'
+      fullPath: '/app/posts/'
+      preLoaderRoute: typeof AppPostsIndexRouteImport
+      parentRoute: typeof AppPostsRouteRoute
+    }
+    '/app/user/account': {
+      id: '/app/user/account'
+      path: '/account'
+      fullPath: '/app/user/account'
+      preLoaderRoute: typeof AppUserAccountRouteImport
+      parentRoute: typeof AppUserRouteRoute
+    }
+    '/app/shastars/create': {
+      id: '/app/shastars/create'
+      path: '/create'
+      fullPath: '/app/shastars/create'
+      preLoaderRoute: typeof AppShastarsCreateRouteImport
+      parentRoute: typeof AppShastarsRouteRoute
+    }
+    '/app/resources/create': {
+      id: '/app/resources/create'
+      path: '/create'
+      fullPath: '/app/resources/create'
+      preLoaderRoute: typeof AppResourcesCreateRouteImport
+      parentRoute: typeof AppResourcesRouteRoute
+    }
+    '/app/posts/create': {
+      id: '/app/posts/create'
+      path: '/create'
+      fullPath: '/app/posts/create'
+      preLoaderRoute: typeof AppPostsCreateRouteImport
+      parentRoute: typeof AppPostsRouteRoute
     }
     '/app/discord/discord': {
       id: '/app/discord/discord'
@@ -629,11 +621,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDiscordDiscordRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/shastars/s/$sId': {
+      id: '/app/shastars/s/$sId'
+      path: '/s/$sId'
+      fullPath: '/app/shastars/s/$sId'
+      preLoaderRoute: typeof AppShastarsSSIdRouteImport
+      parentRoute: typeof AppShastarsRouteRoute
+    }
+    '/app/resources/r/$rId': {
+      id: '/app/resources/r/$rId'
+      path: '/r/$rId'
+      fullPath: '/app/resources/r/$rId'
+      preLoaderRoute: typeof AppResourcesRRIdRouteImport
+      parentRoute: typeof AppResourcesRouteRoute
+    }
+    '/app/posts/p/$pId': {
+      id: '/app/posts/p/$pId'
+      path: '/p/$pId'
+      fullPath: '/app/posts/p/$pId'
+      preLoaderRoute: typeof AppPostsPPIdRouteImport
+      parentRoute: typeof AppPostsRouteRoute
+    }
   }
 }
 
+interface AppPostsRouteRouteChildren {
+  AppPostsCreateRoute: typeof AppPostsCreateRoute
+  AppPostsIndexRoute: typeof AppPostsIndexRoute
+  AppPostsPPIdRoute: typeof AppPostsPPIdRoute
+}
+
+const AppPostsRouteRouteChildren: AppPostsRouteRouteChildren = {
+  AppPostsCreateRoute: AppPostsCreateRoute,
+  AppPostsIndexRoute: AppPostsIndexRoute,
+  AppPostsPPIdRoute: AppPostsPPIdRoute,
+}
+
+const AppPostsRouteRouteWithChildren = AppPostsRouteRoute._addFileChildren(
+  AppPostsRouteRouteChildren,
+)
+
+interface AppResourcesRouteRouteChildren {
+  AppResourcesCreateRoute: typeof AppResourcesCreateRoute
+  AppResourcesIndexRoute: typeof AppResourcesIndexRoute
+  AppResourcesRRIdRoute: typeof AppResourcesRRIdRoute
+}
+
+const AppResourcesRouteRouteChildren: AppResourcesRouteRouteChildren = {
+  AppResourcesCreateRoute: AppResourcesCreateRoute,
+  AppResourcesIndexRoute: AppResourcesIndexRoute,
+  AppResourcesRRIdRoute: AppResourcesRRIdRoute,
+}
+
+const AppResourcesRouteRouteWithChildren =
+  AppResourcesRouteRoute._addFileChildren(AppResourcesRouteRouteChildren)
+
+interface AppShastarsRouteRouteChildren {
+  AppShastarsCreateRoute: typeof AppShastarsCreateRoute
+  AppShastarsIndexRoute: typeof AppShastarsIndexRoute
+  AppShastarsSSIdRoute: typeof AppShastarsSSIdRoute
+}
+
+const AppShastarsRouteRouteChildren: AppShastarsRouteRouteChildren = {
+  AppShastarsCreateRoute: AppShastarsCreateRoute,
+  AppShastarsIndexRoute: AppShastarsIndexRoute,
+  AppShastarsSSIdRoute: AppShastarsSSIdRoute,
+}
+
+const AppShastarsRouteRouteWithChildren =
+  AppShastarsRouteRoute._addFileChildren(AppShastarsRouteRouteChildren)
+
+interface AppUserRouteRouteChildren {
+  AppUserAccountRoute: typeof AppUserAccountRoute
+}
+
+const AppUserRouteRouteChildren: AppUserRouteRouteChildren = {
+  AppUserAccountRoute: AppUserAccountRoute,
+}
+
+const AppUserRouteRouteWithChildren = AppUserRouteRoute._addFileChildren(
+  AppUserRouteRouteChildren,
+)
+
 interface AppRouteRouteChildren {
+  AppPostsRouteRoute: typeof AppPostsRouteRouteWithChildren
+  AppResourcesRouteRoute: typeof AppResourcesRouteRouteWithChildren
+  AppShastarsRouteRoute: typeof AppShastarsRouteRouteWithChildren
+  AppUserRouteRoute: typeof AppUserRouteRouteWithChildren
   AppChangelogRoute: typeof AppChangelogRoute
+  AppLeaderboardRoute: typeof AppLeaderboardRoute
   AppPhilosophyRoute: typeof AppPhilosophyRoute
   AppRoadmapRoute: typeof AppRoadmapRoute
   AppIndexRoute: typeof AppIndexRoute
@@ -641,7 +717,12 @@ interface AppRouteRouteChildren {
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppPostsRouteRoute: AppPostsRouteRouteWithChildren,
+  AppResourcesRouteRoute: AppResourcesRouteRouteWithChildren,
+  AppShastarsRouteRoute: AppShastarsRouteRouteWithChildren,
+  AppUserRouteRoute: AppUserRouteRouteWithChildren,
   AppChangelogRoute: AppChangelogRoute,
+  AppLeaderboardRoute: AppLeaderboardRoute,
   AppPhilosophyRoute: AppPhilosophyRoute,
   AppRoadmapRoute: AppRoadmapRoute,
   AppIndexRoute: AppIndexRoute,
@@ -652,83 +733,31 @@ const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
   AppRouteRouteChildren,
 )
 
-interface PostsRouteRouteChildren {
-  PostsCreateRoute: typeof PostsCreateRoute
-  PostsIndexRoute: typeof PostsIndexRoute
-  PostsPPIdRoute: typeof PostsPPIdRoute
+interface AuthRouteRouteChildren {
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
 }
 
-const PostsRouteRouteChildren: PostsRouteRouteChildren = {
-  PostsCreateRoute: PostsCreateRoute,
-  PostsIndexRoute: PostsIndexRoute,
-  PostsPPIdRoute: PostsPPIdRoute,
+const AuthRouteRouteChildren: AuthRouteRouteChildren = {
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRegisterRoute: AuthRegisterRoute,
 }
 
-const PostsRouteRouteWithChildren = PostsRouteRoute._addFileChildren(
-  PostsRouteRouteChildren,
-)
-
-interface ResourcesRouteRouteChildren {
-  ResourcesCreateRoute: typeof ResourcesCreateRoute
-  ResourcesIndexRoute: typeof ResourcesIndexRoute
-  ResourcesRRIdRoute: typeof ResourcesRRIdRoute
-}
-
-const ResourcesRouteRouteChildren: ResourcesRouteRouteChildren = {
-  ResourcesCreateRoute: ResourcesCreateRoute,
-  ResourcesIndexRoute: ResourcesIndexRoute,
-  ResourcesRRIdRoute: ResourcesRRIdRoute,
-}
-
-const ResourcesRouteRouteWithChildren = ResourcesRouteRoute._addFileChildren(
-  ResourcesRouteRouteChildren,
-)
-
-interface ShastarsRouteRouteChildren {
-  ShastarsCreateRoute: typeof ShastarsCreateRoute
-  ShastarsIndexRoute: typeof ShastarsIndexRoute
-  ShastarsSSIdRoute: typeof ShastarsSSIdRoute
-}
-
-const ShastarsRouteRouteChildren: ShastarsRouteRouteChildren = {
-  ShastarsCreateRoute: ShastarsCreateRoute,
-  ShastarsIndexRoute: ShastarsIndexRoute,
-  ShastarsSSIdRoute: ShastarsSSIdRoute,
-}
-
-const ShastarsRouteRouteWithChildren = ShastarsRouteRoute._addFileChildren(
-  ShastarsRouteRouteChildren,
-)
-
-interface UserRouteRouteChildren {
-  UserAccountRoute: typeof UserAccountRoute
-}
-
-const UserRouteRouteChildren: UserRouteRouteChildren = {
-  UserAccountRoute: UserAccountRoute,
-}
-
-const UserRouteRouteWithChildren = UserRouteRoute._addFileChildren(
-  UserRouteRouteChildren,
+const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
+  AuthRouteRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRouteRoute: AdminRouteRoute,
   AppRouteRoute: AppRouteRouteWithChildren,
-  PostsRouteRoute: PostsRouteRouteWithChildren,
-  ResourcesRouteRoute: ResourcesRouteRouteWithChildren,
-  ShastarsRouteRoute: ShastarsRouteRouteWithChildren,
-  UserRouteRoute: UserRouteRouteWithChildren,
+  AuthRouteRoute: AuthRouteRouteWithChildren,
   R404Route: R404Route,
   AboutRoute: AboutRoute,
   BetaRoute: BetaRoute,
   CategoriesRoute: CategoriesRoute,
   ContactRoute: ContactRoute,
-  LandingRoute: LandingRoute,
   NotficationsRoute: NotficationsRoute,
-  AuthLoginRoute: AuthLoginRoute,
-  AuthRegisterRoute: AuthRegisterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

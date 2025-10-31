@@ -25,7 +25,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { APP_NAME } from "../../../shared/app-variables.shared";
+import { useSelector } from "react-redux";
 
 const LandingHeader = () => {
   const features = [
@@ -60,22 +62,27 @@ const LandingHeader = () => {
       href: "#",
     },
   ];
-
-  return (
-    <section className="py-4">
+const navigate=useNavigate()
+const {user}=useSelector((state)=>state.auth)
+if (user) {
+navigate({to:"/app"})  
+}
+ else{
+   return (
+    <section className="bg-black/20 backdrop-brightness-20 px-4 backdrop-blur-2xl sticky top-0 z-10 py-4">
       <div className="container">
         <nav className="flex items-center justify-between">
           <a
-            href="https://www.shadcnblocks.com"
+            href="/"
             className="flex items-center gap-2"
           >
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg"
+              src="/logo/transparent/transparent-shastarkosh-logo-dark.png"
               className="max-h-8"
               alt="Shadcn UI Navbar"
             />
-            <span className="text-lg font-semibold tracking-tighter">
-              Shadcnblocks.com
+            <span className="text-lg font-semibold -ml-1.5 tracking-tighter">
+             {APP_NAME}
             </span>
           </a>
           <NavigationMenu className="hidden lg:block">
@@ -130,8 +137,10 @@ const LandingHeader = () => {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
-            <Button variant="outline">Sign in</Button>
-            <Button>Start for free</Button>
+            <Button variant="outline"> <Link to={"/auth/register" } >Get started</Link> </Button>
+            <Button>
+              <Link to={"/app"} >Go to App</Link>
+            </Button>
           </div>
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
@@ -207,6 +216,7 @@ const LandingHeader = () => {
       </div>
     </section>
   );
+ }
 };
 
 export default LandingHeader;

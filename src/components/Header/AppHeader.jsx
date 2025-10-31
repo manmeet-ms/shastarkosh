@@ -3,11 +3,11 @@
 import { ModeToggle } from "@/components/mode-toggle.jsx";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useDispatch, useSelector } from "react-redux";
 
 import { APP_NAME } from "../../../shared/app-variables.shared.js";
-import { logoutUserSrv } from "../../services/auth.service.js";
+import { logoutUserSrv } from "@/services/auth.service.js";
 import { logout } from "../../store/authSlice.js";
 
 export const AppHeader = () => {
@@ -37,12 +37,14 @@ export const AppHeader = () => {
     dispatch(logout());
     navigate({ to: "/auth/login" });
   }
+  const pathname = useLocation().pathname;
   return (
     <section className="p-4  backdrop-blur-md sticky top-0 z-10 bg-background/80">
       <nav className="flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/app" className="flex items-center gap-2">
           {" "}
-          <img src="/assets/logo-dark.png" className="w-8 rounded " alt="Shadcn UI Navbar" />
+          {/* <img src="/logo/transparent/transparent-shastarkosh-logo-dark.png" className="w-8 rounded " alt="Shadcn UI Navbar" /> */}
+          <img src="/logo/solid/logo-dark.png" className="w-8 rounded " alt="Shadcn UI Navbar" />
           <span className="text-lg font-semibold tracking-tighter">{APP_NAME}</span>
         </Link>
         {/* // TODO: refactor Nav logic */}
@@ -77,12 +79,15 @@ export const AppHeader = () => {
             </div>
           ) : (
             <div className="flex gap-2">
-              <Link to="/auth/login">
+                {(pathname === "/auth/login" || pathname === "/auth/register") && (
+                <Link to="/app" >
+                  <Button variant="ghost">Home</Button>
+                </Link> 
+              )} <Link to="/auth/login" >
                 <Button variant="outline">Login</Button>
               </Link>
-              {/* <Link to="/auth/register">
-                <Button>Register</Button>
-              </Link> */}
+           
+              
             </div>
           )}
      <ModeToggle />

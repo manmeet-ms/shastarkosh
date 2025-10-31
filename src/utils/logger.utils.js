@@ -1,4 +1,5 @@
 import path from "path";
+import dayjs from "dayjs";
 // utils/logger.js
 export default function logger(type = "log", ...args) {
   const COLORS = {
@@ -87,7 +88,7 @@ export default function logger(type = "log", ...args) {
   if (match) {
     const [, func, file, line, col] = match;
     console.log(
-      `${COLORS.gray}[${COLORS.cyan}${path.basename(file)}:${line}:${col}${COLORS.gray}] ${COLORS.italic}${COLORS.yellow}f(${func.replace("Object.", "")})${COLORS.reset}\n🠺${color}[${type.toUpperCase()}]${COLORS.reset}`,
+      `${COLORS.gray}${COLORS.red} [${dayjs().format("HH:mm:ss")}]${COLORS.gray} [${COLORS.cyan}${path.basename(file)}:${line}:${col}${COLORS.gray}] ${COLORS.italic}${COLORS.yellow}f(${func.replace("Object.", "")})${COLORS.reset}\n🠺${color}[${type.toUpperCase()}]${COLORS.reset}`,
       ...args
     );
   } else {

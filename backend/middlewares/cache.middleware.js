@@ -5,7 +5,7 @@ import logger from "../../src/utils/logger.utils.js";
 export const cacheMiddleware = (keyPrefix, ttl = 60) => {
   return async (req, res, next) => {
     try {
-      logger("info", "nothing is written cache fn")
+      // logger("info", "nothing is written cache fn")
       
     //   const key = `${keyPrefix} : ${req.originalUrl}`; // : is a delimitter so we get a folder like view
     // //   const key = `${keyPrefix}:${req.originalUrl.replace("/api/e/", "")}`;
@@ -29,7 +29,7 @@ export const cacheMiddleware = (keyPrefix, ttl = 60) => {
       console.error("Cache middleware error:", err);
       next(); // fallback gracefully
     }
-    logger("info","caching fn is empty");
+    // logger("info","caching fn is empty");
     
   };
 };

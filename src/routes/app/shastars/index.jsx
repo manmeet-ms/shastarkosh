@@ -2,11 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
-import SectionTitleSubTitle from "../../components/SectionTitleSubTitle.jsx";
-import ShastarCard from "../../components/ShastarCard.jsx";
-import { getShastarSrv } from "../../services/shastarInfo.service.js";
+import SectionTitleSubTitle from "@/components/SectionTitleSubTitle.jsx";
+import ShastarCard from "@/components/ShastarCard.jsx";
+import { getShastarSrv } from "@/services/shastarInfo.service.js";
 
-export const Route = createFileRoute("/shastars/")({
+export const Route = createFileRoute("/app/shastars/")({
   component: RouteComponent,
 });
 
@@ -15,7 +15,7 @@ function RouteComponent() {
   const getShastarsListinfo = async () => {
     const resShastars = await getShastarSrv(50);
 
-    setShastars(resShastars.data);
+    setShastars(resShastars.data.data);
     console.log("resShastars", shastars);
   };
   useEffect(() => {
@@ -27,9 +27,9 @@ function RouteComponent() {
       <div className="container px-4  mx-auto">
         <div className="flex flex-col text-center w-full mb-4">
           <div className="flex justify-between items-center">
-            <SectionTitleSubTitle title="Shastar" subtitle={`${shastars.length} shastars`} />
+            <SectionTitleSubTitle title="Shastar" subtitle={"${shastars.length} shastars"} />
             <Button>
-              <Link to="/shastars/create">Create Shastar</Link>
+              <Link to="/app/shastars/create">Create Shastar</Link>
             </Button>
           </div>
         </div>

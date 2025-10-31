@@ -1,39 +1,44 @@
-import { IconHome2, IconMessages, IconPaperclip, IconTrident, IconUser } from "@tabler/icons-react";
+import { IconChartArcs, IconChartArea, IconHome2, IconListNumbers, IconMessages, IconPaperclip, IconTrident, IconUser } from "@tabler/icons-react";
 
 export const SIDENAV_DASH = [
   {
     title: "Home",
-    url: "/",
+    url: "/app",
     icon: IconHome2,
     // icon: LayoutDashboardIcon,
   },
   // {
   //   title: "Submissions",
-  //   url: "/submissions",
+  //   url: "/app/submissions",
   //   icon: IconFileSpark,
   //   // icon: PaperclipIcon,
   // },
   {
     title: "Shastars",
-    url: "/shastars",
+    url: "/app/shastars",
     icon: IconTrident,
   },
   {
     title: "Discussion",
-    url: "/posts", // TODO make it discussions
+    url: "/app/posts", // TODO make it discussions
     icon: IconMessages,
   },
   {
     title: "Resources",
-    url: "/resources",
+    url: "/app/resources",
     icon: IconPaperclip,
   },
-
   {
-    title: "Account",
-    url: "/user/account",
-    icon: IconUser,
+    title: "Leaderboard",
+    url: "/app/leaderboard",
+    icon: IconListNumbers,
   },
+
+  // {
+  //   title: "Account",
+  //   url: "/app/user/account",
+  //   icon: IconUser,
+  // },
 
   // {
   //   title: "Beta",

@@ -7,5 +7,5 @@ export let USERNAME = "@username";
 // no slash!!!
 export const BASE_API_URL_SHARED = "http://localhost:3000/api";
 // export const BASE_API_URL_SHARED ="https://jathedarbe.onrender.com/api";
-// export const BASE_API_URL_SHARED=  process.env.VITE_BACKEND_URL;
+// export const BASE_API_URL_SHARED=  process.env.BACKEND_URL;
 

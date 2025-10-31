@@ -1,8 +1,8 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 import { useEffect, useState } from "react";
-import { getShastarSrv } from '../../services/shastarInfo.service.js';
+import { getShastarSrv } from "@/services/shastarInfo.service.js";
 
-export const Route = createFileRoute('/shastars')({
+export const Route = createFileRoute('/app/shastars')({
   component: RouteComponent,
 })
 

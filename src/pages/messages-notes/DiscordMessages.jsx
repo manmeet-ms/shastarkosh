@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { faker } from "@faker-js/faker";
 import { ExternalLinkIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { gDiscordChannelMessagesSrv, gDiscordThreadMessagesSrv } from "../../services/external.service";
+import { gDiscordChannelMessagesSrv, gDiscordThreadMessagesSrv } from "@/services/external.service";
 
 // export const RenderThreadCards = ({ words, threadId, theme }) => {
 //   const wordsArray = words;

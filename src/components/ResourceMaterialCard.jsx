@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import millify from "millify";
 const ResourceMaterialCard = (props) => {
   return (
-    <Link to={`/resources/r/${props.id}`}>
+    <Link to={`/app/resources/r/${props.id}`}>
       <div className="bg-card h-full border-2  rounded-lg overflow-hidden">
         <img className="lg:h-48 md:h-36 h-36 w-full object-cover object-center" src={props.mainImage} alt="blog" />
         <div className="p-6">

@@ -1,4 +1,5 @@
-- appheader logoin signiup, authflo navigate set
+- cahcing on categories toures 
+  
 - user auth
   - flow set
 - add concius caching
@@ -23,8 +24,10 @@ will add tehse ownserships acehck ad deelte funtionality upon sclaing the app fo
 currently lieks dilikes will go infinity by any users 
 
  
-- fun filterL pas present future weapon, 
-  - compare on the basoc of +-10yrs of current yrs
+- fun filter: past present future weapon, 
+  - compare on the basoc of +-50yrs of current yrs
 
 - count and reduce api calls 
 uniquesness on fe and then proceed
+card stle design? medival, ai based scoring and storing
+- markdown editor 

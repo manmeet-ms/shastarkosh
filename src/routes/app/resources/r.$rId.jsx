@@ -8,11 +8,11 @@ import millify from "millify";
 import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
 
-import DiscussionSection from "../../components/DiscussionSection";
-import { getSingleResourceMaterialSrv } from "../../services/resourceMaterial.service";
-import { getUserSrv } from "../../services/user.service";
+import DiscussionSection from "@/components/DiscussionSection";
+import { getSingleResourceMaterialSrv } from "@/services/resourceMaterial.service";
+import { getUserSrv } from "@/services/user.service";
 
-export const Route = createFileRoute("/resources/r/$rId")({
+export const Route = createFileRoute("/app/resources/r/$rId")({
   component: RouteComponent,
 });
 
@@ -50,11 +50,11 @@ function RouteComponent() {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              <BreadcrumbLink href="/app/">Home</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/shastars">Resources</BreadcrumbLink>
+              <BreadcrumbLink href="/app/shastars">Resources</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>

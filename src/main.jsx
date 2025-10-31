@@ -34,7 +34,7 @@ createRoot(document.getElementById("root")).render(
           <RouterProvider router={router}></RouterProvider>
         {/* </ProtectedLayout> */}
         {/* <TanStackRouterDevtools router={router} /> */}
-        <Toaster  position="top-right" />
+        <Toaster  position="bottom-center" />
       </ThemeProvider>
     </Suspense>
   </Provider>

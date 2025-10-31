@@ -27,7 +27,7 @@ const ShastarCard = (props) => {
           <div className="flex-grow sm:pl-4">
             <div className="flex container w-full justify-center md:justify-between  items-center">
               <div className="flex flex-col">
-             <Link key={props._id} to={`/shastars/s/${props._id}`}>
+             <Link key={props._id} to={`/app/shastars/s/${props._id}`}>
                 <h2 className="hover:underline line-clamp-1 title-font font-medium text-lg text-foreground ">{props.title}</h2>
              </Link>  
                 <span className="bg-accent  text-accent-foreground rounded-sm  px-2 py-1 text-xs">{props.subType}</span>
@@ -44,7 +44,7 @@ const ShastarCard = (props) => {
                   <IconHeart size={18} />
                   {millify(props.likes || 0)}
                 </span>
-                             <Link key={props._id} to={`/shastars/s/${props._id}`}>
+                             <Link key={props._id} to={`/app/shastars/s/${props._id}`}>
                 
                 <span className="flex gap-0.5 items-center text-muted-foreground ml-2">
                   <IconMessageCircle2 size={18} />

@@ -6,7 +6,7 @@ const NotFound404 = () => {
   return (
    <>
    <ThemeProvider>
-   {/* <AppHeader/> */}
+   <AppHeader/>
    <main className="bg-pattern-404  grid min-h-full  py-24 bg-background changed-px px-4    lg:px-8">
         <div className="  text-center">
           <p className="text-base font-semibold text-primary">404</p>
@@ -20,7 +20,7 @@ const NotFound404 = () => {
           <div className="mt-10 flex items-center justify-center gap-x-6">
             
             
-              <Link to="/" className="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              <Link to="/app" className="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >Go back home</Link>
             <a href="mailto:manmeets.zsh@gmail.com" className="text-sm font-semibold text-foreground">
               Contact support <span aria-hidden="true">&rarr;</span>

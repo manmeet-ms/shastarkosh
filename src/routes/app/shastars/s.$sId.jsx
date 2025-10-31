@@ -5,11 +5,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 
-import DiscussionSection from "../../components/DiscussionSection";
-import { getSingleShastarSrv } from "../../services/shastarInfo.service";
-import { getUserSrv } from "../../services/user.service";
+import DiscussionSection from "@/components/DiscussionSection";
+import { getSingleShastarSrv } from "@/services/shastarInfo.service";
+import { getUserSrv } from "@/services/user.service";
 
-export const Route = createFileRoute("/shastars/s/$sId")({
+export const Route = createFileRoute("/app/shastars/s/$sId")({
   component: RouteComponent,
 });
 
@@ -57,11 +57,11 @@ function RouteComponent() {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              <BreadcrumbLink href="/app/">Home</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/shastars">Shastars</BreadcrumbLink>
+              <BreadcrumbLink href="/app/shastars">Shastars</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -80,7 +80,9 @@ function RouteComponent() {
 
                   <img className="rounded-lg  size-16 object-center object-cover" src={shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
                   ))} */}
-                  {Array.isArray(shastar.images) && shastar.images.length > 0 ? shastar.images.map((img, idx) => <img onClick={() => setcurrentImageFocusURL(img)} key={idx} className="rounded-lg size-16 object-center object-cover" src={img || "/assets/placeholder-weapon.png"} alt={`thumb-${idx}`} />) : <img className="rounded-lg size-16 object-center object-cover" src="/assets/placeholder-weapon.png" alt="placeholder" />}{" "}
+                  <img     className="rounded-lg size-16 object-center object-cover" src={ shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
+                  {(Array.isArray(shastar.images) && shastar.images.length > 0) ? shastar.images.map((img, idx) => <img onClick={() => setcurrentImageFocusURL(img.url)} key={idx} className="rounded-lg size-16 object-center object-cover" src={img.url || "/assets/placeholder-weapon.png"} alt={`thumb-${idx}`} />) : <img className="rounded-lg size-16 object-center object-cover" src="/assets/placeholder-weapon.png" alt="placeholder" />}{" "}
+                  
                 </div>
               </div>
               <div className="p-6 md:w-1/2 flex flex-col items-start">

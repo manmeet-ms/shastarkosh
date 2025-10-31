@@ -8,13 +8,13 @@ import { useForm } from "react-hook-form";
 import Markdown from "react-markdown";
 import { useSelector } from "react-redux";
 
-import DiscussionSection from "../../components/DiscussionSection";
-import { getSingleForumPostSrv } from "../../services/forumPost.service.js";
-import Loading from "../../components/Loading.jsx";
+import DiscussionSection from "@/components/DiscussionSection.jsx";
+import { getSingleForumPostSrv } from "@/services/forumPost.service.js";
+import Loading from "@/components/Loading.jsx";
 
 dayjs.extend(relativeTime);
 
-export const Route = createFileRoute("/posts/p/$pId")({
+export const Route = createFileRoute("/app/posts/p/$pId")({
   component: RouteComponent,
 });
 
@@ -82,11 +82,11 @@ function RouteComponent() {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              <BreadcrumbLink href="/app/">Home</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/posts/">Posts</BreadcrumbLink>
+              <BreadcrumbLink href="/app/posts/">Posts</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>

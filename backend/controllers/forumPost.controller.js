@@ -2,6 +2,7 @@ import { getUserSrv } from "../../src/services/user.service.js";
 import logger from "../../src/utils/logger.utils.js";
 import Comment from "../models/Comments.model.js";
 import ForumPost from "../models/ForumPost.model.js";
+import Category from "../models/Category.model.js";
 import User from "../models/User.model.js";
 
 export async function getForumPost(req, res) {
@@ -12,9 +13,9 @@ export async function getForumPost(req, res) {
       limit = parseInt(req.query.limit); // from query string
     } 
 
-    // logger("log", limit, "req.body", req.body);
     const result = await ForumPost.find().sort({ createdAt: -1 }).limit(limit);
-    // logger("log","Total Posts", result.length);
+    logger("log","Total Posts", result.length);
+    // logger("log","Posts details", result);
 
     res.status(200).json(result);
   } catch (err) {
@@ -32,11 +33,14 @@ export async function getSingleForumPost(req, res) {
     const authorDetails = await User.findById(resPost.author);
     // console.log(authorDetails);
     
-    // TODO minmize the: 2 api valls per post fetch
+    // TODO minimize the: 2 api valls per post fetch
     // const result={ post: resPost, author: {name: authorDetails.name,username:authorDetails.username, avatar:authorDetails.avatar} }
 
-    const result = { post: resPost, comments: resComments , author:authorDetails};
-    // console.log(result);
+    const result = { post: resPost, comments: resComments ,author:authorDetails};
+    
+    
+    logger("info", resPost.category,result.categoryName
+    );
     res.status(200).json(result);
   } catch (err) {
     res.status(500).json({ error: err });

@@ -48,6 +48,7 @@
   --font-sans: Inter, sans-serif;
   --font-serif: Source Serif 4, serif;
   --font-mono: JetBrains Mono, monospace;
+  --font-mono: Geist Mono, monospace;
   --radius: 0.625rem;
 }
 
@@ -96,6 +97,8 @@
   --font-sans: Inter, sans-serif;
   --font-serif: Source Serif 4, serif;
   --font-mono: JetBrains Mono, monospace;
+  --font-mono: Geist Mono, monospace;
+
   --radius: 0.625rem;
 }
 
@@ -159,13 +162,4 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-::-webkit-scrollbar {
-  width: 0;
-}
-
-
-body,html{
-  scroll-behavior: smooth !important;
 }

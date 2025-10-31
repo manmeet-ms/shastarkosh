@@ -12,11 +12,11 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getCategoriesSrv } from "../../services/category.service";
-import { createForumPostSrv } from "../../services/forumPost.service";
-import ProtectedLayout from "../../components/ProtectedLayout";
+import { getCategoriesSrv } from "@/services/category.service";
+import { createForumPostSrv } from "@/services/forumPost.service";
+import ProtectedLayout from "@/components/ProtectedLayout";
 
-export const Route = createFileRoute("/posts/create")({
+export const Route = createFileRoute("/app/posts/create")({
   component: RouteComponent,
 });
 
@@ -54,7 +54,7 @@ function RouteComponent() {
 
     console.log(data, responseSubmit);
     console.log("data", data, "\n\nformData", formData);
-    navigate({to:"/posts"});
+    navigate({to:"/app/posts"});
   };
   //  TODO add validation of onyl uniques posts, form reset and add which user is  creating his posts at the momenet
   return (

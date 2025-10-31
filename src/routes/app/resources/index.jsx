@@ -4,11 +4,11 @@ import Masonry from "@mui/lab/Masonry";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
-import ResourceMaterialCard from "../../components/ResourceMaterialCard";
-import SectionTitleSubTitle from "../../components/SectionTitleSubTitle";
-import { getResourceMaterialSrv } from "../../services/resourceMaterial.service";
+import ResourceMaterialCard from "@/components/ResourceMaterialCard";
+import SectionTitleSubTitle from "@/components/SectionTitleSubTitle";
+import { getResourceMaterialSrv } from "@/services/resourceMaterial.service";
 
-export const Route = createFileRoute("/resources/")({
+export const Route = createFileRoute("/app/resources/")({
   component: RouteComponent,
 });
 
@@ -17,7 +17,7 @@ function RouteComponent() {
   const getShastarsListinfo = async () => {
     const resResources = await getResourceMaterialSrv(100);
 
-    setResources(resResources.data);
+    setResources(resResources.data.data);
     console.log("resResources", resources);
   };
   useEffect(() => {
@@ -30,7 +30,7 @@ function RouteComponent() {
           <div className="flex justify-between items-center">
             <SectionTitleSubTitle title="Resource Materials" subtitle={`${resources.length} materials`} />
             <Button>
-              <Link to="/resources/create">Create Shastar</Link>
+              <Link to="/app/resources/create">Create Shastar</Link>
             </Button>
           </div>
           {/* <div className="flex flex-wrap -m-4"> */}

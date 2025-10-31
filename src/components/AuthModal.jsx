@@ -31,7 +31,7 @@ const AuthModal = () => {
           <Link to="/auth/login" className="block w-full text-center py-2 bg-blue-600 text-white rounded hover:bg-blue-700" onClick={closeModal}>
             Log In
           </Link>
-          <Link to="/auth/register" className="block w-full text-center py-2 bg-green-600 text-white rounded hover:bg-green-700" onClick={closeModal}>
+          <Link to="/auth/register"  className="block w-full text-center py-2 bg-green-600 text-white rounded hover:bg-green-700" onClick={closeModal}>
             Create Account
           </Link>
         </div>
