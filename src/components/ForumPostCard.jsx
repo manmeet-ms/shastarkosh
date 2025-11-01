@@ -5,10 +5,15 @@ import { Link } from "@tanstack/react-router";
 import millify from "millify";
 import { useEffect, useState } from "react";
 
+import { useNavigate } from "@tanstack/react-router";
+import { useSelector } from "react-redux";
 import { getCommentsOnSinglePostSrv } from "../services/comments.service.js";
 import { downvotePostSrv, upvotePostSrv } from "../services/forumPost.service.js";
+import { toast } from "sonner";
 
 const ForumPostCard = (props) => {
+  const {user}=useSelector((state)=>state.auth)
+  const navigate=useNavigate()
   const [commentCount, setcommentCount] = useState(0);
   const getPostInfo = async () => {
     const resInfo = await getCommentsOnSinglePostSrv(props._id);
@@ -41,21 +46,47 @@ const ForumPostCard = (props) => {
         <div className="flex justify-between items-center  text-xs">
           <span className="flex  gap-4 items-center justify-start  ">
             <span
-              onClick={() => {
+              onClick={async () => {
                 // console.log("upvotePostSrv", props._id);
-
-                upvotePostSrv(props._id);
+if(user){
+  
+              const upvoteRes= await upvotePostSrv(props._id);
+              console.log(user,upvoteRes);
+              
+}else
+{
+       toast.error("You have to be logged in to like a post", { 
+  action: {
+    label: 'Go to Home',
+    
+    onClick: () => navigate({to:"/app"})
+  },
+})
+  navigate({to:"/auth/login"})
+}
               }}
               className="hover:text-primary cursor-pointer flex gap-1  text-muted-foreground">
               <IconArrowBigUp size={16} strokeWidth={1.5} />
               {millify(props.upvotes || 0)}
             </span>
             <span
-              onClick={() => {
-                // console.log("downvotePostSrv", props._id);
-
-                downvotePostSrv(props._id);
-              }}
+              onClick={async() => {
+               if(user){
+  
+              const downvoteRes= await downvotePostSrv(props._id);
+              
+              console.log(user,downvoteRes);
+              
+}else
+{       toast.error("You have to be logged in to dislike a post", { 
+  action: {
+    label: 'Go to Home',
+    
+    onClick: () => navigate({to:"/app"})
+  },
+})
+  navigate({to:"/auth/login"})
+}}}
               className="hover:text-primary cursor-pointer flex gap-1  text-muted-foreground">
               <IconArrowBigDown size={18} />
               {millify(props.downvotes || 0)}
@@ -70,7 +101,13 @@ const ForumPostCard = (props) => {
               </span>
             </Link>
 
-            <span className="cursor-pointer flex gap-1  text-muted-foreground ">
+            <span onClick={()=>{
+              window.navigator.share(
+            {    title:props.title,
+              text:props.content,
+                url:`https://shastarkosh.com/app/posts/p/${props._id}`
+            }  )
+            }} className="cursor-pointer flex gap-1  text-muted-foreground ">
               <IconShare3 size={18} />
             </span>
           </span>

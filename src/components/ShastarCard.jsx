@@ -51,9 +51,16 @@ const ShastarCard = (props) => {
                   {commentCount || 0}
                 </span>
              </Link>    
-                <span className="cursor-pointer flex gap-0.5 items-center text-muted-foreground ml-2">
-                  <IconShare3 size={18} />
-                </span>
+               
+            <span onClick={()=>{
+              window.navigator.share(
+            {    title:props.title,
+              text:props.content,
+                url:`https://shastarkosh.com/app/shastars/s/${props._id}`
+            }  )
+            }} className="cursor-pointer flex gap-1  text-muted-foreground ">
+              <IconShare3 size={18} />
+            </span>
               </span>
             </div>
           </div>

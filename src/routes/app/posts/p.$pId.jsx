@@ -70,8 +70,9 @@ function RouteComponent() {
       data
     );
 
-    reset();
-    await getSingleForumPostSrv(pId);
+    // await getSingleForumPostSrv(pId);
+    getPostInfo()
+    // reset();
   };
   useEffect(() => {
     console.log("tags updated", tags);

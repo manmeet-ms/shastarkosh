@@ -1,18 +1,16 @@
-import logger from "../../src/utils/logger.utils.js";
 import Category from "../models/Category.model.js";
 
 export const getCategories = async (req, res) => {
   try {
     const resCat = await Category.find();
 
-    const result = resCat;
-    // logger("success", result);
-    res.status(200).json(result);
+  //  console.log("info",resCat)
+    res.status(200).json(resCat);
   } catch (err) {
     res.status(400).json(err.message);
   }
 }; 
-export const getSingleCategory = async () => {
+export const getSingleCategory = async (req,res) => {
   try {
     const { cId } = req.params;
     console.log(cId);
@@ -25,7 +23,7 @@ export const getSingleCategory = async () => {
     res.status(400).json(err.message);
   }
 };
-export const createCategory = async () => {
+export const createCategory = async (req,res) => {
   try {
     const result = await Category.create({ ...req.body });
     res.status(200).json(result);
@@ -33,7 +31,7 @@ export const createCategory = async () => {
     res.status(400).json(err.message);
   }
 };
-export const updateCategpy = async () => {
+export const updateCategpy = async (req,res) => {
   try {
     const { cId } = req.params;
     console.log(cId);
@@ -45,7 +43,7 @@ export const updateCategpy = async () => {
     res.status(400).json(err.message);
   }
 };
-export const delCategory = async () => {
+export const delCategory = async (req,res) => {
   try {
     const { cId } = req.params;
     console.log(cId);
@@ -57,7 +55,7 @@ export const delCategory = async () => {
     res.status(400).json(err.message);
   }
 };
-export const flushCategories = async () => {
+export const flushCategories = async (req,res) => {
   try {
     const result = await Category.deleteMany();
     res.status(200).json(result);

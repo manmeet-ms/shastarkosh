@@ -28,6 +28,7 @@ function Index() {
   const [shastarList, setShastarList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [categories, setCategories] = useState([]);
   const [shastarCategories, setShastarCategories] = useState([]);
   const [resourceMaterialCategories, setResourceMaterialCategories] = useState([]);
   const [forumPostCategories, setForumPostCategories] = useState([]);
@@ -36,16 +37,22 @@ function Index() {
 
   const fetchCategories = async () => {
     const categoriesResponse = await getCategoriesSrv();
-    const categoriesData = categoriesResponse.data;
-
+ setCategories(categoriesResponse.data)
+ 
     const shastarFiltered = categoriesResponse.data.filter((c) => c.categoryType === "ShastarInfo");
     setShastarCategories(shastarFiltered);
+    console.log(shastarFiltered); 
+    
 
     const forumFiltered = categoriesResponse.data.filter((c) => c.categoryType === "ForumPost");
     setForumPostCategories(forumFiltered);
+    console.log(forumFiltered); 
+    
 
     const resourceFiltered = categoriesResponse.data.filter((c) => c.categoryType === "ResourceMaterial");
     setResourceMaterialCategories(resourceFiltered);
+    console.log(resourceFiltered); 
+    
 
     setIsLoading(false);
   };
@@ -97,8 +104,10 @@ function Index() {
                 subtitle={faker.lorem.sentence()}
               />
               <div className="grid grid-cols-1 md:grid-cols-2 -m-2">
-                {shastarList.map((shastar) => (
-                  <ShastarCard {...shastar} /> 
+                {shastarList.map((shastar,idx
+
+                ) => (
+                  <ShastarCard key={idx} {...shastar} /> 
                 ))}
               </div>
             </section>
@@ -155,7 +164,7 @@ function Index() {
                   Resource Material categories ({resourceMaterialCategories.length})
                 </h2>
                 <nav className="flex flex-wrap list-none -mb-1">
-                  {resourceMaterialCategories.map((cat) => (
+                  {categories.map((cat) => (
                                            <li key={cat._id} className=" text-muted-foreground/80 hover:text-foreground m-1  ">
 
 

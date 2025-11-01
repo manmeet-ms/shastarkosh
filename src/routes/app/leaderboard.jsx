@@ -23,6 +23,7 @@ function RouteComponent() {
   const [leaderboardusers, setleaderboardusers] = useState([]);
   const getleaderboardusers = async () => {
     const res = await leaderboardUsersSrv();
+    console.log(res.data);
     setleaderboardusers(res.data);
     setIsLoading(false);
   };
@@ -30,18 +31,13 @@ function RouteComponent() {
     getleaderboardusers();
   }, []);
   return (
-    <>
+    <> 
       <main className="flex px-4  flex-col justify-start items-start ">
         <div className=" flex flex-1 flex-col gap-2">
           <div className="flex flex-col gap-4">
             <section className="grid grid-cols-1 items-start gap-4 md:grid-cols-4">
               <section className="col-span-3 md:border-r md:pr-4 ">
-                <div className="flex justify-between items-center">
-                  <SectionTitleSubTitle title="Latest Discussions" subtitle={"${forumPosts.length} questions"} />
-                  {/* <Button>
-                    <Link to="/app/posts/create">Ask Question</Link>
-                  </Button> */}
-                </div>
+              
 
                   <div className="rounded-lg col-span-2 border  p-4">
                     <div className="flex items-center justify-between">
@@ -105,7 +101,8 @@ function RouteComponent() {
                               <TableCell>{idx + 1}.</TableCell>
 
                               <TableCell className="flex items-center justify-start gap-2">
-                                <Avatar>
+                                   <div className="dark">
+    </div> <Avatar>
                                   <AvatarImage src={v.avatar} />
                                   <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>

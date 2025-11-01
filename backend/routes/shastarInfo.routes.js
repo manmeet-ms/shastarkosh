@@ -7,7 +7,7 @@ import { upload } from "../middlewares/multer.middleware.js";
 
 const router = express.Router();
 
-router.post("/like/:sId", likeShastar);
+router.post("/like/:sId", authenticateJWT, likeShastar);
 // router.post("/dislike/:rId", downvotePost)
 
 router.post(

@@ -1,6 +1,7 @@
 import logger from "../../src/utils/logger.utils.js";
 import ResourceMaterial from "../models/ResourceMaterial.model.js";
 import { uploadImage, uploadPdf, uploadVideo } from "../../src/utils/upload.utils.js";
+import { awardPoints } from "../utils/points.utils.js";
 
 export async function getResourceMaterial(req, res, next) {
   try {
@@ -111,6 +112,7 @@ export async function createResourceMaterial(req, res, next) {
       videos,
     });
 
+    try { await awardPoints(userId, "CREATE_RESOURCE", { link: `/app/resources/r/${doc._id}` }); } catch (e) {}
     res.status(201).json({ success: true, message: "Resource created", data: doc });
   } catch (err) {
     logger("error", err.message);
@@ -140,12 +142,25 @@ export async function deleteResourceMaterial(req, res, next) {
 
 export async function likeResourceMaterial(req, res, next) {
   const { rId } = req.params;
-  logger("info", rId)
+  const userId = req.user?.id;
   try {
-    const resPost = await ResourceMaterial.findById(rId);
-    resPost.likes += 1;
-    await resPost.save();
-    res.status(200).json({ success: true, message: "Upvote successful" });
+    const doc = await ResourceMaterial.findById(rId);
+    if (!doc) return next({ status: 404, message: "Resource not found" });
+    const idx = doc.likedBy.findIndex((u) => String(u) === String(userId));
+    let liked;
+    if (idx >= 0) {
+      doc.likedBy.splice(idx, 1);
+      doc.likes = Math.max(0, (doc.likes || 0) - 1);
+      liked = false;
+      try { await awardPoints(userId, "UNLIKE_CONTENT", { link: `/app/resources/r/${doc._id}` }); } catch (e) {}
+    } else {
+      doc.likedBy.push(userId);
+      doc.likes = (doc.likes || 0) + 1;
+      liked = true;
+      try { await awardPoints(userId, "LIKE_CONTENT", { link: `/app/resources/r/${doc._id}` }); } catch (e) {}
+    }
+    await doc.save();
+    res.status(200).json({ success: true, message: liked ? "Liked" : "Unliked", data: { likes: doc.likes, liked } });
   } catch (err) {
     next(err);
   }

@@ -8,7 +8,7 @@ import mongoose from "mongoose";
 import Category from "../../backend/models/Category.model.js";
 
 const dbURL = process.env.MONGO_URI || "mongodb://localhost:27017/shastarkosh"; // change to your db
-
+const cateTyype=["ShastarInfo", "ResourceMaterial", "ForumPost", "uncategorized"]
 async function seedCategory() {
   try {
     await mongoose.connect(dbURL);
@@ -22,6 +22,7 @@ async function seedCategory() {
       catg.push({
         name: faker.word.noun(),
         description: faker.lorem.sentence(),
+        categoryType:cateTyype[faker.number.int({min:0,max:2})]
       });
     }
 

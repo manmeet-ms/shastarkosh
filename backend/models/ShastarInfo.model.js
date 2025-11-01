@@ -40,6 +40,7 @@ const shastarInfoSchema = new mongoose.Schema(
     ],
     likes: { type: Number, default: 0 },
     dislikes: { type: Number, default: 0 },
+    likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     views: { type: Number, default: 0 },
     commentCount: { type: Number, default: 0 },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },

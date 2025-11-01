@@ -23,7 +23,7 @@ router.post("/create", authenticateJWT, upload.fields([
 ]),createResourceMaterial);
 router.put("/update/:rId", authenticateJWT,updateResourceMaterial);
 router.delete("/delete/:rId",authenticateJWT,isAdmin, deleteResourceMaterial); // only dmin should deleteResourceMaterialit 
-router.post("/like/:rId", likeResourceMaterial);
+router.post("/like/:rId", authenticateJWT, likeResourceMaterial);
 // router.post("/downvote/:rId", downvotePost
 // );
 export default router;

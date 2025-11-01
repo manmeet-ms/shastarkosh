@@ -26,10 +26,10 @@ async function seedUsers() {
          email:faker.internet.email(username).toLowerCase(),
         name: faker.person.fullName(),
        password,
-        points: faker.number.int({ min: -90, max: 3950, multipleOf: 5 }),
-
+        reputationPoints: faker.number.int({ min: 1500, max: 8950, multipleOf: 6 }),
+ 
      
-        avatar: faker.image.personPortrait(),
+        avatar: faker.image.personPortrait({sex:'female'}),
         role: "user",
         isVerified: faker.datatype.boolean(),
         verificationToken: faker.string.uuid(),

@@ -1,13 +1,15 @@
+// TODO add video upload support in coming versions
 import ProtectedLayout from "@/components/ProtectedLayout.jsx";
+import SectionTitleSubTitle from "@/components/SectionTitleSubTitle.jsx";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { createShastarSrv } from "@/services/shastarInfo.service.js";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/app/shastars/create")({
   component: RouteComponent,
@@ -47,26 +49,6 @@ function RouteComponent() {
       sourcePublication: "",
     },
   });
-  //   watch(mainImage
-  // ,images
-  // ,title
-  // ,alternativeNames
-  // ,description
-  // ,type
-  // ,subType
-  // ,material
-  // ,weight
-  // ,length
-  // ,usage
-  // ,region
-  // ,culture
-  // ,timePeriod
-  // ,sourceTitle
-  // ,sourceAuthor
-  // ,sourceLink
-  // ,sourcePublication
-  // ,category
-  // ,tags)
 
   const watchedMainImage = watch("mainImage");
   const watchedImages = watch("images");
@@ -125,196 +107,228 @@ function RouteComponent() {
     }
 
     try {
-     const res=  await createShastarSrv(formData);
-     if (res.status===(200 | 201)){
-      navigate("/app/shastars");
-     }
-      
+      const res = await createShastarSrv(formData);
+      if (res.status === (200 | 201)) {
+        navigate("/app/shastars");
+      }
     } catch (err) {
       console.error("Shastar creation failed:", err);
     }
   };
-  // const onSubmit = async (data) => {
-  //   const formData = {
-  //     title: data.title,
-  //     alternativeNames: data.alternativeNames.split(",").map((n) => n.trim()),
-  //     description: data.description,
-  //     type: data.type,
-  //     subType: data.subType,
-  //     material: data.material,
-  //     weight: data.weight,
-  //     length: data.length,
-  //     usage: data.usage.split(",").map((u) => u.trim()),
-  //     origin: {
-  //       region: data.region,
-  //       culture: data.culture,
-  //       timePeriod: data.timePeriod,
-  //     },
-  //     sources: [
-  //       {
-  //         title: data.sourceTitle,
-  //         author: data.sourceAuthor,
-  //         link: data.sourceLink,
-  //         publication: data.sourcePublication,
-  //       },
-  //     ],
-  //     category: data.category,
-  //     tags: data.tags.split(",").map((t) => t.trim()),
-  //     mainImage: `https://www.gravatar.com/avatar/${SparkMD5.hash(String(faker.number.int({ min: 50, max: 896 })))}?d=retro`,
-  //     images: ["/assets/placeholder-weapon.png", "/assets/placeholder-weapon.png", "/assets/placeholder-weapon.png"],
-  //     createdBy: user._id,
-  //   };
-
-  //   try {
-  //     await createShastarSrv(formData);
-  //     reset();
-  //     navigate("/app/shastars");
-  //   } catch (err) {
-  //     console.error("Post creation failed:", err);
-  //   }
-  // };
 
   return (
     <ProtectedLayout>
-      <form className="py-12 mb-24  flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
-        {/* Title */}
-        {/* Main Image (Required) */}
-
-        <div>
-          <Label>Main Image</Label>
-          <Input type="file" accept="image/*" {...register("mainImage", { required: "Main image is required" })} />
-          {errors.mainImage && <span className="text-red-500">{errors.mainImage.message}</span>}
-          {mainImagePreview && (
-            <div className="mt-2">
-              <img src={mainImagePreview} alt="Main preview" className="h-32 w-32 object-cover rounded" />
-            </div>
-          )}
+      <main className="px-4  ">
+        <SectionTitleSubTitle title="Create Shastar" subtitle="Create a new shastar" />
+        <section>
+        <form className=" md:max-w-4xl mx-auto my-10 bg-background border rounded-xl shadow-sm p-8 flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
+  {/* Title and Images Card */}
+  <div className="bg-muted/40 rounded-lg p-6 flex flex-col gap-5 shadow-xs">
+    <div>
+      <div className="flex flex-col gap-1 mb-2">
+        <Label className="block">Main Image</Label>
+        <span className="text-xs text-muted-foreground/80">Best: Clear, front-facing image of the shastar</span>
+      </div>
+      <Input type="file" accept="image/*" {...register("mainImage", { required: "Main image is required" })} />
+      {errors.mainImage && <span className="text-destructive mt-1 block text-sm">{errors.mainImage.message}</span>}
+      {mainImagePreview && (
+        <div className="mt-3 flex justify-center">
+          <img src={mainImagePreview} alt="Main preview" className="h-32 w-32 object-cover rounded-lg border" />
         </div>
+      )}
+    </div>
 
-        {/* Additional Images (Optional) */}
-        <div>
-          <Label>Additional Images (up to 5)</Label>
-          <Input type="file" accept="image/*" multiple {...register("images")} />
-          {imagePreviews.length > 0 && (
-            <div className="mt-2 flex gap-2 flex-wrap">
-              {imagePreviews.map((src, i) => (
-                <img key={i} src={src} alt={`Preview ${i + 1}`} className="h-20 w-20 object-cover rounded" />
-              ))}
-            </div>
-          )}
+    <div>
+      <div className="flex flex-col gap-1 mb-2">
+        <Label className="block">Additional Images (up to 5)</Label>
+        <span className="text-xs text-muted-foreground/80">Optional: Close-ups, angles, in-use, or details</span>
+      </div>
+      <Input type="file" accept="image/*" multiple {...register("images")} />
+      {imagePreviews.length > 0 && (
+        <div className="mt-3 flex gap-3 flex-wrap">
+          {imagePreviews.map((src, i) => (
+            <img key={i} src={src} alt={`Preview ${i + 1}`} className="h-20 w-20 object-cover rounded-lg border" />
+          ))}
         </div>
-        <div>
-          <Label>Title</Label>
-          <Input {...register("title", { required: true })} placeholder="Title" />
-          {errors.title && <span className="text-red-500">Title is required</span>}
-        </div>
+      )}
+    </div>
+    <div>
+      <div className="flex flex-col gap-1 mb-2">
+        <Label className="block">Title</Label>
+        <span className="text-xs text-muted-foreground/80">e.g., Kirpan, Talwar, Katar</span>
+      </div>
+      <Input {...register("title", { required: true })} placeholder="Title" />
+      {errors.title && <span className="text-destructive mt-1 block text-sm">Title is required</span>}
+    </div>
+  </div>
 
-        {/* Alternative Names */}
-        <div>
-          <Label>Alternative names</Label>
-          <Input {...register("alternativeNames")} placeholder="comma separated list" />
-        </div>
+  {/* Details Card */}
+  <div className="bg-muted/40 rounded-lg p-6 flex flex-col gap-5 shadow-xs">
+    <div>
+      <div className="flex flex-col gap-1 mb-2">
+        <Label className="block">Alternative Names</Label>
+        <span className="text-xs text-muted-foreground/80">e.g., Kirpaan, Guru's Sword (comma separated)</span>
+      </div>
+      <Input {...register("alternativeNames")} placeholder="Comma separated list" />
+    </div>
+    <div>
+      <div className="flex flex-col gap-1 mb-2">
+        <Label className="block">Description</Label>
+        <span className="text-xs text-muted-foreground/80">Short summary (origin, key features, history)</span>
+      </div>
+      <Textarea {...register("description", { required: true })} minRows={3} />
+    </div>
+    <div>
+      <div className="flex flex-col gap-1 mb-2">
+        <Label className="block">Type</Label>
+        <span className="text-xs text-muted-foreground/80">Select main classification</span>
+      </div>
+      <select {...register("type", { required: true })} className="border rounded-md px-2 py-1 w-full bg-background">
+        <option value="">Select type</option>
+        <option value="weapon">Weapon</option>
+        <option value="tool">Tool</option>
+        <option value="armor">Armor</option>
+        <option value="manuscript">Manuscript</option>
+        <option value="artifact">Artifact</option>
+      </select>
+    </div>
+    <div>
+      <div className="flex flex-col gap-1 mb-2">
+        <Label className="block">Sub Type</Label>
+        <span className="text-xs text-muted-foreground/80">e.g., sword, dagger, shield</span>
+      </div>
+      <Input {...register("subType")} placeholder="e.g., sword" />
+    </div>
+  </div>
 
-        {/* Description */}
-        <div>
-          <Label>Description</Label>
-          <Textarea {...register("description", { required: true })} />
+  <div className="bg-muted/40 rounded-lg p-6 flex flex-col gap-5 shadow-xs">
+    <div className="grid grid-cols-2 gap-4">
+      <div>
+        <div className="flex flex-col gap-1 mb-2">
+          <Label className="block">Material</Label>
+          <span className="text-xs text-muted-foreground/80">e.g., Iron, steel, wood, brass</span>
         </div>
-
-        {/* Type */}
-        <div>
-          <Label>Type</Label>
-          <select {...register("type", { required: true })} className="border rounded px-2 py-1">
-            <option value="">Select type</option>
-            <option value="weapon">Weapon</option>
-            <option value="tool">Tool</option>
-            <option value="armor">Armor</option>
-            <option value="manuscript">Manuscript</option>
-            <option value="artifact">Artifact</option>
-          </select>
-        </div>
-
-        {/* Sub Type */}
-        <div>
-          <Label>Sub type</Label>
-          <Input {...register("subType")} placeholder="e.g., sword" />
-        </div>
-
-        {/* Material */}
-        <div>
-          <Label>Material</Label>
-          <Input {...register("material")} placeholder="Iron, wood" />
-        </div>
-
-        {/* Weight & Length */}
-        <div className="flex gap-2">
-          <div>
-            <Label>Weight</Label>
-            <Input {...register("weight")} placeholder="e.g., 1.5 kg" />
+        <Input {...register("material")} placeholder="Iron, wood" />
+      </div>
+      <div className="flex gap-3">
+        <div className="w-1/2">
+          <div className="flex flex-col gap-1 mb-2">
+            <Label className="block">Weight</Label>
+            <span className="text-xs text-muted-foreground/80">e.g., 1.5 kg</span>
           </div>
-          <div>
-            <Label>Length</Label>
-            <Input {...register("length")} placeholder="e.g., 90 cm" />
+          <Input {...register("weight")} placeholder="e.g., 1.5 kg" />
+        </div>
+        <div className="w-1/2">
+          <div className="flex flex-col gap-1 mb-2">
+            <Label className="block">Length</Label>
+            <span className="text-xs text-muted-foreground/80">e.g., 90 cm</span>
           </div>
+          <Input {...register("length")} placeholder="e.g., 90 cm" />
         </div>
+      </div>
+    </div>
+    <div>
+      <div className="flex flex-col gap-1 mb-2">
+        <Label className="block">Usage</Label>
+        <span className="text-xs text-muted-foreground/80">e.g., self-defense, ceremonial, display (comma separated)</span>
+      </div>
+      <Input {...register("usage")} placeholder="Comma separated list" />
+    </div>
+  </div>
 
-        {/* Usage */}
-        <div>
-          <Label>Usage</Label>
-          <Input {...register("usage")} placeholder="comma separated list" />
+  {/* Origin Card */}
+  <div className="bg-muted/40 rounded-lg p-6 flex flex-col gap-5 shadow-xs">
+    <div className="grid grid-cols-3 gap-4">
+      <div>
+        <div className="flex flex-col gap-1 mb-2">
+          <Label className="block">Region</Label>
+          <span className="text-xs text-muted-foreground/80">e.g., Punjab, South Asia</span>
         </div>
+        <Input {...register("region")} />
+      </div>
+      <div>
+        <div className="flex flex-col gap-1 mb-2">
+          <Label className="block">Culture</Label>
+          <span className="text-xs text-muted-foreground/80">e.g., Sikh, Rajput, Maratha</span>
+        </div>
+        <Input {...register("culture")} />
+      </div>
+      <div>
+        <div className="flex flex-col gap-1 mb-2">
+          <Label className="block">Time Period</Label>
+          <span className="text-xs text-muted-foreground/80">e.g., 18th century, Medieval era</span>
+        </div>
+        <Input {...register("timePeriod")} />
+      </div>
+    </div>
+  </div>
 
-        {/* Origin */}
-        <div className="grid grid-cols-3 gap-2">
-          <div>
-            <Label>Region</Label>
-            <Input {...register("region")} />
-          </div>
-          <div>
-            <Label>Culture</Label>
-            <Input {...register("culture")} />
-          </div>
-          <div>
-            <Label>Time Period</Label>
-            <Input {...register("timePeriod")} />
-          </div>
+  {/* Sources Card */}
+  <div className="bg-muted/40 rounded-lg p-6 flex flex-col gap-5 shadow-xs">
+    <h3 className="font-semibold text-lg mb-3">Sources</h3>
+    <div className="grid grid-cols-2 gap-4">
+      <div>
+        <div className="flex flex-col gap-1 mb-2">
+          <Label className="block">Title</Label>
+          <span className="text-xs text-muted-foreground/80">Book/article/video/document name</span>
         </div>
+        <Input {...register("sourceTitle")} />
+      </div>
+      <div>
+        <div className="flex flex-col gap-1 mb-2">
+          <Label className="block">Author</Label>
+          <span className="text-xs text-muted-foreground/80">e.g., Dr. Ganda Singh</span>
+        </div>
+        <Input {...register("sourceAuthor")} />
+      </div>
+    </div>
+    <div className="grid grid-cols-2 gap-4">
+      <div>
+        <div className="flex flex-col gap-1 mb-2">
+          <Label className="block">Link</Label>
+          <span className="text-xs text-muted-foreground/80">Paste a URL if available</span>
+        </div>
+        <Input {...register("sourceLink")} />
+      </div>
+      <div>
+        <div className="flex flex-col gap-1 mb-2">
+          <Label className="block">Publication</Label>
+          <span className="text-xs text-muted-foreground/80">e.g., Sikh History Journal, 1995</span>
+        </div>
+        <Input {...register("sourcePublication")} />
+      </div>
+    </div>
+  </div>
 
-        {/* Sources */}
-        <h3 className="font-semibold mt-4">Sources</h3>
-        <div>
-          <Label>Title</Label>
-          <Input {...register("sourceTitle")} />
+  {/* Category & Tags Card */}
+  <div className="bg-muted/40 rounded-lg p-6 flex flex-col gap-5 shadow-xs">
+    <div className="grid grid-cols-2 gap-4">
+      <div>
+        <div className="flex flex-col gap-1 mb-2">
+          <Label className="block">Category</Label>
+          <span className="text-xs text-muted-foreground/80">e.g., Sword, Dagger, Polearm</span>
         </div>
-        <div>
-          <Label>Author</Label>
-          <Input {...register("sourceAuthor")} />
+        <Input {...register("category")} />
+      </div>
+      <div>
+        <div className="flex flex-col gap-1 mb-2">
+          <Label className="block">Tags</Label>
+          <span className="text-xs text-muted-foreground/80">e.g., Sikh, Battle, 1700s, Kirpan (comma separated)</span>
         </div>
-        <div>
-          <Label>Link</Label>
-          <Input {...register("sourceLink")} />
-        </div>
-        <div>
-          <Label>Publication</Label>
-          <Input {...register("sourcePublication")} />
-        </div>
+        <Input {...register("tags")} placeholder="Comma separated list" />
+      </div>
+    </div>
+  </div>
 
-        {/* Category */}
-        <div>
-          <Label>Category</Label>
-          <Input {...register("category")} />
-        </div>
+  <div className="mt-6 flex justify-end">
+    <Button type="submit" disabled={isSubmitting} className="px-6 py-2">
+      {isSubmitting ? "Submitting..." : "Submit"}
+    </Button>
+  </div>
+</form>
 
-        {/* Tags */}
-        <div>
-          <Label>Tags</Label>
-          <Input {...register("tags")} placeholder="comma separated list" />
-        </div>
-
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Submit"}
-        </Button>
-      </form>
+        </section>
+      </main>
     </ProtectedLayout>
   );
 }
