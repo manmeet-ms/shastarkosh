@@ -1,4 +1,4 @@
-import { IconChartArcs, IconChartArea, IconHome2, IconListNumbers, IconMessages, IconPaperclip, IconTrident, IconUser } from "@tabler/icons-react";
+import { IconHome2, IconListNumbers, IconMessages, IconPaperclip, IconTrident } from "@tabler/icons-react";
 
 export const SIDENAV_DASH = [
   {
@@ -33,13 +33,7 @@ export const SIDENAV_DASH = [
     url: "/app/leaderboard",
     icon: IconListNumbers,
   },
-
-  // {
-  //   title: "Account",
-  //   url: "/app/user/account",
-  //   icon: IconUser,
-  // },
-
+ 
   // {
   //   title: "Beta",
   //   url: "/beta",

@@ -1,10 +1,9 @@
 import axios from "axios";
 
 const options = {
-  baseURL: "http://localhost:3000/api",
-  timeout:51000,
-  // baseURL: "https://shastarkosh.onrender.com/api",
-  // timeout:60000,
+  // baseURL: "http://localhost:3000/api",
+  baseURL: "https://shastarkosh.onrender.com/api",
+  timeout:60000,
   withCredentials: true,
 };
 const api = axios.create(options);

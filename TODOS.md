@@ -3,7 +3,7 @@
 - user auth
   - flow set
 - add concius caching
-- search bar
+- your posts, search bar, 
 
 - CRUD funvtion fe shastar page, resourcec maerial page
 - imge handling
@@ -41,3 +41,5 @@ and give reputation points to users when ehey create something in like creating 
 curently likeshoul be restricted to one user per single user can like dilikea post,shastar , resouce material cards only once , clicknign it again will undo thlike or  dislike, add shadcn paginantion ui and controllers login in backend everywhere possibe , shastar(5) /shasrs(100), posts , mateiral
  
  hot ui updates in commentiing , comments updates like unlike, dislike, i have impement impement so that wherever comment is posted it should rflerct inits discusion whther it is shastatr post of resouce , hot updates in comments section about that latest comenhoul reflect. 
+
+ add and @ in tanstank creator links

@@ -26,18 +26,19 @@ import { Route as AppRoadmapRouteImport } from './routes/app/roadmap'
 import { Route as AppPhilosophyRouteImport } from './routes/app/philosophy'
 import { Route as AppLeaderboardRouteImport } from './routes/app/leaderboard'
 import { Route as AppChangelogRouteImport } from './routes/app/changelog'
-import { Route as AppUserRouteRouteImport } from './routes/app/user/route'
 import { Route as AppShastarsRouteRouteImport } from './routes/app/shastars/route'
 import { Route as AppResourcesRouteRouteImport } from './routes/app/resources/route'
 import { Route as AppPostsRouteRouteImport } from './routes/app/posts/route'
+import { Route as AppCreatorRouteRouteImport } from './routes/app/creator/route'
 import { Route as AppShastarsIndexRouteImport } from './routes/app/shastars/index'
 import { Route as AppResourcesIndexRouteImport } from './routes/app/resources/index'
 import { Route as AppPostsIndexRouteImport } from './routes/app/posts/index'
-import { Route as AppUserAccountRouteImport } from './routes/app/user/account'
 import { Route as AppShastarsCreateRouteImport } from './routes/app/shastars/create'
 import { Route as AppResourcesCreateRouteImport } from './routes/app/resources/create'
 import { Route as AppPostsCreateRouteImport } from './routes/app/posts/create'
 import { Route as AppDiscordDiscordRouteImport } from './routes/app/discord/discord'
+import { Route as AppCreatorAccountRouteImport } from './routes/app/creator/account'
+import { Route as AppCreatorUsernameRouteImport } from './routes/app/creator/$username'
 import { Route as AppShastarsSSIdRouteImport } from './routes/app/shastars/s.$sId'
 import { Route as AppResourcesRRIdRouteImport } from './routes/app/resources/r.$rId'
 import { Route as AppPostsPPIdRouteImport } from './routes/app/posts/p.$pId'
@@ -127,11 +128,6 @@ const AppChangelogRoute = AppChangelogRouteImport.update({
   path: '/changelog',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const AppUserRouteRoute = AppUserRouteRouteImport.update({
-  id: '/user',
-  path: '/user',
-  getParentRoute: () => AppRouteRoute,
-} as any)
 const AppShastarsRouteRoute = AppShastarsRouteRouteImport.update({
   id: '/shastars',
   path: '/shastars',
@@ -145,6 +141,11 @@ const AppResourcesRouteRoute = AppResourcesRouteRouteImport.update({
 const AppPostsRouteRoute = AppPostsRouteRouteImport.update({
   id: '/posts',
   path: '/posts',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppCreatorRouteRoute = AppCreatorRouteRouteImport.update({
+  id: '/creator',
+  path: '/creator',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const AppShastarsIndexRoute = AppShastarsIndexRouteImport.update({
@@ -161,11 +162,6 @@ const AppPostsIndexRoute = AppPostsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppPostsRouteRoute,
-} as any)
-const AppUserAccountRoute = AppUserAccountRouteImport.update({
-  id: '/account',
-  path: '/account',
-  getParentRoute: () => AppUserRouteRoute,
 } as any)
 const AppShastarsCreateRoute = AppShastarsCreateRouteImport.update({
   id: '/create',
@@ -186,6 +182,16 @@ const AppDiscordDiscordRoute = AppDiscordDiscordRouteImport.update({
   id: '/discord/discord',
   path: '/discord/discord',
   getParentRoute: () => AppRouteRoute,
+} as any)
+const AppCreatorAccountRoute = AppCreatorAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => AppCreatorRouteRoute,
+} as any)
+const AppCreatorUsernameRoute = AppCreatorUsernameRouteImport.update({
+  id: '/$username',
+  path: '/$username',
+  getParentRoute: () => AppCreatorRouteRoute,
 } as any)
 const AppShastarsSSIdRoute = AppShastarsSSIdRouteImport.update({
   id: '/s/$sId',
@@ -214,10 +220,10 @@ export interface FileRoutesByFullPath {
   '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
   '/notfications': typeof NotficationsRoute
+  '/app/creator': typeof AppCreatorRouteRouteWithChildren
   '/app/posts': typeof AppPostsRouteRouteWithChildren
   '/app/resources': typeof AppResourcesRouteRouteWithChildren
   '/app/shastars': typeof AppShastarsRouteRouteWithChildren
-  '/app/user': typeof AppUserRouteRouteWithChildren
   '/app/changelog': typeof AppChangelogRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/philosophy': typeof AppPhilosophyRoute
@@ -225,11 +231,12 @@ export interface FileRoutesByFullPath {
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/app/': typeof AppIndexRoute
+  '/app/creator/$username': typeof AppCreatorUsernameRoute
+  '/app/creator/account': typeof AppCreatorAccountRoute
   '/app/discord/discord': typeof AppDiscordDiscordRoute
   '/app/posts/create': typeof AppPostsCreateRoute
   '/app/resources/create': typeof AppResourcesCreateRoute
   '/app/shastars/create': typeof AppShastarsCreateRoute
-  '/app/user/account': typeof AppUserAccountRoute
   '/app/posts/': typeof AppPostsIndexRoute
   '/app/resources/': typeof AppResourcesIndexRoute
   '/app/shastars/': typeof AppShastarsIndexRoute
@@ -247,7 +254,7 @@ export interface FileRoutesByTo {
   '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
   '/notfications': typeof NotficationsRoute
-  '/app/user': typeof AppUserRouteRouteWithChildren
+  '/app/creator': typeof AppCreatorRouteRouteWithChildren
   '/app/changelog': typeof AppChangelogRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/philosophy': typeof AppPhilosophyRoute
@@ -255,11 +262,12 @@ export interface FileRoutesByTo {
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/app': typeof AppIndexRoute
+  '/app/creator/$username': typeof AppCreatorUsernameRoute
+  '/app/creator/account': typeof AppCreatorAccountRoute
   '/app/discord/discord': typeof AppDiscordDiscordRoute
   '/app/posts/create': typeof AppPostsCreateRoute
   '/app/resources/create': typeof AppResourcesCreateRoute
   '/app/shastars/create': typeof AppShastarsCreateRoute
-  '/app/user/account': typeof AppUserAccountRoute
   '/app/posts': typeof AppPostsIndexRoute
   '/app/resources': typeof AppResourcesIndexRoute
   '/app/shastars': typeof AppShastarsIndexRoute
@@ -279,10 +287,10 @@ export interface FileRoutesById {
   '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
   '/notfications': typeof NotficationsRoute
+  '/app/creator': typeof AppCreatorRouteRouteWithChildren
   '/app/posts': typeof AppPostsRouteRouteWithChildren
   '/app/resources': typeof AppResourcesRouteRouteWithChildren
   '/app/shastars': typeof AppShastarsRouteRouteWithChildren
-  '/app/user': typeof AppUserRouteRouteWithChildren
   '/app/changelog': typeof AppChangelogRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/philosophy': typeof AppPhilosophyRoute
@@ -290,11 +298,12 @@ export interface FileRoutesById {
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/app/': typeof AppIndexRoute
+  '/app/creator/$username': typeof AppCreatorUsernameRoute
+  '/app/creator/account': typeof AppCreatorAccountRoute
   '/app/discord/discord': typeof AppDiscordDiscordRoute
   '/app/posts/create': typeof AppPostsCreateRoute
   '/app/resources/create': typeof AppResourcesCreateRoute
   '/app/shastars/create': typeof AppShastarsCreateRoute
-  '/app/user/account': typeof AppUserAccountRoute
   '/app/posts/': typeof AppPostsIndexRoute
   '/app/resources/': typeof AppResourcesIndexRoute
   '/app/shastars/': typeof AppShastarsIndexRoute
@@ -315,10 +324,10 @@ export interface FileRouteTypes {
     | '/categories'
     | '/contact'
     | '/notfications'
+    | '/app/creator'
     | '/app/posts'
     | '/app/resources'
     | '/app/shastars'
-    | '/app/user'
     | '/app/changelog'
     | '/app/leaderboard'
     | '/app/philosophy'
@@ -326,11 +335,12 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/register'
     | '/app/'
+    | '/app/creator/$username'
+    | '/app/creator/account'
     | '/app/discord/discord'
     | '/app/posts/create'
     | '/app/resources/create'
     | '/app/shastars/create'
-    | '/app/user/account'
     | '/app/posts/'
     | '/app/resources/'
     | '/app/shastars/'
@@ -348,7 +358,7 @@ export interface FileRouteTypes {
     | '/categories'
     | '/contact'
     | '/notfications'
-    | '/app/user'
+    | '/app/creator'
     | '/app/changelog'
     | '/app/leaderboard'
     | '/app/philosophy'
@@ -356,11 +366,12 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/register'
     | '/app'
+    | '/app/creator/$username'
+    | '/app/creator/account'
     | '/app/discord/discord'
     | '/app/posts/create'
     | '/app/resources/create'
     | '/app/shastars/create'
-    | '/app/user/account'
     | '/app/posts'
     | '/app/resources'
     | '/app/shastars'
@@ -379,10 +390,10 @@ export interface FileRouteTypes {
     | '/categories'
     | '/contact'
     | '/notfications'
+    | '/app/creator'
     | '/app/posts'
     | '/app/resources'
     | '/app/shastars'
-    | '/app/user'
     | '/app/changelog'
     | '/app/leaderboard'
     | '/app/philosophy'
@@ -390,11 +401,12 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/register'
     | '/app/'
+    | '/app/creator/$username'
+    | '/app/creator/account'
     | '/app/discord/discord'
     | '/app/posts/create'
     | '/app/resources/create'
     | '/app/shastars/create'
-    | '/app/user/account'
     | '/app/posts/'
     | '/app/resources/'
     | '/app/shastars/'
@@ -537,13 +549,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppChangelogRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/app/user': {
-      id: '/app/user'
-      path: '/user'
-      fullPath: '/app/user'
-      preLoaderRoute: typeof AppUserRouteRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
     '/app/shastars': {
       id: '/app/shastars'
       path: '/shastars'
@@ -563,6 +568,13 @@ declare module '@tanstack/react-router' {
       path: '/posts'
       fullPath: '/app/posts'
       preLoaderRoute: typeof AppPostsRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/creator': {
+      id: '/app/creator'
+      path: '/creator'
+      fullPath: '/app/creator'
+      preLoaderRoute: typeof AppCreatorRouteRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/app/shastars/': {
@@ -585,13 +597,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/posts/'
       preLoaderRoute: typeof AppPostsIndexRouteImport
       parentRoute: typeof AppPostsRouteRoute
-    }
-    '/app/user/account': {
-      id: '/app/user/account'
-      path: '/account'
-      fullPath: '/app/user/account'
-      preLoaderRoute: typeof AppUserAccountRouteImport
-      parentRoute: typeof AppUserRouteRoute
     }
     '/app/shastars/create': {
       id: '/app/shastars/create'
@@ -621,6 +626,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDiscordDiscordRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/creator/account': {
+      id: '/app/creator/account'
+      path: '/account'
+      fullPath: '/app/creator/account'
+      preLoaderRoute: typeof AppCreatorAccountRouteImport
+      parentRoute: typeof AppCreatorRouteRoute
+    }
+    '/app/creator/$username': {
+      id: '/app/creator/$username'
+      path: '/$username'
+      fullPath: '/app/creator/$username'
+      preLoaderRoute: typeof AppCreatorUsernameRouteImport
+      parentRoute: typeof AppCreatorRouteRoute
+    }
     '/app/shastars/s/$sId': {
       id: '/app/shastars/s/$sId'
       path: '/s/$sId'
@@ -644,6 +663,20 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AppCreatorRouteRouteChildren {
+  AppCreatorUsernameRoute: typeof AppCreatorUsernameRoute
+  AppCreatorAccountRoute: typeof AppCreatorAccountRoute
+}
+
+const AppCreatorRouteRouteChildren: AppCreatorRouteRouteChildren = {
+  AppCreatorUsernameRoute: AppCreatorUsernameRoute,
+  AppCreatorAccountRoute: AppCreatorAccountRoute,
+}
+
+const AppCreatorRouteRouteWithChildren = AppCreatorRouteRoute._addFileChildren(
+  AppCreatorRouteRouteChildren,
+)
 
 interface AppPostsRouteRouteChildren {
   AppPostsCreateRoute: typeof AppPostsCreateRoute
@@ -691,23 +724,11 @@ const AppShastarsRouteRouteChildren: AppShastarsRouteRouteChildren = {
 const AppShastarsRouteRouteWithChildren =
   AppShastarsRouteRoute._addFileChildren(AppShastarsRouteRouteChildren)
 
-interface AppUserRouteRouteChildren {
-  AppUserAccountRoute: typeof AppUserAccountRoute
-}
-
-const AppUserRouteRouteChildren: AppUserRouteRouteChildren = {
-  AppUserAccountRoute: AppUserAccountRoute,
-}
-
-const AppUserRouteRouteWithChildren = AppUserRouteRoute._addFileChildren(
-  AppUserRouteRouteChildren,
-)
-
 interface AppRouteRouteChildren {
+  AppCreatorRouteRoute: typeof AppCreatorRouteRouteWithChildren
   AppPostsRouteRoute: typeof AppPostsRouteRouteWithChildren
   AppResourcesRouteRoute: typeof AppResourcesRouteRouteWithChildren
   AppShastarsRouteRoute: typeof AppShastarsRouteRouteWithChildren
-  AppUserRouteRoute: typeof AppUserRouteRouteWithChildren
   AppChangelogRoute: typeof AppChangelogRoute
   AppLeaderboardRoute: typeof AppLeaderboardRoute
   AppPhilosophyRoute: typeof AppPhilosophyRoute
@@ -717,10 +738,10 @@ interface AppRouteRouteChildren {
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppCreatorRouteRoute: AppCreatorRouteRouteWithChildren,
   AppPostsRouteRoute: AppPostsRouteRouteWithChildren,
   AppResourcesRouteRoute: AppResourcesRouteRouteWithChildren,
   AppShastarsRouteRoute: AppShastarsRouteRouteWithChildren,
-  AppUserRouteRoute: AppUserRouteRouteWithChildren,
   AppChangelogRoute: AppChangelogRoute,
   AppLeaderboardRoute: AppLeaderboardRoute,
   AppPhilosophyRoute: AppPhilosophyRoute,

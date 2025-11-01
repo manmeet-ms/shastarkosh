@@ -70,6 +70,12 @@ export const AppHeader = () => {
                       Logout
                     </span>
                   </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <span className="container" onClick={()=>navigate({to:"/app/creator/"+user.username+"/content"})}>
+                    Manage your content
+                    </span> 
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem>New features coming soon...</DropdownMenuItem>
                   {/* <DropdownMenuItem>Billing</DropdownMenuItem>
       <DropdownMenuItem>Team</DropdownMenuItem>

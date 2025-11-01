@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useSelector } from "react-redux";
 
-export const Route = createFileRoute("/app/user/account")({
+export const Route = createFileRoute("/app/creator/account")({
   component: RouteComponent,
 });
 

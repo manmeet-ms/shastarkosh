@@ -122,10 +122,11 @@ function Index() {
                 </h2>
                 <nav className="flex flex-wrap  items-center list-none -mb-1">
                   {shastarCategories.map((cat) => (
-                                           <li key={cat._id} className=" text-muted-foreground/80 hover:text-foreground m-1  ">
+                                           <li key={cat._id} className="bg-accent/60 px-2  rounded-md  text-accent-foreground hover:text-foreground m-0.5 hover:bg-accent/80 hover:scale-105 transition-all duration-300  ">
 
 
-                                              <Link to="#" className=" lowercase border-b border-dashed border-muted-foreground/30 hover:border-b hover:border-foreground hover:border-dashed  ">
+                                              <Link to="#" className=" lowercase ">
+                                              {/* <Link to="#" className=" lowercase border-b border-dashed border-muted-foreground/30 hover:border-b hover:border-foreground hover:border-dashed  "> */}
 
 
 
@@ -144,10 +145,11 @@ function Index() {
                 </h2>
                 <nav className="flex flex-wrap list-none -mb-1">
                   {forumPostCategories.map((cat) => (
-                                           <li key={cat._id} className=" text-muted-foreground/80 hover:text-foreground m-1  ">
+                                             <li key={cat._id} className="bg-accent/60 px-2  rounded-md  text-accent-foreground hover:text-foreground m-0.5 hover:bg-accent/80 hover:scale-105 transition-all duration-300  ">
 
 
-                                              <Link to="#" className=" lowercase border-b border-dashed border-muted-foreground/30 hover:border-b hover:border-foreground hover:border-dashed  ">
+                                              <Link to="#" className=" lowercase ">
+                                              {/* <Link to="#" className=" lowercase border-b border-dashed border-muted-foreground/30 hover:border-b hover:border-foreground hover:border-dashed  "> */}
 
 
 
@@ -165,10 +167,11 @@ function Index() {
                 </h2>
                 <nav className="flex flex-wrap list-none -mb-1">
                   {categories.map((cat) => (
-                                           <li key={cat._id} className=" text-muted-foreground/80 hover:text-foreground m-1  ">
+                                            <li key={cat._id} className="bg-accent/60 px-2  rounded-md  text-accent-foreground hover:text-foreground m-0.5 hover:bg-accent/80 hover:scale-105 transition-all duration-300  ">
 
 
-                                              <Link to="#" className=" lowercase border-b border-dashed border-muted-foreground/30 hover:border-b hover:border-foreground hover:border-dashed  ">
+                                              <Link to="#" className=" lowercase ">
+                                              {/* <Link to="#" className=" lowercase border-b border-dashed border-muted-foreground/30 hover:border-b hover:border-foreground hover:border-dashed  "> */}
 
 
 
