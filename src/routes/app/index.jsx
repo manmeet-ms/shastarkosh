@@ -1,25 +1,14 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button";
 import { faker } from "@faker-js/faker";
-import { IconHeart, IconMessageCircle2, IconShare3 } from "@tabler/icons-react";
-import { Link, createFileRoute, useLocation } from "@tanstack/react-router";
-import axios from "axios";
-import millify from "millify";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import ForumPostCard from "@/components/ForumPostCard.jsx";
 import SectionTitleSubTitle from "@/components/SectionTitleSubTitle.jsx";
-import api from "@/services/api.js";
+import ShastarCard from "@/components/ShastarCard.jsx";
 import { getCategoriesSrv } from "@/services/category.service.js";
 import { getForumPostSrv } from "@/services/forumPost.service.js";
 import { getShastarSrv } from "@/services/shastarInfo.service.js";
-import ShastarCard from "@/components/ShastarCard.jsx";
 
 export const Route = createFileRoute("/app/")({
   component: Index,
@@ -122,18 +111,11 @@ function Index() {
                 </h2>
                 <nav className="flex flex-wrap  items-center list-none -mb-1">
                   {shastarCategories.map((cat) => (
-                                           <li key={cat._id} className="bg-accent/60 px-2  rounded-md  text-accent-foreground hover:text-foreground m-0.5 hover:bg-accent/80 hover:scale-105 transition-all duration-300  ">
-
-
-                                              <Link to="#" className=" lowercase ">
-                                              {/* <Link to="#" className=" lowercase border-b border-dashed border-muted-foreground/30 hover:border-b hover:border-foreground hover:border-dashed  "> */}
-
-
-
-
-                        {cat.name}
-                      </Link>
-                    </li>
+                                          <li key={cat._id} className=" text-muted-foreground/80 hover:text-foreground m-1  ">
+                        <Link to={`/app/categories/c/${cat._id}`} className=" lowercase border-b border-dashed border-muted-foreground/30 hover:border-b hover:border-foreground hover:border-dashed  ">
+                          {cat.name}
+                        </Link>
+                      </li>
                   ))} 
                
                 </nav>
@@ -145,18 +127,11 @@ function Index() {
                 </h2>
                 <nav className="flex flex-wrap list-none -mb-1">
                   {forumPostCategories.map((cat) => (
-                                             <li key={cat._id} className="bg-accent/60 px-2  rounded-md  text-accent-foreground hover:text-foreground m-0.5 hover:bg-accent/80 hover:scale-105 transition-all duration-300  ">
-
-
-                                              <Link to="#" className=" lowercase ">
-                                              {/* <Link to="#" className=" lowercase border-b border-dashed border-muted-foreground/30 hover:border-b hover:border-foreground hover:border-dashed  "> */}
-
-
-
-
-                        {cat.name}
-                      </Link>
-                    </li>
+                                             <li key={cat._id} className=" text-muted-foreground/80 hover:text-foreground m-1  ">
+                        <Link to={`/app/categories/c/${cat._id}`} className=" lowercase border-b border-dashed border-muted-foreground/30 hover:border-b hover:border-foreground hover:border-dashed  ">
+                          {cat.name}
+                        </Link>
+                      </li>
                   ))}
                 </nav>
               </div>
@@ -167,18 +142,11 @@ function Index() {
                 </h2>
                 <nav className="flex flex-wrap list-none -mb-1">
                   {categories.map((cat) => (
-                                            <li key={cat._id} className="bg-accent/60 px-2  rounded-md  text-accent-foreground hover:text-foreground m-0.5 hover:bg-accent/80 hover:scale-105 transition-all duration-300  ">
-
-
-                                              <Link to="#" className=" lowercase ">
-                                              {/* <Link to="#" className=" lowercase border-b border-dashed border-muted-foreground/30 hover:border-b hover:border-foreground hover:border-dashed  "> */}
-
-
-
-
-                        {cat.name}
-                      </Link>
-                    </li>
+                                        <li key={cat._id} className=" text-muted-foreground/80 hover:text-foreground m-1  ">
+                        <Link to={`/app/categories/c/${cat._id}`} className=" lowercase border-b border-dashed border-muted-foreground/30 hover:border-b hover:border-foreground hover:border-dashed  ">
+                          {cat.name}
+                        </Link>
+                      </li>
                   ))}
                 </nav>
               </div>
@@ -186,6 +154,7 @@ function Index() {
           </section>
         </div>
       </div>
+    
     </main>
   );
 }

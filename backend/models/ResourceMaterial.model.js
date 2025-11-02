@@ -48,5 +48,6 @@ const resourceMaterialSchema = new mongoose.Schema(
 );
 
 resourceMaterialSchema.index({ tags: 1, "origin.region": 1 });
+resourceMaterialSchema.index({ title: "text", description: "text", tags: "text" });
 
 export default mongoose.model("ResourceMaterial", resourceMaterialSchema);

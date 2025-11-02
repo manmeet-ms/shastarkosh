@@ -33,4 +33,6 @@ forumPostSchema.index({ category: 1, createdAt: -1 });
 forumPostSchema.index({ tags: 1 });
 forumPostSchema.index({ status: 1 });
 forumPostSchema.index({ author: 1 });
+forumPostSchema.index({ title: "text", content: "text", tags: "text" });
+
 export default mongoose.model("ForumPost", forumPostSchema);

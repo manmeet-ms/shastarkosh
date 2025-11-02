@@ -32,34 +32,34 @@ import { useSelector } from "react-redux";
 const LandingHeader = () => {
   const features = [
     {
-      title: "Dashboard",
-      description: "Overview of your activity",
-      href: "#",
+      title: "Shastars",
+      description: "Explore ancient weapons and tools",
+      href: "/app/shastars",
     },
     {
-      title: "Analytics",
-      description: "Track your performance",
-      href: "#",
+      title: "Forum Posts",
+      description: "Join discussions about martial arts",
+      href: "/app/posts",
     },
     {
-      title: "Settings",
-      description: "Configure your preferences",
-      href: "#",
+      title: "Resources",
+      description: "Educational materials and guides",
+      href: "/app/resources",
     },
     {
-      title: "Integrations",
-      description: "Connect with other tools",
-      href: "#",
+      title: "Categories",
+      description: "Browse organized content",
+      href: "/app/categories",
     },
     {
-      title: "Storage",
-      description: "Manage your files",
-      href: "#",
+      title: "AI Assistant",
+      description: "Get help from our AI",
+      href: "/app",
     },
     {
-      title: "Support",
-      description: "Get help when needed",
-      href: "#",
+      title: "Community",
+      description: "Connect with practitioners",
+      href: "/app/posts",
     },
   ];
 const navigate=useNavigate()
@@ -112,34 +112,34 @@ navigate({to:"/app"})
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  href="#"
+                  href="/app/shastars"
                   className={navigationMenuTriggerStyle()}
                 >
-                  Products
+                  Shastars
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  href="#"
+                  href="/app/posts"
+                  className={navigationMenuTriggerStyle()}
+                >
+                  Forum
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink
+                  href="/app/resources"
                   className={navigationMenuTriggerStyle()}
                 >
                   Resources
                 </NavigationMenuLink>
               </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  href="#"
-                  className={navigationMenuTriggerStyle()}
-                >
-                  Contact
-                </NavigationMenuLink>
-              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
-            <Button variant="outline"> <Link to={"/auth/register" } >Get started</Link> </Button>
+            <Button variant="outline"> <Link to={"/auth/login"} >Login</Link> </Button>
             <Button>
-              <Link to={"/app"} >Go to App</Link>
+              <Link to={"/auth/register"} >Register</Link>
             </Button>
           </div>
           <Sheet>
@@ -152,31 +152,31 @@ navigate({to:"/app"})
               <SheetHeader>
                 <SheetTitle>
                   <Link
-                    to="#"
+                    to="/"
                     className="flex items-center gap-2"
                   >
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg"
+                      src="/logo/transparent/transparent-shastarkosh-logo-dark.png"
                       className="max-h-8"
-                      alt="Shadcn UI Navbar"
+                      alt="Shastarkosh Logo"
                     />
                     <span className="text-lg font-semibold tracking-tighter">
-                      Shadcnblocks.com
+                      {APP_NAME}
                     </span>
                   </Link>
                 </SheetTitle>
               </SheetHeader>
               <div className="flex flex-col p-4">
                 <Accordion type="single" collapsible className="mt-4 mb-2">
-                  <AccordionItem value="solutions" className="border-none">
+                  <AccordionItem value="explore" className="border-none">
                     <AccordionTrigger className="text-base hover:no-underline">
-                      Features
+                      Explore
                     </AccordionTrigger>
                     <AccordionContent>
-                      <div className="grid md:grid-cols-2">
+                      <div className="grid grid-cols-1">
                         {features.map((feature, index) => (
-                          <a
-                            href={feature.href}
+                          <Link
+                            to={feature.href}
                             key={index}
                             className="rounded-md p-3 transition-colors hover:bg-muted/70"
                           >
@@ -188,26 +188,26 @@ navigate({to:"/app"})
                                 {feature.description}
                               </p>
                             </div>
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
                 <div className="flex flex-col gap-6">
-                  <a href="#" className="font-medium">
-                    Templates
-                  </a>
-                  <a href="#" className="font-medium">
-                    Blog
-                  </a>
-                  <a href="#" className="font-medium">
-                    Pricing
-                  </a>
+                  <Link to="/app/shastars" className="font-medium">
+                    Shastars
+                  </Link>
+                  <Link to="/app/posts" className="font-medium">
+                    Forum
+                  </Link>
+                  <Link to="/app/resources" className="font-medium">
+                    Resources
+                  </Link>
                 </div>
                 <div className="mt-6 flex flex-col gap-4">
-                  <Button variant="outline">Sign in</Button>
-                  <Button>Start for free</Button>
+                  <Button variant="outline"><Link to="/auth/login">Login</Link></Button>
+                  <Button><Link to="/auth/register">Register</Link></Button>
                 </div>
               </div>
             </SheetContent>

@@ -14,6 +14,7 @@ import ProtectedLayout from "./components/ProtectedLayout.jsx";
 import "./index.css";
 import NotFound404 from "./pages/NotFound404.jsx";
 import { routeTree } from "./routeTree.gen.js";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createRouter({
   routeTree,
@@ -25,13 +26,16 @@ const router = createRouter({
     return <NotFound404 />;
   },
 });
-
+const queryClient = new QueryClient()
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <Suspense fallback={<div>Loading...</div>}>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         {/* <ProtectedLayout> */}
+        <QueryClientProvider client={queryClient}>
+
           <RouterProvider router={router}></RouterProvider>
+        </QueryClientProvider>
         {/* </ProtectedLayout> */}
         {/* <TanStackRouterDevtools router={router} /> */}
         <Toaster  position="bottom-center" />

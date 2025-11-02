@@ -26,7 +26,8 @@ import categoryRoutes from "./routes/category.routes.js";
 import commentsRoutes from "./routes/comment.routes.js";
 import notificationRoutes from "./routes/notification.routes.js";
 import analyticsRoutes from "./routes/analytics.routes.js";
-
+import searchRoutes from "./routes/search.routes.js";
+import aiRoutes from "./routes/ai.routes.js";
 
 const app = express();
 
@@ -64,6 +65,9 @@ app.use("/api/resources",resourceMaterialRoutes)
 app.use("/api/category",categoryRoutes)
 app.use("/api/comments",commentsRoutes)
 app.use("/api/analytics",analyticsRoutes)
+app.use("/api/search",searchRoutes)
+app.use("/api/ai", aiRoutes)
+
 // investigation routes
 app.get("/api/routes", (req, res) => {
   const routesData = getExtractedRoutes();

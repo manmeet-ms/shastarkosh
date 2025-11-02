@@ -64,4 +64,5 @@ shastarInfoSchema.index({ type: 1, subType: 1 });
 shastarInfoSchema.index({ "origin.region": 1, "origin.culture": 1 });
 shastarInfoSchema.index({ tags: 1 });
 shastarInfoSchema.index({ createdBy: 1 });
+shastarInfoSchema.index({ title: "text", description: "text", tags: "text" });
 export default mongoose.model("Shastar", shastarInfoSchema);

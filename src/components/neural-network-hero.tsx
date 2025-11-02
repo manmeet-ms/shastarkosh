@@ -172,10 +172,19 @@ function ShaderPlane() {
     materialRef.current.iTime = state.clock.elapsedTime;
     const { width, height } = state.size;
     materialRef.current.iResolution.set(width, height);
+    
+    // Calculate plane size to cover viewport
+    const aspect = width / height;
+    const distance = state.camera.position.z - meshRef.current.position.z;
+    const fov = (state.camera as THREE.PerspectiveCamera).fov * (Math.PI / 180);
+    const planeHeight = 2 * Math.tan(fov / 2) * distance;
+    const planeWidth = planeHeight * aspect;
+    
+    meshRef.current.scale.set(planeWidth / 4, planeHeight / 4, 1);
   });
 
   return (
-    <mesh ref={meshRef} position={[0, -0.75, -0.5]}>
+    <mesh ref={meshRef} position={[0, 0, 0]}>
       <planeGeometry args={[4, 4]} />
       <cPPNShaderMaterial ref={materialRef} side={THREE.DoubleSide} />
     </mesh>
@@ -236,14 +245,14 @@ interface HeroProps {
 
 export default function NeuralNetwork({
   title="ddlk",
-  description="Preserving history",
+  description="Safeguarding the legacy ",
   badgeText = "Generative Surfaces",
   badgeLabel = "New",
   ctaButtons = [
     { text: "Get started", href: "#get-started", primary: true },
     { text: "View showcase", href: "#showcase" }
   ],
-  microDetails = ["Low‑weight font", "Tight tracking", "Subtle motion"]
+  microDetails = ["Community‑driven",  "AI‑powered insights","Preserving history"]
 }: HeroProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const headerRef = useRef<HTMLHeadingElement | null>(null);
@@ -349,7 +358,7 @@ export default function NeuralNetwork({
           {description}
         </p>
 
-        <div ref={ctaRef} className="flex flex-wrap items-center gap-3 pt-2">
+        {/* <div ref={ctaRef} className="flex flex-wrap items-center gap-3 pt-2">
           {ctaButtons.map((button, index) => (
             <a
               key={index}
@@ -363,7 +372,7 @@ export default function NeuralNetwork({
               {button.text}
             </a>
           ))}
-        </div>
+        </div> */}
           
         <ul ref={microRef} className="mt-8 flex flex-wrap gap-6 text-xs font-extralight tracking-tight text-white/60">
           {microDetails.map((detail, index) => {

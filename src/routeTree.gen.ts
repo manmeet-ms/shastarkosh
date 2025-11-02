@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as NotficationsRouteImport } from './routes/notfications'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BetaRouteImport } from './routes/beta'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as R404RouteImport } from './routes/404'
@@ -20,6 +19,7 @@ import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app/index'
+import { Route as SearchResultsRouteImport } from './routes/search.results'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AppRoadmapRouteImport } from './routes/app/roadmap'
@@ -33,6 +33,7 @@ import { Route as AppCreatorRouteRouteImport } from './routes/app/creator/route'
 import { Route as AppShastarsIndexRouteImport } from './routes/app/shastars/index'
 import { Route as AppResourcesIndexRouteImport } from './routes/app/resources/index'
 import { Route as AppPostsIndexRouteImport } from './routes/app/posts/index'
+import { Route as AppCategoriesIndexRouteImport } from './routes/app/categories/index'
 import { Route as AppShastarsCreateRouteImport } from './routes/app/shastars/create'
 import { Route as AppResourcesCreateRouteImport } from './routes/app/resources/create'
 import { Route as AppPostsCreateRouteImport } from './routes/app/posts/create'
@@ -42,6 +43,7 @@ import { Route as AppCreatorUsernameRouteImport } from './routes/app/creator/$us
 import { Route as AppShastarsSSIdRouteImport } from './routes/app/shastars/s.$sId'
 import { Route as AppResourcesRRIdRouteImport } from './routes/app/resources/r.$rId'
 import { Route as AppPostsPPIdRouteImport } from './routes/app/posts/p.$pId'
+import { Route as AppCategoriesCCIdRouteImport } from './routes/app/categories/c.$cId'
 
 const NotficationsRoute = NotficationsRouteImport.update({
   id: '/notfications',
@@ -51,11 +53,6 @@ const NotficationsRoute = NotficationsRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CategoriesRoute = CategoriesRouteImport.update({
-  id: '/categories',
-  path: '/categories',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BetaRoute = BetaRouteImport.update({
@@ -97,6 +94,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppRouteRoute,
+} as any)
+const SearchResultsRoute = SearchResultsRouteImport.update({
+  id: '/search/results',
+  path: '/search/results',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
   id: '/register',
@@ -163,6 +165,11 @@ const AppPostsIndexRoute = AppPostsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppPostsRouteRoute,
 } as any)
+const AppCategoriesIndexRoute = AppCategoriesIndexRouteImport.update({
+  id: '/categories/',
+  path: '/categories/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppShastarsCreateRoute = AppShastarsCreateRouteImport.update({
   id: '/create',
   path: '/create',
@@ -208,6 +215,11 @@ const AppPostsPPIdRoute = AppPostsPPIdRouteImport.update({
   path: '/p/$pId',
   getParentRoute: () => AppPostsRouteRoute,
 } as any)
+const AppCategoriesCCIdRoute = AppCategoriesCCIdRouteImport.update({
+  id: '/categories/c/$cId',
+  path: '/categories/c/$cId',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -217,7 +229,6 @@ export interface FileRoutesByFullPath {
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/beta': typeof BetaRoute
-  '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
   '/notfications': typeof NotficationsRoute
   '/app/creator': typeof AppCreatorRouteRouteWithChildren
@@ -230,6 +241,7 @@ export interface FileRoutesByFullPath {
   '/app/roadmap': typeof AppRoadmapRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/search/results': typeof SearchResultsRoute
   '/app/': typeof AppIndexRoute
   '/app/creator/$username': typeof AppCreatorUsernameRoute
   '/app/creator/account': typeof AppCreatorAccountRoute
@@ -237,9 +249,11 @@ export interface FileRoutesByFullPath {
   '/app/posts/create': typeof AppPostsCreateRoute
   '/app/resources/create': typeof AppResourcesCreateRoute
   '/app/shastars/create': typeof AppShastarsCreateRoute
+  '/app/categories': typeof AppCategoriesIndexRoute
   '/app/posts/': typeof AppPostsIndexRoute
   '/app/resources/': typeof AppResourcesIndexRoute
   '/app/shastars/': typeof AppShastarsIndexRoute
+  '/app/categories/c/$cId': typeof AppCategoriesCCIdRoute
   '/app/posts/p/$pId': typeof AppPostsPPIdRoute
   '/app/resources/r/$rId': typeof AppResourcesRRIdRoute
   '/app/shastars/s/$sId': typeof AppShastarsSSIdRoute
@@ -251,7 +265,6 @@ export interface FileRoutesByTo {
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/beta': typeof BetaRoute
-  '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
   '/notfications': typeof NotficationsRoute
   '/app/creator': typeof AppCreatorRouteRouteWithChildren
@@ -261,6 +274,7 @@ export interface FileRoutesByTo {
   '/app/roadmap': typeof AppRoadmapRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/search/results': typeof SearchResultsRoute
   '/app': typeof AppIndexRoute
   '/app/creator/$username': typeof AppCreatorUsernameRoute
   '/app/creator/account': typeof AppCreatorAccountRoute
@@ -268,9 +282,11 @@ export interface FileRoutesByTo {
   '/app/posts/create': typeof AppPostsCreateRoute
   '/app/resources/create': typeof AppResourcesCreateRoute
   '/app/shastars/create': typeof AppShastarsCreateRoute
+  '/app/categories': typeof AppCategoriesIndexRoute
   '/app/posts': typeof AppPostsIndexRoute
   '/app/resources': typeof AppResourcesIndexRoute
   '/app/shastars': typeof AppShastarsIndexRoute
+  '/app/categories/c/$cId': typeof AppCategoriesCCIdRoute
   '/app/posts/p/$pId': typeof AppPostsPPIdRoute
   '/app/resources/r/$rId': typeof AppResourcesRRIdRoute
   '/app/shastars/s/$sId': typeof AppShastarsSSIdRoute
@@ -284,7 +300,6 @@ export interface FileRoutesById {
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/beta': typeof BetaRoute
-  '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
   '/notfications': typeof NotficationsRoute
   '/app/creator': typeof AppCreatorRouteRouteWithChildren
@@ -297,6 +312,7 @@ export interface FileRoutesById {
   '/app/roadmap': typeof AppRoadmapRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/search/results': typeof SearchResultsRoute
   '/app/': typeof AppIndexRoute
   '/app/creator/$username': typeof AppCreatorUsernameRoute
   '/app/creator/account': typeof AppCreatorAccountRoute
@@ -304,9 +320,11 @@ export interface FileRoutesById {
   '/app/posts/create': typeof AppPostsCreateRoute
   '/app/resources/create': typeof AppResourcesCreateRoute
   '/app/shastars/create': typeof AppShastarsCreateRoute
+  '/app/categories/': typeof AppCategoriesIndexRoute
   '/app/posts/': typeof AppPostsIndexRoute
   '/app/resources/': typeof AppResourcesIndexRoute
   '/app/shastars/': typeof AppShastarsIndexRoute
+  '/app/categories/c/$cId': typeof AppCategoriesCCIdRoute
   '/app/posts/p/$pId': typeof AppPostsPPIdRoute
   '/app/resources/r/$rId': typeof AppResourcesRRIdRoute
   '/app/shastars/s/$sId': typeof AppShastarsSSIdRoute
@@ -321,7 +339,6 @@ export interface FileRouteTypes {
     | '/404'
     | '/about'
     | '/beta'
-    | '/categories'
     | '/contact'
     | '/notfications'
     | '/app/creator'
@@ -334,6 +351,7 @@ export interface FileRouteTypes {
     | '/app/roadmap'
     | '/auth/login'
     | '/auth/register'
+    | '/search/results'
     | '/app/'
     | '/app/creator/$username'
     | '/app/creator/account'
@@ -341,9 +359,11 @@ export interface FileRouteTypes {
     | '/app/posts/create'
     | '/app/resources/create'
     | '/app/shastars/create'
+    | '/app/categories'
     | '/app/posts/'
     | '/app/resources/'
     | '/app/shastars/'
+    | '/app/categories/c/$cId'
     | '/app/posts/p/$pId'
     | '/app/resources/r/$rId'
     | '/app/shastars/s/$sId'
@@ -355,7 +375,6 @@ export interface FileRouteTypes {
     | '/404'
     | '/about'
     | '/beta'
-    | '/categories'
     | '/contact'
     | '/notfications'
     | '/app/creator'
@@ -365,6 +384,7 @@ export interface FileRouteTypes {
     | '/app/roadmap'
     | '/auth/login'
     | '/auth/register'
+    | '/search/results'
     | '/app'
     | '/app/creator/$username'
     | '/app/creator/account'
@@ -372,9 +392,11 @@ export interface FileRouteTypes {
     | '/app/posts/create'
     | '/app/resources/create'
     | '/app/shastars/create'
+    | '/app/categories'
     | '/app/posts'
     | '/app/resources'
     | '/app/shastars'
+    | '/app/categories/c/$cId'
     | '/app/posts/p/$pId'
     | '/app/resources/r/$rId'
     | '/app/shastars/s/$sId'
@@ -387,7 +409,6 @@ export interface FileRouteTypes {
     | '/404'
     | '/about'
     | '/beta'
-    | '/categories'
     | '/contact'
     | '/notfications'
     | '/app/creator'
@@ -400,6 +421,7 @@ export interface FileRouteTypes {
     | '/app/roadmap'
     | '/auth/login'
     | '/auth/register'
+    | '/search/results'
     | '/app/'
     | '/app/creator/$username'
     | '/app/creator/account'
@@ -407,9 +429,11 @@ export interface FileRouteTypes {
     | '/app/posts/create'
     | '/app/resources/create'
     | '/app/shastars/create'
+    | '/app/categories/'
     | '/app/posts/'
     | '/app/resources/'
     | '/app/shastars/'
+    | '/app/categories/c/$cId'
     | '/app/posts/p/$pId'
     | '/app/resources/r/$rId'
     | '/app/shastars/s/$sId'
@@ -423,9 +447,9 @@ export interface RootRouteChildren {
   R404Route: typeof R404Route
   AboutRoute: typeof AboutRoute
   BetaRoute: typeof BetaRoute
-  CategoriesRoute: typeof CategoriesRoute
   ContactRoute: typeof ContactRoute
   NotficationsRoute: typeof NotficationsRoute
+  SearchResultsRoute: typeof SearchResultsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -442,13 +466,6 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/categories': {
-      id: '/categories'
-      path: '/categories'
-      fullPath: '/categories'
-      preLoaderRoute: typeof CategoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/beta': {
@@ -506,6 +523,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/'
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRouteRoute
+    }
+    '/search/results': {
+      id: '/search/results'
+      path: '/search/results'
+      fullPath: '/search/results'
+      preLoaderRoute: typeof SearchResultsRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/auth/register': {
       id: '/auth/register'
@@ -598,6 +622,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppPostsIndexRouteImport
       parentRoute: typeof AppPostsRouteRoute
     }
+    '/app/categories/': {
+      id: '/app/categories/'
+      path: '/categories'
+      fullPath: '/app/categories'
+      preLoaderRoute: typeof AppCategoriesIndexRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/app/shastars/create': {
       id: '/app/shastars/create'
       path: '/create'
@@ -660,6 +691,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/posts/p/$pId'
       preLoaderRoute: typeof AppPostsPPIdRouteImport
       parentRoute: typeof AppPostsRouteRoute
+    }
+    '/app/categories/c/$cId': {
+      id: '/app/categories/c/$cId'
+      path: '/categories/c/$cId'
+      fullPath: '/app/categories/c/$cId'
+      preLoaderRoute: typeof AppCategoriesCCIdRouteImport
+      parentRoute: typeof AppRouteRoute
     }
   }
 }
@@ -735,6 +773,8 @@ interface AppRouteRouteChildren {
   AppRoadmapRoute: typeof AppRoadmapRoute
   AppIndexRoute: typeof AppIndexRoute
   AppDiscordDiscordRoute: typeof AppDiscordDiscordRoute
+  AppCategoriesIndexRoute: typeof AppCategoriesIndexRoute
+  AppCategoriesCCIdRoute: typeof AppCategoriesCCIdRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
@@ -748,6 +788,8 @@ const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppRoadmapRoute: AppRoadmapRoute,
   AppIndexRoute: AppIndexRoute,
   AppDiscordDiscordRoute: AppDiscordDiscordRoute,
+  AppCategoriesIndexRoute: AppCategoriesIndexRoute,
+  AppCategoriesCCIdRoute: AppCategoriesCCIdRoute,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
@@ -776,9 +818,9 @@ const rootRouteChildren: RootRouteChildren = {
   R404Route: R404Route,
   AboutRoute: AboutRoute,
   BetaRoute: BetaRoute,
-  CategoriesRoute: CategoriesRoute,
   ContactRoute: ContactRoute,
   NotficationsRoute: NotficationsRoute,
+  SearchResultsRoute: SearchResultsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

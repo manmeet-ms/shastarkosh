@@ -2,7 +2,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { IconBrandInstagramFilled, IconBrandLinkedinFilled, IconBrandTwitterFilled, IconDownload, IconShare2 } from "@tabler/icons-react";
+import { IconDownload, IconShare2 } from "@tabler/icons-react";
 import { createFileRoute } from "@tanstack/react-router";
 import millify from "millify";
 import { useEffect, useState } from "react";
@@ -22,23 +22,23 @@ function RouteComponent() {
   const [resourceMaterial, setResourceMaterial] = useState({});
   const [currentImageFocusURL, setcurrentImageFocusURL] = useState("/assets/placeholder-image.png");
 
-  const getShastarInfo = async () => {
-    const resInfo = await getSingleResourceMaterialSrv(rId);
-    console.log(resInfo.data);
+  const getResourceInfo = async () => {
+    const response = await getSingleResourceMaterialSrv(rId);
+    console.log("Resource Response:", response.data);
 
-    setResourceMaterial(resInfo.data);
+    setResourceMaterial(response.data);
+    setcurrentImageFocusURL(response.data.mainImage);
 
-    const creator = await getUserSrv(resourceMaterial?.createdBy);
-    setcreatorinfo(creator.data);
-    console.log(creator.data);
-
-    setcurrentImageFocusURL(resInfo.data.mainImage);
-    console.log("resShastars", resourceMaterial);
+    // Fetch creator info after setting resource
+    if (response.data.createdBy) {
+      const creator = await getUserSrv(response.data.createdBy);
+      setcreatorinfo(creator.data);
+      console.log("Creator:", creator.data);
+    }
   };
   useEffect(() => {
-    getShastarInfo();
-    console.log("resShastars useEffect", resourceMaterial);
-    console.log("resShastars useEffect", resourceMaterial.images);
+    getResourceInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // TODO gets shatsra details make a empty objects and store it , cache it,
@@ -54,7 +54,7 @@ function RouteComponent() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/app/shastars">Resources</BreadcrumbLink>
+              <BreadcrumbLink href="/app/resources">Resources</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -73,7 +73,16 @@ function RouteComponent() {
 
                   <img className="rounded-lg  size-16 object-center object-cover" src={resourceMaterial?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
                   ))} */}
-                  {Array.isArray(resourceMaterial.images) && resourceMaterial.images.length > 0 ? resourceMaterial.images.map((img, idx) => <img onClick={() => setcurrentImageFocusURL(img)} key={idx} className="rounded-lg size-16 object-center object-cover" src={img || "/assets/placeholder-weapon.png"} alt={`thumb-${idx}`} />) : <img className="rounded-lg size-16 object-center object-cover" src="/assets/placeholder-weapon.png" alt="placeholder" />}{" "}
+                  <img onClick={() => setcurrentImageFocusURL(resourceMaterial?.mainImage)} className="rounded-lg size-16 object-center object-cover cursor-pointer" src={resourceMaterial?.mainImage || "/assets/placeholder-weapon.png"} alt="main" />
+                  {Array.isArray(resourceMaterial.images) && resourceMaterial.images.length > 0 ? resourceMaterial.images.map((img, idx) => (
+                    <img 
+                      onClick={() => setcurrentImageFocusURL(typeof img === 'string' ? img : img.url)} 
+                      key={idx} 
+                      className="rounded-lg size-16 object-center object-cover cursor-pointer hover:opacity-80 transition-opacity" 
+                      src={typeof img === 'string' ? img : img.url || "/assets/placeholder-weapon.png"} 
+                      alt={`thumb-${idx}`} 
+                    />
+                  )) : null}
                 </div>
               </div>
               <div className="p-6 md:w-1/2 flex flex-col items-start">
@@ -97,7 +106,25 @@ function RouteComponent() {
                     </TableRow>
                   </TableBody>
                 </Table> */}
-                <p className="leading-relaxed mb-8">Live-edge letterpress cliche, salvia fanny pack humblebrag narwhal portland. VHS man braid palo santo hoodie brunch trust fund. Bitters hashtag waistcoat fashion axe chia unicorn. Plaid fixie chambray 90's, slow-carb etsy tumeric.</p>
+                {resourceMaterial?.origin && (
+                  <div className="mb-4">
+                    <span className="text-sm font-semibold text-muted-foreground">Origin: </span>
+                    <span className="text-white">{resourceMaterial.origin}</span>
+                  </div>
+                )}
+                
+                {resourceMaterial?.tags && resourceMaterial.tags.length > 0 && (
+                  <div className="mb-6">
+                    <span className="text-sm font-semibold text-muted-foreground mb-2 block">Tags:</span>
+                    <div className="flex flex-wrap gap-2">
+                      {resourceMaterial.tags.map((tag, idx) => (
+                        <span key={idx} className="px-2 py-1 text-xs rounded bg-primary/10 text-primary">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <div className="flex items-center flex-wrap pb-4   border-gray-800 border-opacity-75 mt-auto w-full">
                   <img src={creatorinfo?.avatar} className=" rounded-full size-8" alt="" />
                   <a className="inline-flex items-center">
@@ -124,7 +151,7 @@ function RouteComponent() {
               </div>
             </div>
           </div>
-          <Tabs className="mx-4" defaultValue="discussion">
+          <Tabs className="mx-4" defaultValue="information">
             <TabsList>
               <TabsTrigger value="information">Information</TabsTrigger>
               <TabsTrigger value="discussion">Discussion</TabsTrigger>
@@ -148,57 +175,57 @@ function RouteComponent() {
                 </div>
               </div> */}
 
-                      <div className="border-border bg-card mb-6 overflow-hidden rounded-lg border shadow-sm">
-                        <div className="border-border bg-muted/50 border-b px-5 py-4">
-                          <h3 className="flex items-center text-sm font-semibold">
-                            <IconDownload className="text-muted-foreground mr-2.5 size-3.5" />
-                            Download Options
-                          </h3>
-                        </div>
-                        <div className="p-5">
-                          <div className="space-y-4">
-                            <p className="text-muted-foreground text-sm">Enjoy this? Download it for offline reading or sharing.</p>
-                            <div className="flex flex-col space-y-2">
-                              <Button className="w-full justify-between" variant="default">
-                                PDF Format
+                      {resourceMaterial?.pdfUrl && (
+                        <div className="border-border bg-card mb-6 overflow-hidden rounded-lg border shadow-sm">
+                          <div className="border-border bg-muted/50 border-b px-5 py-4">
+                            <h3 className="flex items-center text-sm font-semibold">
+                              <IconDownload className="text-muted-foreground mr-2.5 size-3.5" />
+                              Download PDF
+                            </h3>
+                          </div>
+                          <div className="p-5">
+                            <div className="space-y-4">
+                              <p className="text-muted-foreground text-sm">Download this resource for offline reading.</p>
+                              <Button 
+                                className="w-full justify-between" 
+                                variant="default"
+                                onClick={() => window.open(resourceMaterial.pdfUrl, '_blank')}
+                              >
+                                Download PDF
                                 <IconDownload className="ml-2 size-4" />
                               </Button>
-                              {/* <Button className="w-full justify-between" variant="outline">
-                        Print Version
-                        <IconDownload className="ml-2 size-4" />
-                      </Button> */}
                             </div>
-                            <p className="text-muted-foreground mt-4 text-center text-xs">Read time: 5 minutes</p>
                           </div>
                         </div>
-                      </div>
+                      )}
 
                       <div className="border-border bg-card mb-6 overflow-hidden rounded-lg border shadow-sm">
                         <div className="border-border bg-muted/50 border-b px-5 py-4">
                           <h3 className="flex items-center text-sm font-semibold">
                             <IconShare2 className="text-muted-foreground mr-2.5 size-3.5" />
-                            Share this guide
+                            Share Resource
                           </h3>
                         </div>
                         <div className="p-5">
-                          <ul className="flex items-center gap-2">
-                            <li>
-                              <a href="#" className="border-border bg-muted/60 hover:bg-muted p-2  flex size-10 items-center justify-center rounded-full border transition-colors" aria-label="Share on Instagram">
-                                <IconBrandInstagramFilled className="text-foreground" />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#" className="border-border bg-muted/60 hover:bg-muted p-2  flex size-10 items-center justify-center rounded-full border transition-colors" aria-label="Share on LinkedIn">
-                                <IconBrandLinkedinFilled className="text-foreground" />
-                              </a>
-                            </li>
-
-                            <li>
-                              <a href="#" className="border-border bg-muted/60 hover:bg-muted p-2  flex size-10 items-center justify-center rounded-full border transition-colors" aria-label="Share on Twitter">
-                                <IconBrandTwitterFilled className="text-foreground" />
-                              </a>
-                            </li>
-                          </ul>
+                          <Button 
+                            className="w-full" 
+                            variant="outline"
+                            onClick={() => {
+                              if (navigator.share) {
+                                navigator.share({
+                                  title: resourceMaterial?.title,
+                                  text: `Check out this resource: ${resourceMaterial?.title}`,
+                                  url: window.location.href
+                                });
+                              } else {
+                                navigator.clipboard.writeText(window.location.href);
+                                alert('Link copied to clipboard!');
+                              }
+                            }}
+                          >
+                            <IconShare2 className="mr-2 size-4" />
+                            Share this Resource
+                          </Button>
                         </div>
                       </div>
                     </aside>

@@ -83,8 +83,8 @@ const App = () => {
                   </Link>
                 );
               })} */}
-              <h1 className="uppercase font-medium text-xs px-2 mt-4 text-muted-foreground/80">User</h1>
-              <Link
+            {user &&   <section className="flex flex-col space-y-2" >  <h1 className="uppercase font-medium text-xs px-2 mt-4 text-muted-foreground/80">User</h1>
+               <Link
                 viewTransition
                 className={cn(
                   "my-0.5 rounded-lg py-2.25 pr-0 pl-3.5 text-sm font-medium transition-colors",
@@ -96,7 +96,9 @@ const App = () => {
                 to={`/app/creator/${user?.username}`}>
                 <IconUser className="mr-2 inline-flex size-4 items-center" />
                 <span className="">Profile</span>
-              </Link>{" "}
+              </Link></section> }
+
+            
             
             </nav>
 

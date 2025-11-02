@@ -30,7 +30,9 @@ const ShastarCard = (props) => {
              <Link key={props._id} to={`/app/shastars/s/${props._id}`}>
                 <h2 className="hover:underline line-clamp-1 title-font font-medium text-lg text-foreground ">{props.title}</h2>
              </Link>  
-                <span className="bg-accent  text-accent-foreground rounded-sm  px-2 py-1 text-xs">{props.subType}</span>
+                <div className="">
+                  <span className="bg-accent/80  text-accent-foreground rounded-sm  px-2 py-1 text-xs">{props.subType}</span>
+                </div>
               </div>
             </div>  
             <p className="mt-3 mb-1 line-clamp-2">{props.description}</p>

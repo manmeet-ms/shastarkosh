@@ -41,7 +41,7 @@ const ForumPostCard = (props) => {
             </div>
           </div>
         </div>
-        <p className="mt-3 mb-1 line-clamp-2">{props.content}</p>
+        <p className="mt-3 mb-1 line-clamp-2 text-muted-foreground ">{props.content}</p>
 
         <div className="flex justify-between items-center  text-xs">
           <span className="flex  gap-4 items-center justify-start  ">

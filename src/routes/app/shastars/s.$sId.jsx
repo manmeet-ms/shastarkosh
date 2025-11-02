@@ -1,9 +1,12 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { IconShare2 } from "@tabler/icons-react";
 import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
+import Markdown from "react-markdown";
 
 import DiscussionSection from "@/components/DiscussionSection";
 import { getSingleShastarSrv } from "@/services/shastarInfo.service";
@@ -20,16 +23,18 @@ function RouteComponent() {
   const [currentImageFocusURL, setcurrentImageFocusURL] = useState("/assets/placeholder-image.png");
 
   const getShastarInfo = async () => {
-    const resInfo = await getSingleShastarSrv(sId);
-    console.log(resInfo.data);
-    console.log(resInfo.data.images[0]);
+    const response = await getSingleShastarSrv(sId);
+    console.log("Shastar Response:", response.data);
 
-    setShastar(resInfo.data);
+    setShastar(response.data);
+    setcurrentImageFocusURL(response.data.mainImage);
 
-    const creator = await getUserSrv(shastar.createdBy);
-    setcreatorInfo(creator.data);
-    setcurrentImageFocusURL(resInfo.data.mainImage);
-    console.log("resShastars", shastar);
+    // Fetch creator info after setting shastar
+    if (response.data.createdBy) {
+      const creator = await getUserSrv(response.data.createdBy);
+      setcreatorInfo(creator.data);
+      console.log("Creator:", creator.data);
+    }
   };
 
   const [creatorInfo, setcreatorInfo] = useState();
@@ -41,11 +46,7 @@ function RouteComponent() {
   // }
   useEffect(() => {
     getShastarInfo();
-    if (shastar.createdBy) {
-      console.log("creator useEffect", shastar.createdBy, creatorInfo);
-    }
-    console.log("resShastars useEffect", shastar);
-    console.log("resShastars useEffect", shastar.images);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // TODO gets shatsra details make a empty objects and store it , cache it,
@@ -80,8 +81,16 @@ function RouteComponent() {
 
                   <img className="rounded-lg  size-16 object-center object-cover" src={shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
                   ))} */}
-                  <img     className="rounded-lg size-16 object-center object-cover" src={ shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
-                  {(Array.isArray(shastar.images) && shastar.images.length > 0) ? shastar.images.map((img, idx) => <img onClick={() => setcurrentImageFocusURL(img.url)} key={idx} className="rounded-lg size-16 object-center object-cover" src={img.url || "/assets/placeholder-weapon.png"} alt={`thumb-${idx}`} />) : <img className="rounded-lg size-16 object-center object-cover" src="/assets/placeholder-weapon.png" alt="placeholder" />}{" "}
+                  <img onClick={() => setcurrentImageFocusURL(shastar?.mainImage)} className="rounded-lg size-16 object-center object-cover cursor-pointer" src={shastar?.mainImage || "/assets/placeholder-weapon.png"} alt="main" />
+                  {Array.isArray(shastar.images) && shastar.images.length > 0 ? shastar.images.map((img, idx) => (
+                    <img 
+                      onClick={() => setcurrentImageFocusURL(typeof img === 'string' ? img : img.url)} 
+                      key={idx} 
+                      className="rounded-lg size-16 object-center object-cover cursor-pointer hover:opacity-80 transition-opacity" 
+                      src={typeof img === 'string' ? img : img.url || "/assets/placeholder-weapon.png"} 
+                      alt={`thumb-${idx}`} 
+                    />
+                  )) : null}
                   
                 </div>
               </div>
@@ -107,10 +116,16 @@ function RouteComponent() {
                   </TableBody>
                 </Table>
 
-                <div className="my-3 font-medium flex flex-wrap gap-2 ">
-                  Alternative name:
-                  {Array.isArray(shastar.alternativeNames) && shastar.alternativeNames.length > 0 ? shastar.alternativeNames.map((img, idx) => <span className="font-normal">{img}</span>) : null}
-                </div>
+                {Array.isArray(shastar.alternativeNames) && shastar.alternativeNames.length > 0 && (
+                  <div className="my-3 font-medium flex flex-wrap gap-2">
+                    <span>Alternative names:</span>
+                    {shastar.alternativeNames.map((name, idx) => (
+                      <span key={idx} className="font-normal text-muted-foreground">
+                        {name}{idx < shastar.alternativeNames.length - 1 ? ',' : ''}
+                      </span>
+                    ))}
+                  </div>
+                )}
                 <p className="leading-relaxed mb-8">{shastar.usage}</p>
                 {/* <div className="flex items-center flex-wrap pb-4   border-gray-800 border-opacity-75 mt-auto w-full">
                   <a className="inline-flex items-center">
@@ -145,28 +160,69 @@ function RouteComponent() {
               </div>
             </div>
           </div>
-          <Tabs className="mx-4" defaultValue="discussion">
+          <Tabs className="mx-4" defaultValue="information">
             <TabsList>
               <TabsTrigger value="information">Information</TabsTrigger>
               <TabsTrigger value="discussion">Discussion</TabsTrigger>
             </TabsList>
             <TabsContent value="information">
-              {shastar?.description}
-              <div className="pt-4  pb-24">
-                {" "}
-                <div className="flex my-2 items-center">
-                  <img className="mr-2 w-6 h-6 rounded-full" src={creatorInfo?.avatar} alt={creatorInfo?.name} />
-                  <div className="flex flex-col">
-                    <p className="inline-flex items-center   text-sm text-foreground font-semibold">{creatorInfo?.name}</p>
-                    <span className="text-xs text-muted-foreground/60  ">@{creatorInfo?.username}</span>
+              <section className="py-6">
+                <div className="grid gap-8 md:grid-cols-12">
+                  <div className="md:col-span-8">
+                    <div className="prose prose-invert max-w-none mb-8">
+                      <Markdown>{shastar?.description}</Markdown>
+                    </div>
+                    
+                    <div className="border-t border-border pt-6 mt-8">
+                      <h3 className="text-lg font-semibold mb-4">About this Shastar</h3>
+                      
+                      <div className="flex items-center gap-4 mb-4">
+                        <img className="w-12 h-12 rounded-full" src={creatorInfo?.avatar} alt={creatorInfo?.name} />
+                        <div className="flex flex-col">
+                          <p className="text-sm text-foreground font-semibold">{creatorInfo?.name}</p>
+                          <span className="text-xs text-muted-foreground">@{creatorInfo?.username}</span>
+                        </div>
+                      </div>
+                      
+                      <p className="text-sm text-muted-foreground">
+                        Created {dayjs(shastar.createdAt).fromNow()} • Last updated {dayjs(shastar.updatedAt).fromNow()}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="md:col-span-4">
+                    <div className="border-border bg-card overflow-hidden rounded-lg border shadow-sm sticky top-4">
+                      <div className="border-border bg-muted/50 border-b px-5 py-4">
+                        <h3 className="flex items-center text-sm font-semibold">
+                          <IconShare2 className="text-muted-foreground mr-2.5 size-3.5" />
+                          Share Shastar
+                        </h3>
+                      </div>
+                      <div className="p-5">
+                        <Button 
+                          className="w-full" 
+                          variant="outline"
+                          onClick={() => {
+                            if (navigator.share) {
+                              navigator.share({
+                                title: shastar?.title,
+                                text: `Check out this shastar: ${shastar?.title}`,
+                                url: window.location.href
+                              });
+                            } else {
+                              navigator.clipboard.writeText(window.location.href);
+                              alert('Link copied to clipboard!');
+                            }
+                          }}
+                        >
+                          <IconShare2 className="mr-2 size-4" />
+                          Share this Shastar
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <p className="text-xs  text-muted-foreground/60 ">
-                  {/* {dayjs(c.createdAt).format("MMM DD, YYYY")}
-                                            <br /> */}
-                  Created {dayjs(shastar.createdAt).fromNow()}
-                </p>
-              </div>
+              </section>
             </TabsContent>
             <TabsContent value="discussion">
               <DiscussionSection type="ShastarInfo" discussionPlaceId={sId} />

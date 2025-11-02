@@ -30,7 +30,7 @@ function RouteComponent() {
           <div className="flex justify-between items-center">
             <SectionTitleSubTitle title="Resource Materials" subtitle={`${resources.length} materials`} />
             <Button>
-              <Link to="/app/resources/create">Create Shastar</Link>
+              <Link to="/app/resources/create">Create Resource</Link>
             </Button>
           </div>
           {/* <div className="flex flex-wrap -m-4"> */}

@@ -1,8 +1,6 @@
-import { getUserSrv } from "../../src/services/user.service.js";
 import logger from "../../src/utils/logger.utils.js";
 import Comment from "../models/Comments.model.js";
 import ForumPost from "../models/ForumPost.model.js";
-import Category from "../models/Category.model.js";
 import User from "../models/User.model.js";
 
 export async function getForumPost(req, res) {
@@ -14,7 +12,7 @@ export async function getForumPost(req, res) {
     } 
 
     const result = await ForumPost.find().sort({ createdAt: -1 }).limit(limit);
-    logger("log","Total Posts", result.length);
+    // logger("log","Total Posts", result.length);
     // logger("log","Posts details", result);
 
     res.status(200).json(result);

@@ -3,7 +3,7 @@
 - user auth
   - flow set
 - add concius caching
-- your posts, search bar, 
+- ai context search bar, material theme genertorto shadcn   
 
 - CRUD funvtion fe shastar page, resourcec maerial page
 - imge handling

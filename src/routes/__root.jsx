@@ -1,11 +1,12 @@
 import { Outlet, createRootRoute } from "@tanstack/react-router";
+import { AIChatPanel } from "@/components/AIChatPanel";
 
 // import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-import App from "../App";
 
 const RootLayout = () => (
   <>
     <Outlet />
+    <AIChatPanel />
   </>
 );
 
