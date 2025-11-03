@@ -13,7 +13,7 @@ import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
+
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
@@ -58,7 +58,7 @@ const LandingHeader = () => {
     },
     {
       title: "Community",
-      description: "Connect with practitioners",
+      description: "Join public discussions",
       href: "/app/posts",
     },
   ];
@@ -69,9 +69,7 @@ navigate({to:"/app"})
 }
  else{
    return (
-    <section className="bg-black/20 backdrop-brightness-20 px-4 backdrop-blur-2xl sticky top-0 z-10 py-4">
-      <div className="container">
-        <nav className="flex items-center justify-between">
+        <nav className="bg-background/20   px-4 backdrop-blur-2xl sticky top-0 z-10 py-4 flex  items-center justify-between">
           <a
             href="/"
             className="flex items-center gap-2"
@@ -92,8 +90,8 @@ navigate({to:"/app"})
                 <NavigationMenuContent>
                   <div className="grid w-[600px] grid-cols-2 p-3">
                     {features.map((feature, index) => (
-                      <NavigationMenuLink
-                        href={feature.href}
+                      <Link
+                        to={feature.href}
                         key={index}
                         className="rounded-md p-3 transition-colors hover:bg-muted/70"
                       >
@@ -105,38 +103,49 @@ navigate({to:"/app"})
                             {feature.description}
                           </p>
                         </div>
-                      </NavigationMenuLink>
+                      </Link>
                     ))}
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink
-                  href="/app/shastars"
+                <Link
+                  to="/about"
                   className={navigationMenuTriggerStyle()}
                 >
-                  Shastars
-                </NavigationMenuLink>
+                  About
+                </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink
-                  href="/app/posts"
+                <Link
+                  to="/philosophy"
                   className={navigationMenuTriggerStyle()}
                 >
-                  Forum
-                </NavigationMenuLink>
+                  Philosophy
+                </Link>
               </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  href="/app/resources"
+           <NavigationMenuItem>
+                <Link
+                  to="/roadmap"
                   className={navigationMenuTriggerStyle()}
                 >
-                  Resources
-                </NavigationMenuLink>
+                  Roadmap
+                </Link>
+              </NavigationMenuItem>    <NavigationMenuItem>
+                <Link
+                  to="/changelog"
+                  className={navigationMenuTriggerStyle()}
+                >
+                  Changelog
+                </Link>
               </NavigationMenuItem>
+             
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
+                 <Link to="/contact" className="font-medium">
+                    Contact
+                  </Link>
             <Button variant="outline"> <Link to={"/auth/login"} >Login</Link> </Button>
             <Button>
               <Link to={"/auth/register"} >Register</Link>
@@ -195,17 +204,23 @@ navigate({to:"/app"})
                   </AccordionItem>
                 </Accordion>
                 <div className="flex flex-col gap-6">
-                  <Link to="/app/shastars" className="font-medium">
-                    Shastars
+                  <Link to="/about" className="font-medium">
+                    About
                   </Link>
-                  <Link to="/app/posts" className="font-medium">
-                    Forum
+                  <Link to="/philosophy" className="font-medium">
+                    Philosophy
                   </Link>
-                  <Link to="/app/resources" className="font-medium">
-                    Resources
+               <Link to="/roadmap" className="font-medium">
+                    Roadmap
+                  </Link>    <Link to="/changelog" className="font-medium">
+                    Changelog
                   </Link>
+                 
                 </div>
                 <div className="mt-6 flex flex-col gap-4">
+                        <Link to="/contact" className="font-medium">
+                    Contact
+                  </Link>
                   <Button variant="outline"><Link to="/auth/login">Login</Link></Button>
                   <Button><Link to="/auth/register">Register</Link></Button>
                 </div>
@@ -213,8 +228,6 @@ navigate({to:"/app"})
             </SheetContent>
           </Sheet>
         </nav>
-      </div>
-    </section>
   );
  }
 };

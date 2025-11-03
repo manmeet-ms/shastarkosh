@@ -24,7 +24,7 @@ function RouteComponent() {
 
   return (
     <section className="text-muted-foreground/60 body-font">
-      <div className="container px-4  mx-auto">
+      <div className="container px-4 mx-auto">
         <div className="flex flex-col text-center w-full mb-4">
           <div className="flex justify-between items-center">
             <SectionTitleSubTitle title="Shastar" subtitle={`${shastars.length} shastars`} />

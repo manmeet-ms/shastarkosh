@@ -1,16 +1,25 @@
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IconDownload, IconShare2 } from "@tabler/icons-react";
 import { createFileRoute } from "@tanstack/react-router";
-import millify from "millify";
 import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
 
 import DiscussionSection from "@/components/DiscussionSection";
 import { getSingleResourceMaterialSrv } from "@/services/resourceMaterial.service";
 import { getUserSrv } from "@/services/user.service";
+import { Book, Download, Share2 } from "lucide-react";
+
 
 export const Route = createFileRoute("/app/resources/r/$rId")({
   component: RouteComponent,
@@ -27,13 +36,13 @@ function RouteComponent() {
     console.log("Resource Response:", response.data);
 
     setResourceMaterial(response.data);
-    setcurrentImageFocusURL(response.data.mainImage);
+    setcurrentImageFocusURL(response.data.data.mainImage);
 
     // Fetch creator info after setting resource
-    if (response.data.createdBy) {
-      const creator = await getUserSrv(response.data.createdBy);
+    if (response.data.data.createdBy) {
+      const creator = await getUserSrv(response.data.data.createdBy);
       setcreatorinfo(creator.data);
-      console.log("Creator:", creator.data);
+      console.log("Creator:", creator.data);  
     }
   };
   useEffect(() => {
@@ -58,7 +67,7 @@ function RouteComponent() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="capitalize">{resourceMaterial?.title} </BreadcrumbPage>
+              <BreadcrumbPage className="capitalize">{resourceMaterial?.data?.title} </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -66,15 +75,15 @@ function RouteComponent() {
           <div className="container px-4 pt-12 mx-auto">
             <div className="flex flex-wrap  ">
               <div className="p-6 md:w-1/2 flex flex-col items-center">
-                <img className="rounded-lg  w-full h-96 object-center object-cover" src={currentImageFocusURL || resourceMaterial?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
+                <img className="rounded-lg  w-full h-96 object-center object-cover" src={currentImageFocusURL || resourceMaterial?.data?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
                 <div className="flex gap-2 py-2 justify-center items-center container w-full ">
                   {/* TODO main image gets lost when any of the image is clicked */}
-                  {/* {resourceMaterial?.images.map((i)=>(
+                  {/* {resourceMaterial?.data?.images.map((i)=>(
 
-                  <img className="rounded-lg  size-16 object-center object-cover" src={resourceMaterial?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
+                  <img className="rounded-lg  size-16 object-center object-cover" src={resourceMaterial?.data?.mainImage || "/assets/placeholder-weapon.png"} alt="" />
                   ))} */}
-                  <img onClick={() => setcurrentImageFocusURL(resourceMaterial?.mainImage)} className="rounded-lg size-16 object-center object-cover cursor-pointer" src={resourceMaterial?.mainImage || "/assets/placeholder-weapon.png"} alt="main" />
-                  {Array.isArray(resourceMaterial.images) && resourceMaterial.images.length > 0 ? resourceMaterial.images.map((img, idx) => (
+                  <img onClick={() => setcurrentImageFocusURL(resourceMaterial?.data?.mainImage)} className="rounded-lg size-16 object-center object-cover cursor-pointer" src={resourceMaterial?.data?.mainImage || "/assets/placeholder-weapon.png"} alt="main" />
+                  {Array.isArray(resourceMaterial?.data?.images) && resourceMaterial?.data?.images.length > 0 ? resourceMaterial?.data?.images.map((img, idx) => (
                     <img 
                       onClick={() => setcurrentImageFocusURL(typeof img === 'string' ? img : img.url)} 
                       key={idx} 
@@ -86,8 +95,8 @@ function RouteComponent() {
                 </div>
               </div>
               <div className="p-6 md:w-1/2 flex flex-col items-start">
-                <span className="inline-block py-1 px-2 rounded bg-gray-800 text-gray-400 text-opacity-75 text-xs font-medium  uppercase">{resourceMaterial?.category}</span>
-                <h2 className="sm:text-3xl text-2xl title-font font-medium text-white mt-4 mb-4">{resourceMaterial?.title}</h2>
+                <span className="inline-block py-1 px-2 rounded bg-gray-800 text-gray-400 text-opacity-75 text-xs font-medium  uppercase">{resourceMaterial?.data?.category}</span>
+                <h2 className="sm:text-3xl text-2xl title-font font-medium text-white mt-4 mb-4">{resourceMaterial?.data?.title}</h2>
                 {/* <Table>
                   <TableHeader>
                     <TableRow>
@@ -106,18 +115,46 @@ function RouteComponent() {
                     </TableRow>
                   </TableBody>
                 </Table> */}
-                {resourceMaterial?.origin && (
-                  <div className="mb-4">
-                    <span className="text-sm font-semibold text-muted-foreground">Origin: </span>
-                    <span className="text-white">{resourceMaterial.origin}</span>
-                  </div>
+                {resourceMaterial?.data.origin && (
+                  // <div className="mb-4">
+                  //   <span className="text-sm font-semibold text-muted-foreground">Origin: </span>
+                  //   <span className="text-white">{resourceMaterial.origin}</span>
+                  // </div>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead  >Origin</TableHead>
+                        <TableHead>Data</TableHead>
+                         
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+         
+                      <TableRow>
+                        <TableCell className="font-semibold"  >Region</TableCell>
+                        <TableCell>{resourceMaterial?.data?.origin?.region}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-semibold"  >Culture</TableCell>
+                        <TableCell>{resourceMaterial?.data?.origin?.culture}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-semibold"  >Time Period</TableCell>
+                        <TableCell>{resourceMaterial?.data?.origin?.timePeriod}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-semibold"  >Year Estimated</TableCell>
+                        <TableCell>{resourceMaterial?.data?.origin?.yearEstimated}</TableCell>
+                      </TableRow>
+                   
+                    </TableBody>
+                  </Table>
                 )}
                 
-                {resourceMaterial?.tags && resourceMaterial.tags.length > 0 && (
-                  <div className="mb-6">
-                    <span className="text-sm font-semibold text-muted-foreground mb-2 block">Tags:</span>
+                {resourceMaterial?.data?.tags && resourceMaterial?.data?.tags.length > 0 && (
+                  <div className="my-4">
                     <div className="flex flex-wrap gap-2">
-                      {resourceMaterial.tags.map((tag, idx) => (
+                      {resourceMaterial?.data?.tags.map((tag, idx) => (
                         <span key={idx} className="px-2 py-1 text-xs rounded bg-primary/10 text-primary">
                           {tag}
                         </span>
@@ -139,7 +176,7 @@ function RouteComponent() {
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                       <circle cx="12" cy="12" r="3"></circle>
                     </svg>
-                    {millify(resourceMaterial?.views)}
+                    {millify(resourceMaterial?.data?.views)}
                   </span>
                   <span className="text-muted-foreground inline-flex items-center leading-none text-sm">
                     <svg className="w-4 h-4 mr-1" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
@@ -157,84 +194,152 @@ function RouteComponent() {
               <TabsTrigger value="discussion">Discussion</TabsTrigger>
             </TabsList>
             <TabsContent value="information">
-              <section className="py-6">
-                <div className="   grid gap-12 md:grid-cols-12 md:gap-8">
-                  <div className="order-last md:order-none md:col-span-4 lg:col-span-3">
-                    <aside className="flex flex-col gap-2">
-                      {/* <div className="border-border bg-card mb-6 overflow-hidden rounded-lg border shadow-sm">
-                <div className="border-border bg-muted/50 border-b px-5 py-4">
-                  <h3 className="flex items-center text-sm font-semibold">
-                    <IconBook className="text-muted-foreground mr-2.5 size-3.5" />
-                    Whitepaper
-                  </h3>
+              <section className="py-32">
+      <div className="container grid gap-12 md:grid-cols-12 md:gap-8">
+        <div className="order-last md:order-none md:col-span-4 lg:col-span-3">
+          <aside className="flex flex-col gap-2">
+            <div className="border-border bg-card mb-6 overflow-hidden rounded-lg border shadow-sm">
+              <div className="border-border bg-muted/50 border-b px-5 py-4">
+                <h3 className="flex items-center text-sm font-semibold">
+                  <Book className="text-muted-foreground mr-2.5 size-3.5" />
+                  Resource Material
+                </h3>
+              </div>
+              <div className="p-5">
+                <div className="text-foreground gap-4 text-lg font-semibold leading-snug">
+                  <p>{resourceMaterial?.data?.title}</p>
                 </div>
-                <div className="p-5">
-                  <div className="text-foreground gap-4 text-lg font-semibold leading-snug">
-                    <p>The Complete Guide to Launching Your Startup</p>
-                  </div>
-                </div>
-              </div> */}
+              </div>
+            </div>
 
-                      {resourceMaterial?.pdfUrl && (
-                        <div className="border-border bg-card mb-6 overflow-hidden rounded-lg border shadow-sm">
-                          <div className="border-border bg-muted/50 border-b px-5 py-4">
-                            <h3 className="flex items-center text-sm font-semibold">
-                              <IconDownload className="text-muted-foreground mr-2.5 size-3.5" />
-                              Download PDF
-                            </h3>
-                          </div>
-                          <div className="p-5">
-                            <div className="space-y-4">
-                              <p className="text-muted-foreground text-sm">Download this resource for offline reading.</p>
-                              <Button 
-                                className="w-full justify-between" 
-                                variant="default"
-                                onClick={() => window.open(resourceMaterial.pdfUrl, '_blank')}
-                              >
-                                Download PDF
-                                <IconDownload className="ml-2 size-4" />
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="border-border bg-card mb-6 overflow-hidden rounded-lg border shadow-sm">
-                        <div className="border-border bg-muted/50 border-b px-5 py-4">
-                          <h3 className="flex items-center text-sm font-semibold">
-                            <IconShare2 className="text-muted-foreground mr-2.5 size-3.5" />
-                            Share Resource
-                          </h3>
-                        </div>
-                        <div className="p-5">
-                          <Button 
-                            className="w-full" 
-                            variant="outline"
-                            onClick={() => {
-                              if (navigator.share) {
-                                navigator.share({
-                                  title: resourceMaterial?.title,
-                                  text: `Check out this resource: ${resourceMaterial?.title}`,
-                                  url: window.location.href
-                                });
-                              } else {
-                                navigator.clipboard.writeText(window.location.href);
-                                alert('Link copied to clipboard!');
-                              }
-                            }}
-                          >
-                            <IconShare2 className="mr-2 size-4" />
-                            Share this Resource
-                          </Button>
-                        </div>
-                      </div>
-                    </aside>
+            <div className="border-border bg-card mb-6 overflow-hidden rounded-lg border shadow-sm">
+              <div className="border-border bg-muted/50 border-b px-5 py-4">
+                <h3 className="flex items-center text-sm font-semibold">
+                  <Download className="text-muted-foreground mr-2.5 size-3.5" />
+                  Download Options
+                </h3>
+              </div>
+              <div className="p-5">
+                <div className="space-y-4">
+                  <p className="text-muted-foreground text-sm">
+                    Download this resource for offline reading or sharing.
+                  </p>
+                  <div className="flex flex-col space-y-2">
+                    {resourceMaterial?.data?.pdfUrl && (
+                      <Button
+                        className="w-full justify-between"
+                        variant="default"
+                        onClick={() => window.open(resourceMaterial?.data?.pdfUrl, '_blank')}
+                      >
+                        PDF Format
+                        <Download className="ml-2 size-4" />
+                      </Button>
+                    )}
                   </div>
-                  <div className="md:col-span-7 md:col-start-5  lg:col-start-6">
-                    <Markdown>{resourceMaterial.description}</Markdown>
+                  <div className="mt-4 space-y-1 text-xs text-muted-foreground">
+                    <p>Views: {resourceMaterial?.data?.views || 0}</p>
+                    <p>Likes: {resourceMaterial?.data?.likes || 0}</p>
+                    <p>Comments: {resourceMaterial?.data?.commentCount || 0}</p>
                   </div>
                 </div>
-              </section>
+              </div>
+            </div>
+
+            <div className="border-border bg-card mb-6 overflow-hidden rounded-lg border shadow-sm">
+              <div className="border-border bg-muted/50 border-b px-5 py-4">
+                <h3 className="flex items-center text-sm font-semibold">
+                  <Share2 className="text-muted-foreground mr-2.5 size-3.5" />
+                  Share this guide
+                </h3>
+              </div>
+              <div className="p-5">
+                <ul className="flex items-center gap-2">
+                  <li>
+                    <a
+                      href="#"
+                      className="border-border bg-muted/50 hover:bg-muted flex size-10 items-center justify-center rounded-full border transition-colors"
+                      aria-label="Share on Instagram"
+                    >
+                      <img
+                        src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/instagram-icon.svg"
+                        alt="Instagram"
+                        className="size-5"
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="border-border bg-muted/50 hover:bg-muted flex size-10 items-center justify-center rounded-full border transition-colors"
+                      aria-label="Share on LinkedIn"
+                    >
+                      <img
+                        src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/linkedin-icon.svg"
+                        alt="LinkedIn"
+                        className="size-5"
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="border-border bg-muted/50 hover:bg-muted flex size-10 items-center justify-center rounded-full border transition-colors"
+                      aria-label="Share on Product Hunt"
+                    >
+                      <img
+                        src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/producthunt-icon.svg"
+                        alt="Product Hunt"
+                        className="size-5"
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="border-border bg-muted/50 hover:bg-muted flex size-10 items-center justify-center rounded-full border transition-colors"
+                      aria-label="Share on Twitter"
+                    >
+                      <img
+                        src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/twitter-icon.svg"
+                        alt="Twitter"
+                        className="size-5"
+                      />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </aside>
+        </div>
+        <div className="md:col-span-7 md:col-start-5 lg:col-start-6">
+          <article className="prose dark:prose-invert prose-sm">
+            <Markdown>{resourceMaterial?.data?.description}</Markdown>
+          </article>
+          
+          {resourceMaterial?.data?.sources && resourceMaterial?.data?.sources.length > 0 && (
+            <div className="mt-12">
+              <h3 className="text-xl font-semibold mb-4">Sources & References</h3>
+              <div className="space-y-4">
+                {resourceMaterial?.data?.sources.map((source, idx) => (
+                  <div key={idx} className="border-l-2 border-primary pl-4">
+                    <p className="font-semibold">{source.title}</p>
+                    <p className="text-sm text-muted-foreground">By {source.author}</p>
+                    {source.publication && (
+                      <p className="text-sm text-muted-foreground">{source.publication} ({source.year})</p>
+                    )}
+                    {source.link && (
+                      <a href={source.link} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                        View Source
+                      </a>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
             </TabsContent>
             <TabsContent value="discussion">
               <DiscussionSection type="ResourceMaterial" discussionPlaceId={rId} />

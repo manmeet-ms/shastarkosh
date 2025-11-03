@@ -115,7 +115,7 @@ export const AIChatPanel = () => {
       <SheetTrigger asChild>
         <Button
           size="lg"
-          className="fixed bottom-6 right-6 w-28  py-6  rounded-full shadow-lg hover:shadow-xl transition-all z-50"
+          className="fixed bottom-24 md:bottom-6  right-6 w-28  py-6  rounded-full shadow-lg hover:shadow-xl transition-all z-50"
         >
           <IconSparkles className="h-12 w-12" /> Ask AI
         </Button>

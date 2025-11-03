@@ -9,7 +9,19 @@ import User from "../../backend/models/User.model.js";
 
 // Realistic sample data for tests: 5 Forum Posts, 5 Shastars, 5 Resource Materials
 // Note: Images are placeholders; focus is on textual content.
+const randomImage=[
+  "https://res.cloudinary.com/dckgfz6cr/image/upload/v1761935427/shastar/gallery/x8mtmlvao7gxs82za2gt.jpg",
+  "https://res.cloudinary.com/dckgfz6cr/image/upload/v1761975253/shastar/main/k5xewxnbsyv7cgzvpnhq.jpg",
+  "https://res.cloudinary.com/dckgfz6cr/image/upload/v1761936093/shastar/main/sba7n3u7sfbvpuxokstb.jpg",
+  "https://res.cloudinary.com/dckgfz6cr/image/upload/v1761935405/shastar/main/qnh3i9c4n3kmphcyjfqg.png",
+  "https://res.cloudinary.com/dckgfz6cr/image/upload/v1761935502/shastar/main/xgtscxy9pyjdov3spbjo.jpg",
+  "https://res.cloudinary.com/dckgfz6cr/image/upload/v1761935512/shastar/gallery/rkf0qabl533xg8asv42d.jpg",
+  "https://res.cloudinary.com/dckgfz6cr/image/upload/v1759199970/shastar/gallery/admnlnpl5iuerzoblibw.png",
+"https://res.cloudinary.com/dckgfz6cr/image/upload/v1759200245/shastar/main/vkqcil4qfhixilwnfoiu.png",
 
+
+
+]
 const makeDocs = async () => {
   await mongoose.connect(process.env.MONGO_URI);
   console.log(" Connected to MongoDB");
@@ -78,8 +90,8 @@ const makeDocs = async () => {
       title: "Khanda - The Double-Edged Sword",
       createdBy:userId,
       alternativeNames: ["Khanda Sahib", "Divine Sword"],
-      mainImage: "https://example.com/khanda.jpg",
-      images: [],
+      mainImage: randomImage[Math.floor(Math.random() * randomImage.length)],
+      images: [randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)]],
       description: "The Khanda symbolizes divine power, justice, and the destruction of evil. A straight, double-edged sword often associated with the Sikh concept of Miri-Piri (temporal and spiritual authority). Traditionally forged with high-quality Wootz steel; the hilt may bear religious motifs. Used historically in 17th–18th century Punjab.",
       type: "weapon",
       subType: "sword",
@@ -105,8 +117,8 @@ const makeDocs = async () => {
       title: "Chakram - The Circular Throwing Weapon",
       createdBy:userId,
       alternativeNames: ["Chakkar", "War Quoit"],
-      mainImage: "https://example.com/chakram.jpg",
-      images: [],
+      mainImage: randomImage[Math.floor(Math.random() * randomImage.length)],
+      images: [randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)]],
       description: "A flat, circular throwing weapon with sharpened outer edge, used by Sikh warriors (notably Nihangs). Typically 10–30 cm diameter, thrown horizontally or vertically with high accuracy. Forged of high-carbon steel and often worn on turbans for rapid deployment.",
       type: "weapon",
       subType: "throwing-weapon",
@@ -132,8 +144,8 @@ const makeDocs = async () => {
       title: "Ayurvedic Surgical Kit - Sushruta's Instruments",
       createdBy:userId,
       alternativeNames: ["Sushruta Instruments", "Ancient Surgical Tools"],
-      mainImage: "https://example.com/surgical-kit.jpg",
-      images: [],
+      mainImage: randomImage[Math.floor(Math.random() * randomImage.length)],
+      images: [randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)]],
       description: "A reconstructed set of instruments described in Sushruta Samhita (c. 600 BCE): scalpels (Mandalagra), forceps (Vrihimukha), probes (Eshi), and suturing tools (Nadivali). Demonstrates advanced surgical knowledge and ergonomic design in ancient India.",
       type: "tool",
       subType: "medical-instruments",
@@ -159,8 +171,8 @@ const makeDocs = async () => {
       title: "Katar - The Punch Dagger of Warriors",
       createdBy:userId,
       alternativeNames: ["Push Dagger", "Tekli"],
-      mainImage: "https://example.com/katar.jpg",
-      images: [],
+      mainImage: randomImage[Math.floor(Math.random() * randomImage.length)],
+      images: [randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)]],
       description: "A distinctive push dagger with an H-shaped grip allowing powerful thrusts from the knuckles. Favored by Rajput and Sikh warriors. Some variants used split-blade mechanisms. Often forged with pattern-welded or Wootz steel and decorated hilts.",
       type: "weapon",
       subType: "dagger",
@@ -186,8 +198,8 @@ const makeDocs = async () => {
       title: "Vedic Astronomical Instrument - Jantar Mantar",
       createdBy:userId,
       alternativeNames: ["Yantra", "Stone Observatory"],
-      mainImage: "https://example.com/jantar-mantar.jpg",
-      images: [],
+      mainImage: randomImage[Math.floor(Math.random() * randomImage.length)],
+      images: [randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)]],
       description: "Stone observatories commissioned by Maharaja Jai Singh II (1724–1735) with large-scale instruments like the Samrat Yantra (giant sundial), Ram Yantra, and Jai Prakash for precise celestial measurements—often within seconds of arc.",
       type: "tool",
       subType: "astronomical-instrument",
@@ -215,8 +227,8 @@ const makeDocs = async () => {
     {
       title: "The Vedas: Complete Translation and Commentary",
       createdBy:userId,
-      mainImage: "https://example.com/vedas-book.jpg",
-      images: [],
+      mainImage: randomImage[Math.floor(Math.random() * randomImage.length)],
+      images: [randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)]],
       description: "A modern English rendering with transliteration and commentary for Rig, Yajur, Sama, and Atharva Vedas. Covers ritual context, metrics, linguistic notes, and cross-references. Highlights scientific insights and philosophical foundations of Vedic thought.",
       origin: {
         region: "Indian Subcontinent",
@@ -235,8 +247,8 @@ const makeDocs = async () => {
     {
       title: "Gatka: The Living Martial Art Tradition",
       createdBy:userId,
-      mainImage: "https://example.com/gatka-manual.jpg",
-      images: [],
+      mainImage: randomImage[Math.floor(Math.random() * randomImage.length)],
+      images: [randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)]],
       description: "A comprehensive manual on Gatka: history, weapon taxonomy (Kirpan, Chakram, Katar, Talwar), footwork, partner drills, forms (yudhvidya), meditation, and ethics. Emphasizes the warrior-spirit framework—courage, discipline, compassion, and seva.",
       origin: {
         region: "Punjab",
@@ -255,8 +267,8 @@ const makeDocs = async () => {
     {
       title: "Ancient Indian Metallurgy: The Wootz Steel Revolution",
       createdBy:userId,
-      mainImage: "https://example.com/wootz-steel-book.jpg",
-      images: [],
+      mainImage: randomImage[Math.floor(Math.random() * randomImage.length)],
+      images: [randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)]],
       description: "Explores crucible steel production, archaeometallurgy of sites in Tamil Nadu/Karnataka, microstructural analysis (cementite, nanotubes), trade diffusion into West Asia, and modern replication attempts. Includes experimental archaeology results.",
       origin: {
         region: "Southern India",
@@ -275,8 +287,8 @@ const makeDocs = async () => {
     {
       title: "Ayurvedic Pharmacopoeia: Ancient Herbal Remedies",
       createdBy:userId,
-      mainImage: "https://example.com/ayurveda-pharmacopoeia.jpg",
-      images: [],
+      mainImage: randomImage[Math.floor(Math.random() * randomImage.length)],
+      images: [randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)]],
       description: "Documents over 800 medicinal plants with botanical keys, preparation methods (decoctions, taila, churna), therapeutic indications, safety profiles, and conservation notes. Bridges classical formulations with modern pharmacology and clinical evidence.",
       origin: {
         region: "Indian Subcontinent",
@@ -295,8 +307,8 @@ const makeDocs = async () => {
     {
       title: "Sikh Warrior Chronicles: Battles and Strategy",
       createdBy:userId,
-      mainImage: "https://example.com/sikh-warrior-chronicles.jpg",
-      images: [],
+      mainImage: randomImage[Math.floor(Math.random() * randomImage.length)],
+      images: [randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)],randomImage[Math.floor(Math.random() * randomImage.length)]],
       description: "Military history from Guru Gobind Singh Ji to the Sikh Empire. Analyzes command structures, logistics, intelligence networks, battlefield ethics (Dharma Yudh), and tactical innovations. Includes maps, battle diagrams, and translated accounts.",
       origin: {
         region: "Punjab and North India",

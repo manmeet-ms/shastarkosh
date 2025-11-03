@@ -110,14 +110,17 @@ const App = () => {
             {/* {authStatus && <LogoutButton className="bg-accent text-sm font-medium py-2 rounded-full" />} */}
             <div className="flex flex-wrap justify-center gap-3 items-center ">
               {" "}
-              <Link className="text-xs hover:underline px-2 font-normal" to="/app/philosophy">
+              <Link className="text-xs hover:underline px-2 font-normal" to="/philosophy">
                 Philosophy
               </Link>
-              <Link className="text-xs hover:underline px-2 font-normal" to="/app/roadmap">
+              <Link className="text-xs hover:underline px-2 font-normal" to="/roadmap">
                 Roadmap
               </Link>
-              <Link className="text-xs hover:underline px-2 font-normal" to="/app/changelog">
+              <Link className="text-xs hover:underline px-2 font-normal" to="/changelog">
                 Changelog
+              </Link>
+              <Link className="text-xs hover:underline px-2 font-normal" to="/contact">
+                Contact
               </Link>
             </div>
           </section>

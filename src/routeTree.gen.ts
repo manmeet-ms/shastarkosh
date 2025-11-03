@@ -9,8 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RoadmapRouteImport } from './routes/roadmap'
+import { Route as PhilosophyRouteImport } from './routes/philosophy'
 import { Route as NotficationsRouteImport } from './routes/notfications'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ChangelogRouteImport } from './routes/changelog'
 import { Route as BetaRouteImport } from './routes/beta'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as R404RouteImport } from './routes/404'
@@ -22,10 +25,7 @@ import { Route as AppIndexRouteImport } from './routes/app/index'
 import { Route as SearchResultsRouteImport } from './routes/search.results'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
-import { Route as AppRoadmapRouteImport } from './routes/app/roadmap'
-import { Route as AppPhilosophyRouteImport } from './routes/app/philosophy'
 import { Route as AppLeaderboardRouteImport } from './routes/app/leaderboard'
-import { Route as AppChangelogRouteImport } from './routes/app/changelog'
 import { Route as AppShastarsRouteRouteImport } from './routes/app/shastars/route'
 import { Route as AppResourcesRouteRouteImport } from './routes/app/resources/route'
 import { Route as AppPostsRouteRouteImport } from './routes/app/posts/route'
@@ -45,6 +45,16 @@ import { Route as AppResourcesRRIdRouteImport } from './routes/app/resources/r.$
 import { Route as AppPostsPPIdRouteImport } from './routes/app/posts/p.$pId'
 import { Route as AppCategoriesCCIdRouteImport } from './routes/app/categories/c.$cId'
 
+const RoadmapRoute = RoadmapRouteImport.update({
+  id: '/roadmap',
+  path: '/roadmap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PhilosophyRoute = PhilosophyRouteImport.update({
+  id: '/philosophy',
+  path: '/philosophy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NotficationsRoute = NotficationsRouteImport.update({
   id: '/notfications',
   path: '/notfications',
@@ -53,6 +63,11 @@ const NotficationsRoute = NotficationsRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChangelogRoute = ChangelogRouteImport.update({
+  id: '/changelog',
+  path: '/changelog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BetaRoute = BetaRouteImport.update({
@@ -110,24 +125,9 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AuthRouteRoute,
 } as any)
-const AppRoadmapRoute = AppRoadmapRouteImport.update({
-  id: '/roadmap',
-  path: '/roadmap',
-  getParentRoute: () => AppRouteRoute,
-} as any)
-const AppPhilosophyRoute = AppPhilosophyRouteImport.update({
-  id: '/philosophy',
-  path: '/philosophy',
-  getParentRoute: () => AppRouteRoute,
-} as any)
 const AppLeaderboardRoute = AppLeaderboardRouteImport.update({
   id: '/leaderboard',
   path: '/leaderboard',
-  getParentRoute: () => AppRouteRoute,
-} as any)
-const AppChangelogRoute = AppChangelogRouteImport.update({
-  id: '/changelog',
-  path: '/changelog',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const AppShastarsRouteRoute = AppShastarsRouteRouteImport.update({
@@ -229,16 +229,16 @@ export interface FileRoutesByFullPath {
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/beta': typeof BetaRoute
+  '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
   '/notfications': typeof NotficationsRoute
+  '/philosophy': typeof PhilosophyRoute
+  '/roadmap': typeof RoadmapRoute
   '/app/creator': typeof AppCreatorRouteRouteWithChildren
   '/app/posts': typeof AppPostsRouteRouteWithChildren
   '/app/resources': typeof AppResourcesRouteRouteWithChildren
   '/app/shastars': typeof AppShastarsRouteRouteWithChildren
-  '/app/changelog': typeof AppChangelogRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
-  '/app/philosophy': typeof AppPhilosophyRoute
-  '/app/roadmap': typeof AppRoadmapRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/search/results': typeof SearchResultsRoute
@@ -265,13 +265,13 @@ export interface FileRoutesByTo {
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/beta': typeof BetaRoute
+  '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
   '/notfications': typeof NotficationsRoute
+  '/philosophy': typeof PhilosophyRoute
+  '/roadmap': typeof RoadmapRoute
   '/app/creator': typeof AppCreatorRouteRouteWithChildren
-  '/app/changelog': typeof AppChangelogRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
-  '/app/philosophy': typeof AppPhilosophyRoute
-  '/app/roadmap': typeof AppRoadmapRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/search/results': typeof SearchResultsRoute
@@ -300,16 +300,16 @@ export interface FileRoutesById {
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/beta': typeof BetaRoute
+  '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
   '/notfications': typeof NotficationsRoute
+  '/philosophy': typeof PhilosophyRoute
+  '/roadmap': typeof RoadmapRoute
   '/app/creator': typeof AppCreatorRouteRouteWithChildren
   '/app/posts': typeof AppPostsRouteRouteWithChildren
   '/app/resources': typeof AppResourcesRouteRouteWithChildren
   '/app/shastars': typeof AppShastarsRouteRouteWithChildren
-  '/app/changelog': typeof AppChangelogRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
-  '/app/philosophy': typeof AppPhilosophyRoute
-  '/app/roadmap': typeof AppRoadmapRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/search/results': typeof SearchResultsRoute
@@ -339,16 +339,16 @@ export interface FileRouteTypes {
     | '/404'
     | '/about'
     | '/beta'
+    | '/changelog'
     | '/contact'
     | '/notfications'
+    | '/philosophy'
+    | '/roadmap'
     | '/app/creator'
     | '/app/posts'
     | '/app/resources'
     | '/app/shastars'
-    | '/app/changelog'
     | '/app/leaderboard'
-    | '/app/philosophy'
-    | '/app/roadmap'
     | '/auth/login'
     | '/auth/register'
     | '/search/results'
@@ -375,13 +375,13 @@ export interface FileRouteTypes {
     | '/404'
     | '/about'
     | '/beta'
+    | '/changelog'
     | '/contact'
     | '/notfications'
+    | '/philosophy'
+    | '/roadmap'
     | '/app/creator'
-    | '/app/changelog'
     | '/app/leaderboard'
-    | '/app/philosophy'
-    | '/app/roadmap'
     | '/auth/login'
     | '/auth/register'
     | '/search/results'
@@ -409,16 +409,16 @@ export interface FileRouteTypes {
     | '/404'
     | '/about'
     | '/beta'
+    | '/changelog'
     | '/contact'
     | '/notfications'
+    | '/philosophy'
+    | '/roadmap'
     | '/app/creator'
     | '/app/posts'
     | '/app/resources'
     | '/app/shastars'
-    | '/app/changelog'
     | '/app/leaderboard'
-    | '/app/philosophy'
-    | '/app/roadmap'
     | '/auth/login'
     | '/auth/register'
     | '/search/results'
@@ -447,13 +447,30 @@ export interface RootRouteChildren {
   R404Route: typeof R404Route
   AboutRoute: typeof AboutRoute
   BetaRoute: typeof BetaRoute
+  ChangelogRoute: typeof ChangelogRoute
   ContactRoute: typeof ContactRoute
   NotficationsRoute: typeof NotficationsRoute
+  PhilosophyRoute: typeof PhilosophyRoute
+  RoadmapRoute: typeof RoadmapRoute
   SearchResultsRoute: typeof SearchResultsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/roadmap': {
+      id: '/roadmap'
+      path: '/roadmap'
+      fullPath: '/roadmap'
+      preLoaderRoute: typeof RoadmapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/philosophy': {
+      id: '/philosophy'
+      path: '/philosophy'
+      fullPath: '/philosophy'
+      preLoaderRoute: typeof PhilosophyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/notfications': {
       id: '/notfications'
       path: '/notfications'
@@ -466,6 +483,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/changelog': {
+      id: '/changelog'
+      path: '/changelog'
+      fullPath: '/changelog'
+      preLoaderRoute: typeof ChangelogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/beta': {
@@ -545,32 +569,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRouteRoute
     }
-    '/app/roadmap': {
-      id: '/app/roadmap'
-      path: '/roadmap'
-      fullPath: '/app/roadmap'
-      preLoaderRoute: typeof AppRoadmapRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
-    '/app/philosophy': {
-      id: '/app/philosophy'
-      path: '/philosophy'
-      fullPath: '/app/philosophy'
-      preLoaderRoute: typeof AppPhilosophyRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
     '/app/leaderboard': {
       id: '/app/leaderboard'
       path: '/leaderboard'
       fullPath: '/app/leaderboard'
       preLoaderRoute: typeof AppLeaderboardRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
-    '/app/changelog': {
-      id: '/app/changelog'
-      path: '/changelog'
-      fullPath: '/app/changelog'
-      preLoaderRoute: typeof AppChangelogRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/app/shastars': {
@@ -767,10 +770,7 @@ interface AppRouteRouteChildren {
   AppPostsRouteRoute: typeof AppPostsRouteRouteWithChildren
   AppResourcesRouteRoute: typeof AppResourcesRouteRouteWithChildren
   AppShastarsRouteRoute: typeof AppShastarsRouteRouteWithChildren
-  AppChangelogRoute: typeof AppChangelogRoute
   AppLeaderboardRoute: typeof AppLeaderboardRoute
-  AppPhilosophyRoute: typeof AppPhilosophyRoute
-  AppRoadmapRoute: typeof AppRoadmapRoute
   AppIndexRoute: typeof AppIndexRoute
   AppDiscordDiscordRoute: typeof AppDiscordDiscordRoute
   AppCategoriesIndexRoute: typeof AppCategoriesIndexRoute
@@ -782,10 +782,7 @@ const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppPostsRouteRoute: AppPostsRouteRouteWithChildren,
   AppResourcesRouteRoute: AppResourcesRouteRouteWithChildren,
   AppShastarsRouteRoute: AppShastarsRouteRouteWithChildren,
-  AppChangelogRoute: AppChangelogRoute,
   AppLeaderboardRoute: AppLeaderboardRoute,
-  AppPhilosophyRoute: AppPhilosophyRoute,
-  AppRoadmapRoute: AppRoadmapRoute,
   AppIndexRoute: AppIndexRoute,
   AppDiscordDiscordRoute: AppDiscordDiscordRoute,
   AppCategoriesIndexRoute: AppCategoriesIndexRoute,
@@ -818,8 +815,11 @@ const rootRouteChildren: RootRouteChildren = {
   R404Route: R404Route,
   AboutRoute: AboutRoute,
   BetaRoute: BetaRoute,
+  ChangelogRoute: ChangelogRoute,
   ContactRoute: ContactRoute,
   NotficationsRoute: NotficationsRoute,
+  PhilosophyRoute: PhilosophyRoute,
+  RoadmapRoute: RoadmapRoute,
   SearchResultsRoute: SearchResultsRoute,
 }
 export const routeTree = rootRouteImport
